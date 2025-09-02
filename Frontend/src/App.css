@@ -188,6 +188,21 @@
     position: relative;
 }
 
+.my-auto{border: 1px solid #c408c4;
+     /* background-color:#c408c4 ; */
+     padding: 6px 30px;
+     color: #c408c4;
+     border-radius: 10px;
+
+}
+
+.my-auto:hover{
+    background-color: #c408c4;
+    color: white;
+    transition: .7s;
+}
+
+
 .carousel-item a {
     position: absolute;
     top: 50%;

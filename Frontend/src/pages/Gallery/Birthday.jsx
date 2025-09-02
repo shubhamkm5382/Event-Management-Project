@@ -42,12 +42,12 @@ const Birthday = () => {
           <div className="row g-0">
             {/* Column 1 */}
             <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div className="row g-0">
+              <div className="row g-1">
                 <div className="col-12">
                   <Link to="/img/birthday-1.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-1.jpg"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s "
                       alt="Birthday Celebration"
                     />
                   </Link>
@@ -56,7 +56,7 @@ const Birthday = () => {
                   <Link to="/img/birthday-2.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-2.jpg"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s"
                       alt="Birthday Cake"
                     />
                   </Link>
@@ -65,23 +65,23 @@ const Birthday = () => {
             </div>
 
             {/* Column 2 */}
-            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-              <div className="row g-0">
+            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div className="row g-1">
                 <div className="col-12">
-                  <Link to="/img/birthday-3.jpg">
+                  <Link to="/img/birthday-1.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-3.jpg"
-                      alt="Birthday Party"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s "
+                      alt="Birthday Celebration"
                     />
                   </Link>
                 </div>
                 <div className="col-12">
-                  <Link to="/img/birthday-4.jpg">
+                  <Link to="/img/birthday-2.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-4.jpg"
-                      alt="Birthday Gifts"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s"
+                      alt="Birthday Cake"
                     />
                   </Link>
                 </div>
@@ -89,23 +89,23 @@ const Birthday = () => {
             </div>
 
             {/* Column 3 */}
-            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-              <div className="row g-0">
+            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div className="row g-1">
                 <div className="col-12">
-                  <Link to="/img/birthday-5.jpg">
+                  <Link to="/img/birthday-1.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-5.jpg"
-                      alt="Birthday Decorations"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s "
+                      alt="Birthday Celebration"
                     />
                   </Link>
                 </div>
                 <div className="col-12">
-                  <Link to="/img/birthday-6.jpg">
+                  <Link to="/img/birthday-2.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-6.jpg"
-                      alt="Friends & Family"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s"
+                      alt="Birthday Cake"
                     />
                   </Link>
                 </div>
@@ -113,23 +113,23 @@ const Birthday = () => {
             </div>
 
             {/* Column 4 */}
-            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-              <div className="row g-0">
+            <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div className="row g-1">
                 <div className="col-12">
-                  <Link to="/img/birthday-7.jpg">
+                  <Link to="/img/birthday-1.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-7.jpg"
-                      alt="Birthday Kids Party"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s "
+                      alt="Birthday Celebration"
                     />
                   </Link>
                 </div>
                 <div className="col-12">
-                  <Link to="/img/birthday-8.jpg">
+                  <Link to="/img/birthday-2.jpg">
                     <img
                       className="img-fluid"
-                      src="img/birthday-8.jpg"
-                      alt="Birthday Fun"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3gQKVnfmLEX7eXi_cjtRO8f74LIZtpapUQ&s"
+                      alt="Birthday Cake"
                     />
                   </Link>
                 </div>

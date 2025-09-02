@@ -54,20 +54,7 @@ const HeroSection = () => {
   <h1 className="mb-5 display-3 text-primary">
     Making Your Events Memorable & <span style={{color:'orange'}}>Successful</span>
   </h1>
-  <div className="position-relative mx-auto">
-    <input
-      className="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-      type="text"
-      placeholder="Search Events"
-    />
-    <button
-      type="submit"
-      className="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-      style={{ top: 0, right: "25%" }}
-    >
-      Explore Now
-    </button>
-  </div>
+  
 </div>
 
 

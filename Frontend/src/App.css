@@ -123,6 +123,15 @@
     transition: .5s;
 }
 
+.bg-gradient {
+background-image: url('https://images.unsplash.com/photo-1653821355736-0c2598d0a63e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnQlMjBwbGFubmluZ3xlbnwwfHwwfHx8MA%3D%3D') !important;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+
 .navbar {
     height: 100px;
     border-bottom: 1px solid rgba(255, 255, 255, .1);
@@ -182,6 +191,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-bottom: 60px;
 }
 
 .carousel-item {
@@ -500,6 +510,12 @@
 /*** Single Page Start ***/
 .pagination {
     display: inline-block;
+}
+
+
+.shop_card{
+    width: 100%;
+    background-image: ur;
 }
   
 .pagination a {

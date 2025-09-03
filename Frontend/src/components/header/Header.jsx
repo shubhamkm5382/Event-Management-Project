@@ -99,7 +99,7 @@ const Header = () => {
               
               
 
-              <Link to="/profile" className="my-auto">
+              <Link to="/login" className="my-auto">
                 Login
               </Link>
             </div>

@@ -7,7 +7,7 @@ import Home from "./components/home/Home";
 import About from "./pages/about/About";
 import Services from "./pages/services/Services";
 import Gallery from "./pages/Gallery/Gallery";
-// import Login from "./components/LoginModal/LoginModal";
+// import Login from "./pages/login/Login";
 
 function App() {
   const [hideLayout, setHideLayout] = useState(false);

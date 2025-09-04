@@ -1,0 +1,84 @@
+.event_boxcard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.shop_card {
+    width: 100%;
+  height: 220px;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 22px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Overlay */
+.shop_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.shop_card h2 {
+  position: relative;
+  z-index: 2;
+  color: white;
+  margin: 0;
+}
+
+/* Hover effect */
+.shop_card:hover {
+  transform: scale(1.05);
+}
+
+/* Background Images by class */
+.shop_card.birthday {
+  background-image: url("https://m.media-amazon.com/images/I/81DXhu6ONML._UF1000,1000_QL80_.jpg");
+}
+
+.shop_card.wedding {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcwZmDBdXUqavJ2h8wKpdO121pY8tC2lATGA&s");
+}
+
+.shop_card.concert {
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_1280.jpg");
+}
+
+.shop_card.party {
+  background-image: url("https://images.squarespace-cdn.com/content/v1/60da576b8b440e12699c9263/1d3b07b5-f348-45a9-8f7b-fdc4d10fc4bd/20210915-110858-OVATION-02944.jpg");
+}
+
+.shop_card.festival {
+  background-image: url("https://4.imimg.com/data4/TU/GV/MY-20979260/events-500x500.jpg");
+}
+
+/* Responsive text size */
+@media (max-width: 768px) {
+  .shop_card {
+    height: 180px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .shop_card {
+    height: 160px;
+    font-size: 16px;
+  }
+}

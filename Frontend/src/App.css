@@ -513,10 +513,6 @@ background-size: cover;
 }
 
 
-.shop_card{
-    width: 100%;
-    background-image: ur;
-}
   
 .pagination a {
     color: var(--bs-dark);

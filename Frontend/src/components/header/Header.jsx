@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-const Header = () => {
+const Header = ({ onLoginClick }) => {
   return (
     <div className="container-fluid fixed-top">
       {/* Topbar */}
@@ -40,7 +39,6 @@ const Header = () => {
       <div className="container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
           <Link to="/" className="navbar-brand">
-          
             <h3 className="text-primary display-6">EventBooking.com</h3>
           </Link>
 
@@ -74,6 +72,9 @@ const Header = () => {
                   Gallery
                 </Link>
                 <div className="dropdown-menu m-0 bg-secondary rounded-0">
+                  <Link to="/gallery" className="dropdown-item">
+                    All Events Gallery 
+                  </Link>
                   <Link to="/gallery/wedding" className="dropdown-item">
                     Wedding Celebration
                   </Link>
@@ -86,6 +87,12 @@ const Header = () => {
                   <Link to="/gallery/christmas" className="dropdown-item">
                     Christmas Eve
                   </Link>
+                  <Link to="/gallery/corporate" className="dropdown-item">
+                    Corporate Events
+                  </Link>
+                  <Link to="/gallery/anniversary" className="dropdown-item">
+                    Anniversary Parties
+                  </Link>
                 </div>
               </div>
 
@@ -94,14 +101,15 @@ const Header = () => {
               </Link>
             </div>
 
-            {/* Right Side Icons */}
+            {/* Right Side Icons - Updated Login Button */}
             <div className="d-flex m-3 me-0">
-              
-              
-
-              <Link to="/login" className="my-auto">
-                Login
-              </Link>
+              <button 
+                onClick={onLoginClick} 
+                className="btn btn-link p-0 my-auto text-dark text-decoration-none"
+                style={{ border: 'none', background: 'none' }}
+              >
+                <i className="fas fa-user me-2"></i>Admin Login
+              </button>
             </div>
           </div>
         </nav>

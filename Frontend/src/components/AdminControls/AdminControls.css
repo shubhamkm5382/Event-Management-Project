@@ -1,0 +1,47 @@
+/* AdminControls.css */
+.admin-controls {
+  background: rgba(78, 205, 196, 0.1);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 1400px;
+}
+
+.admin-controls h2 {
+  margin-bottom: 15px;
+  color: #4ecdc4;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

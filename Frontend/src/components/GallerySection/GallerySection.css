@@ -1,0 +1,217 @@
+/* GallerySection.css */
+.gallery-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Gallery Header */
+.gallery-header {
+  text-align: center;
+  padding: 60px 0 30px;
+}
+
+.gallery-title {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #6a67ce);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 5s ease infinite;
+  background-size: 200% 200%;
+}
+
+.gallery-subtitle {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  max-width: 600px;
+  margin: 0 auto 25px;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0 30px;
+  flex-wrap: wrap;
+  background: #0f0f1e;
+  position: sticky;
+  top: 70px;
+  z-index: 10;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #f5f5f5;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Gallery */
+.gallery {
+  columns: 4;
+  column-gap: 15px;
+  padding: 15px 0;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+  break-inside: avoid;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1;
+}
+
+.image-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  transform: translateY(15px);
+  transition: transform 0.4s ease;
+}
+
+.image-desc {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  margin-bottom: 12px;
+  transform: translateY(15px);
+  transition: transform 0.4s ease 0.1s;
+  opacity: 0;
+}
+
+.image-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #b0b0b0;
+  transform: translateY(15px);
+  transition: transform 0.4s ease 0.2s;
+  opacity: 0;
+}
+
+.gallery-item:hover .image-title,
+.gallery-item:hover .image-desc,
+.gallery-item:hover .image-meta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.admin-item-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gallery-item:hover .admin-item-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.edit-btn {
+  background: #4ecdc4;
+  color: white;
+}
+
+.delete-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive Design */
+@media (max-width: 1100px) {
+  .gallery { columns: 3; }
+}
+
+@media (max-width: 768px) {
+  .gallery { columns: 2; }
+  .gallery-title { font-size: 2.3rem; }
+  .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
+}
+
+@media (max-width: 576px) {
+  .gallery { columns: 1; }
+  .overlay { padding: 12px; }
+  .image-title { font-size: 1.1rem; }
+  .filter-bar { gap: 8px; }
+  .filter-btn { padding: 7px 14px; font-size: 0.85rem; }
+}

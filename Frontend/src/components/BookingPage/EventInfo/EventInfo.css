@@ -1,0 +1,10 @@
+/* EventInfo.css */
+/* uses same classnames as original so styles remain identical */
+.info { flex: 2; }
+.info h1 { font-size:28px; font-weight:700; }
+.location { color:gray; margin:8px 0 16px; }
+.quick-info { display:flex; flex-wrap:wrap; gap:20px; margin-bottom:20px; color:#444; }
+.description { line-height:1.6; margin-bottom:20px; }
+.info h2 { font-size:20px; margin:20px 0 10px; }
+.amenities, .themes { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; color:#444; }
+

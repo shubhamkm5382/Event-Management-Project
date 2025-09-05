@@ -1,0 +1,34 @@
+/* Lightbox.css */
+/* Lightbox (fullscreen) */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+  display: none; align-items: center; justify-content: center;
+  z-index: 2000; padding: 20px;
+}
+.lightbox.open { display: flex; }
+
+.lightbox-img {
+  max-width: 90%; max-height: 90%; border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  transition: transform .2s ease;
+}
+
+/* nav areas and close button */
+.lightbox-close {
+  position: fixed; top: 18px; right: 22px; z-index: 2100;
+  background: transparent; border: none; color: #fff; font-size: 36px; cursor:pointer;
+}
+.lightbox-nav {
+  position: fixed; top: 0; bottom: 0; width: 18%;
+  display:flex; align-items:center; justify-content:center; color:#fff; font-size:48px;
+  z-index: 2050; cursor: pointer; user-select: none;
+}
+.lightbox-nav.left { left: 0; }
+.lightbox-nav.right { right: 0; }
+
+/* hover hint */
+.lightbox-nav:hover { background: rgba(255,255,255,0.02); }
+
+@media (max-width: 768px) {
+  .lightbox-nav { width: 30%; font-size: 36px; }
+}

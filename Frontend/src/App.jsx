@@ -7,7 +7,8 @@ import Home from "./components/home/Home";
 import About from "./pages/about/About";
 import Services from "./pages/services/Services";
 import Gallery from "./pages/Gallery/Gallery";
-// import Login from "./pages/login/Login";
+// import Login from "./components/LoginModal/LoginModal";
+import Login from "./pages/login/Login";
 
 function App() {
   const [hideLayout, setHideLayout] = useState(false);
@@ -27,7 +28,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />} />
         <Route path="/gallery/:category" element={<Gallery showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
       </Routes>
 
       {!hideLayout && <Footer />}

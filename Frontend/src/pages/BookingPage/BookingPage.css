@@ -1,0 +1,14 @@
+/* Minimal BookingPage.css - only essentials */
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif}
+.booking-page-container .container{max-width:1200px;margin:20px auto;padding:10px}
+.content{display:flex;flex-wrap:wrap;margin-top:30px;gap:20px;align-items:flex-start}
+.gallery-title{font-size:22px;margin:40px 0 15px}
+.booking-page-container h1{font-size:28px;font-weight:700}
+@media (max-width:768px){
+  .content{flex-direction:column}
+  .booking-page-container .container{padding-left:12px;padding-right:12px}
+}
+
+
+

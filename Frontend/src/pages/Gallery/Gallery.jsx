@@ -51,15 +51,16 @@ const galleryData = [
   { id: 25, title: "Family Celebration", desc: "Extended family anniversary party", type: "photo", category: "anniversary", file: "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?w=400", likes: 145, date: "May 30, 2024" }
 ];
 
-  const coverImages = {
-    all: "https://via.placeholder.com/800x200.png?text=All+Events+Cover",
-    wedding: "https://via.placeholder.com/800x200.png?text=Wedding+Cover",
-    birthday: "https://via.placeholder.com/800x200.png?text=Birthday+Cover",
-    farewell: "https://via.placeholder.com/800x200.png?text=Farewell+Cover",
-    christmas: "https://via.placeholder.com/800x200.png?text=Christmas+Cover",
-    corporate: "https://via.placeholder.com/800x200.png?text=Corporate+Cover",
-    anniversary: "https://via.placeholder.com/800x200.png?text=Anniversary+Cover"
-  };
+const coverImages = {
+  all:       "https://picsum.photos/id/1018/1200/300", // nice landscape
+  wedding:   "https://picsum.photos/id/1025/1200/300", // couple / warm tone
+  birthday:  "https://picsum.photos/id/1011/1200/300", // festive balloons-ish
+  farewell:  "https://picsum.photos/id/1005/1200/300", // muted group/party vibe
+  christmas: "https://picsum.photos/id/1041/1200/300", // winter/trees
+  corporate: "https://picsum.photos/id/1031/1200/300", // office / desk
+  anniversary:"https://picsum.photos/id/1027/1200/300" // romantic / soft
+};
+
 
   // State
   const [isAdmin, setIsAdmin] = useState(false);

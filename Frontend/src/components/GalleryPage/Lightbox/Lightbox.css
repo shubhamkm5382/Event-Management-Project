@@ -1,0 +1,46 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.lb-wrap {
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+}
+
+.lightbox img {
+  max-width: 92%;
+  max-height: 78vh;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+.caption {
+  color: #fff;
+  margin-top: 12px;
+  font-size: 0.98rem;
+}
+
+.lb-close, .lb-prev, .lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  padding: 8px 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.lb-close { top: 18px; right: 18px; transform: none; }
+.lb-prev { left: 18px; }
+.lb-next { right: 18px; }

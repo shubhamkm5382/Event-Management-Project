@@ -65,7 +65,7 @@ const BookingPage = () => {
         </div>
 
         {/* Packages section (placed below info/description as before) */}
-        <Packages />
+        {/* <Packages /> */}
 
         <h2 className="gallery-title">More Wedding Moments</h2>
         <ExtraGallery images={images.slice(5)} onImageClick={(i) => openLightbox(i + 5)} />

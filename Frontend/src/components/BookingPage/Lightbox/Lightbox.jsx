@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "./Lightbox.css";
+import styles from "./Lightbox.module.css";
 
 const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }) => {
   const imgRef = useRef(null);
@@ -8,7 +8,7 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
     if (!isOpen) return;
 
     // focus close button for accessibility
-    const closeBtn = document.querySelector(".lightbox-close");
+    const closeBtn = document.querySelector(`.${styles["lightbox-close"]}`);
     if (closeBtn) closeBtn.focus();
 
     const handleKey = (e) => {
@@ -50,7 +50,7 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
       touchStartX = 0; touchEndX = 0;
     };
 
-    const lb = document.getElementById("lightbox");
+    const lb = document.getElementById(styles.lightbox);
     if (lb) {
       lb.addEventListener("touchstart", onTouchStart, { passive: true });
       lb.addEventListener("touchmove", onTouchMove, { passive: true });
@@ -69,21 +69,21 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
   if (!isOpen) return null;
 
   return (
-    <div id="lightbox" className={`lightbox open`} aria-hidden={!isOpen}>
-      <button className="lightbox-close" aria-label="Close (Esc)" onClick={onClose}>&times;</button>
+    <div id={styles.lightbox} className={`${styles.lightbox} ${styles.open}`} aria-hidden={!isOpen}>
+      <button className={styles["lightbox-close"]} aria-label="Close (Esc)" onClick={onClose}>&times;</button>
 
-      <div className="lightbox-nav left" data-action="prev" onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }} aria-hidden="true">&#10094;</div>
+      <div className={`${styles["lightbox-nav"]} ${styles.left}`} data-action="prev" onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }} aria-hidden="true">&#10094;</div>
 
       <img
         ref={imgRef}
-        className="lightbox-img"
+        className={styles["lightbox-img"]}
         id="lightbox-img"
         src={images[currentIndex]}
         alt="Enlarged photo"
         onClick={(e) => e.stopPropagation()}
       />
 
-      <div className="lightbox-nav right" data-action="next" onClick={(e) => { e.stopPropagation(); onNext && onNext(); }} aria-hidden="true">&#10095;</div>
+      <div className={`${styles["lightbox-nav"]} ${styles.right}`} data-action="next" onClick={(e) => { e.stopPropagation(); onNext && onNext(); }} aria-hidden="true">&#10095;</div>
     </div>
   );
 };

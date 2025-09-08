@@ -1,9 +1,9 @@
-import React from "react";
-import "./ExtraGallery.css";
+import React, { forwardRef } from "react";
+import styles from "./ExtraGallery.module.css";
 
-const ExtraGallery = ({ images = [], onImageClick }) => {
+const ExtraGallery = forwardRef(({ images = [], onImageClick }, ref) => {
   return (
-    <div className="extra-gallery">
+    <div ref={ref} className={styles["extra-gallery"]}>
       {images.map((src, idx) => {
         return (
           <img
@@ -18,6 +18,6 @@ const ExtraGallery = ({ images = [], onImageClick }) => {
       })}
     </div>
   );
-};
+});
 
 export default ExtraGallery;

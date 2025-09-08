@@ -1,13 +1,13 @@
 import React from "react";
-import "./CategoryTabs.css";
+import styles from "./CategoryTabs.module.css";
 
 export default function CategoryTabs({ categories, activeCategory, setActiveCategory }) {
   return (
-    <div className="filter-bar">
+    <div className={styles["filter-bar"]}>
       {categories.map((cat) => (
         <button
           key={cat}
-          className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
+          className={`${styles["filter-btn"]} ${activeCategory === cat ? styles.active : ""}`}
           onClick={() => setActiveCategory(cat)}
         >
           {cat.charAt(0).toUpperCase() + cat.slice(1)}

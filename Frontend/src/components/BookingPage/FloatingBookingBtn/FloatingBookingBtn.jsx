@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./FloatingBookingBtn.css";
+import styles from "./FloatingBookingBtn.module.css";
 
 const FloatingBookingButton = ({ bookingFormRef }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     const bookingForm = document.getElementById("booking-form") || (bookingFormRef && bookingFormRef.current);
-    const floatingBtn = document.getElementById("floatingBookingBtn");
 
     if (!bookingForm) return;
 
@@ -38,7 +37,7 @@ const FloatingBookingButton = ({ bookingFormRef }) => {
     <>
       <button
         id="floatingBookingBtn"
-        className={`floating-booking-btn ${show ? "show" : ""}`}
+        className={`${styles["floating-booking-btn"]} ${show ? styles.show : ""}`}
         onClick={handleClick}
         aria-label="Book Now"
       >

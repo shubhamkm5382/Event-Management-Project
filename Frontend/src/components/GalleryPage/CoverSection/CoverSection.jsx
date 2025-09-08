@@ -1,13 +1,13 @@
 import React from "react";
-import "./CoverSection.css";
+import styles from "./CoverSection.module.css";
 
 export default function CoverSection() {
   return (
-    <section className="cover">
-      <div className="cover-content">
-        <h1 className="cover-title">Photos Gallery of Melodia</h1>
-        <p className="cover-subtitle">
-          Fast loading — fetch category wise data
+    <section className={styles.cover}>
+      <div className={styles["cover-content"]}>
+        <h1 className={styles["cover-title"]}>Event Gallery of LuxeEvents</h1>
+        <p className={styles["cover-subtitle"]}>
+          Explore our curated collection of event photos, videos, shorts, and albums
         </p>
       </div>
     </section>

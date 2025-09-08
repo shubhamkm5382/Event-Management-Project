@@ -1,25 +1,27 @@
 import React from "react";
-import "./GalleryItem.css";
+import styles from "./GalleryItem.module.css";
 
 export default function GalleryItem({ item, onClick }) {
   return (
-    <article className="gallery-item" onClick={onClick}>
+    <article className={styles["gallery-item"]} onClick={onClick}>
       <img
-        className="gallery-image"
-        src={item.url}
-        alt={item.title}
+        className={styles["gallery-image"]}
+        src={item.media_url}
+        alt={item.media_title}
         loading="lazy"
       />
-      <div className="overlay">
-        <h3 className="image-title">{item.title}</h3>
-        <p className="image-desc">{item.description}</p>
-        <div className="image-meta">
+      <div className={styles.overlay}>
+        <h3 className={styles["image-title"]}>{item.media_title}</h3>
+        <p className={styles["image-desc"]}>{item.media_description}</p>
+        <div className={styles["image-meta"]}>
           <div>
-            <i className="fas fa-map-marker-alt"></i> {item.location}
+            <i className="fas fa-map-marker-alt"></i> {item.media_location}
           </div>
-          <div>
-            <i className="fas fa-calendar"></i> {item.date}
-          </div>
+        <div>
+          <i className="fas fa-calendar"></i>{" "}
+          {new Date(item.created_at).toISOString().split("T")[0]}
+        </div>
+
         </div>
       </div>
     </article>

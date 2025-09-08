@@ -1,14 +1,13 @@
 import React, { useRef, useState } from "react";
-import "../BookingPage/BookingPage.css";
+import styles from "../BookingPage/BookingPage.module.css";
 
-import Gallery from "../../components/BookingPage/Gallery/Gallery";
+import Gallery from "../../components/BookingPage/MainGallery/MainGallery";
 import ExtraGallery from "../../components/BookingPage/ExtraGallery/ExtraGallery";
 import BookingForm from "../../components/BookingPage/BookingForm/BookingForm";
 import Lightbox from "../../components/BookingPage/Lightbox/Lightbox";
 import FloatingBookingButton from "../../components/BookingPage/FloatingBookingBtn/FloatingBookingBtn";
 
 import EventInfo from "../../components/BookingPage/EventInfo/EventInfo";
-import Packages from "../../components/BookingPage/Packages/Packages";
 
 const BookingPage = () => {
   const images = [
@@ -29,6 +28,7 @@ const BookingPage = () => {
   ];
 
   const bookingFormRef = useRef(null);
+  const extraGalleryRef = useRef(null); // Create ref for ExtraGallery
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -51,24 +51,34 @@ const BookingPage = () => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  // Function to scroll to extra gallery
+  const scrollToExtraGallery = () => {
+    if (extraGalleryRef.current) {
+      extraGalleryRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="booking-page-container">
-      <div className="container">
-        <Gallery images={images.slice(0,5)} onImageClick={openLightbox} />
+    <div className={styles["booking-page-container"]}>
+      <div className={styles.container}>
+        <Gallery 
+          images={images.slice(0, 5)} 
+          onImageClick={openLightbox}
+          scrollToExtraGallery={scrollToExtraGallery}
+          totalImagesCount={images.length} // Pass total images count
+        />
 
-        <div className="content">
-          {/* EventInfo (previously inline .info) */}
-          <EventInfo /> 
-
-          {/* Booking form stays to the right */}
+        <div className={styles.content}>
+          <EventInfo />
           <BookingForm bookingFormRef={bookingFormRef} />
         </div>
 
-        {/* Packages section (placed below info/description as before) */}
-        {/* <Packages /> */}
-
-        <h2 className="gallery-title">More Wedding Moments</h2>
-        <ExtraGallery images={images.slice(5)} onImageClick={(i) => openLightbox(i + 5)} />
+        <h2 className={styles["gallery-title"]}>More Wedding Moments</h2>
+        <ExtraGallery
+          ref={extraGalleryRef} // Pass the ref to ExtraGallery
+          images={images.slice(5)}
+          onImageClick={(i) => openLightbox(i + 5)}
+        />
       </div>
 
       <Lightbox

@@ -15,6 +15,8 @@ app.use("/api/events", eventRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/media", mediaRoutes);
 
+app.use("/api/gallery", require("./routes/gallery"));
+
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

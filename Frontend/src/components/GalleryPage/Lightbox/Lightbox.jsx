@@ -1,26 +1,26 @@
 import React from "react";
-import "./Lightbox.css";
+import styles from "./Lightbox.module.css";
 
 export default function Lightbox({ item, onClose, onPrev, onNext }) {
   if (!item) return null;
 
   return (
-    <div className="lightbox open">
-      <button className="lb-close" onClick={onClose}>
+    <div className={`${styles.lightbox} ${styles.open}`}>
+      <button className={styles["lb-close"]} onClick={onClose}>
         &times;
       </button>
-      <button className="lb-prev" onClick={onPrev}>
+      <button className={styles["lb-prev"]} onClick={onPrev}>
         &#10094;
       </button>
 
-      <div className="lb-wrap">
-        <img src={item.url} alt={item.title} />
-        <div className="caption">
-          {item.title} — {item.description}
+      <div className={styles["lb-wrap"]}>
+        <img src={item.media_url} alt={item.media_title} />
+        <div className={styles.caption}>
+          {item.media_title} — {item.media_description}
         </div>
       </div>
 
-      <button className="lb-next" onClick={onNext}>
+      <button className={styles["lb-next"]} onClick={onNext}>
         &#10095;
       </button>
     </div>

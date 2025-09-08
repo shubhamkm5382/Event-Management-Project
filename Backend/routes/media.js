@@ -52,4 +52,19 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+
+router.get("/category/:category", (req, res) => {
+  db.query(
+    "SELECT * FROM media WHERE media_type = ?",
+    [req.params.category],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Database error" });
+      }
+      res.json(result); // 👈 pura array bhejna
+    }
+  );
+});
+
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import "./BookingForm.css";
+import styles from "./BookingForm.module.css";
 
 /**
  * BookingForm supports both:
@@ -13,7 +13,7 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
   const appliedRef = ref || bookingFormRef || null;
 
   return (
-    <div className="booking-form" id="booking-form" ref={appliedRef}>
+    <div className={styles["booking-form"]} id="booking-form" ref={appliedRef}>
       <h2>Book Your Event</h2>
       <form>
         <label>Event Date</label>

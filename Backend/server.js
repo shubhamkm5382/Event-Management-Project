@@ -1,43 +1,23 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-// Import routes
-const authRoutes = require('./routes/auth');
-const imageRoutes = require('./routes/images');
-const userRoutes = require('./routes/users');
+const eventRoutes = require("./routes/events");
+const albumRoutes = require("./routes/albums");
+const mediaRoutes = require("./routes/media");
 
 const app = express();
-const PORT = process.env.PORT || 420;
-
-// Middleware
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve static files (uploaded images)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/images', imageRoutes);
-app.use('/api/users', userRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/albums", albumRoutes);
+app.use("/api/media", mediaRoutes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  if (err instanceof multer.MulterError) {
-    if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json({ error: 'File too large' });
-    }
-  }
-  
-  console.error(err);
-  res.status(500).json({ error: 'Internal server error' });
-});
+app.use("/api/gallery", require("./routes/gallery"));
 
-// Start Server
+const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

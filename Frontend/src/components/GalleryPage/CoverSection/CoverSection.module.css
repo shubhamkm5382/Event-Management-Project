@@ -1,0 +1,31 @@
+.cover {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 48px 16px;
+  background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 800px) {
+  .cover {
+    background-attachment: scroll;
+    min-height: 46vh;
+  }
+}
+
+.cover-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cover-subtitle {
+  font-size: 1rem;
+  color: #eef;
+  opacity: 0.95;
+}

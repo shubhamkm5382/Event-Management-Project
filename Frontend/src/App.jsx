@@ -11,10 +11,12 @@ import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import Login from "./pages/login/Login";
 
 function App() {
-  const [hideLayout] = useState(false);
-  // const handleLoginClick = () => {
-  //   // You can add login modal logic here if needed in the future
-  // };
+  const [hideLayout, setHideLayout] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
 
   return (
     <>

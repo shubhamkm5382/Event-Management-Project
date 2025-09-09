@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";  
 import styles from "../BookingPage/BookingPage.module.css";
 
 import Gallery from "../../components/BookingPage/MainGallery/MainGallery";
@@ -6,32 +7,34 @@ import ExtraGallery from "../../components/BookingPage/ExtraGallery/ExtraGallery
 import BookingForm from "../../components/BookingPage/BookingForm/BookingForm";
 import Lightbox from "../../components/BookingPage/Lightbox/Lightbox";
 import FloatingBookingButton from "../../components/BookingPage/FloatingBookingBtn/FloatingBookingBtn";
-
 import EventInfo from "../../components/BookingPage/EventInfo/EventInfo";
 
 const BookingPage = () => {
-  const images = [
-    "https://images.pexels.com/photos/265947/pexels-photo-265947.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/179907/pexels-photo-179907.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/265920/pexels-photo-265920.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    // extra gallery images
-    "https://images.pexels.com/photos/169189/pexels-photo-169189.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/2959192/pexels-photo-2959192.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/265940/pexels-photo-265940.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/265949/pexels-photo-265949.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/172194/pexels-photo-172194.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/2959194/pexels-photo-2959194.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/265916/pexels-photo-265916.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600",
-    "https://images.pexels.com/photos/265898/pexels-photo-265898.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600"
-  ];
+  const { category } = useParams(); 
+  const [media, setMedia] = useState([]); // pura object store karenge
+  const [loading, setLoading] = useState(true);
 
   const bookingFormRef = useRef(null);
-  const extraGalleryRef = useRef(null); // Create ref for ExtraGallery
+  const extraGalleryRef = useRef(null);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/media/bookingpage/${category}`); 
+        const data = await res.json();
+        setMedia(data); // ab media objects ka pura array aa jayega
+      } catch (err) {
+        console.error("Error fetching media:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, [category]);
 
   const openLightbox = (index) => {
     if (typeof index !== "number") return;
@@ -39,50 +42,55 @@ const BookingPage = () => {
     setLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
-    setLightboxOpen(false);
-  };
+  const closeLightbox = () => setLightboxOpen(false);
 
-  const showNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
+  const showNext = () => setCurrentIndex((prev) => (prev + 1) % media.length);
 
-  const showPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const showPrev = () =>
+    setCurrentIndex((prev) => (prev - 1 + media.length) % media.length);
 
-  // Function to scroll to extra gallery
   const scrollToExtraGallery = () => {
     if (extraGalleryRef.current) {
       extraGalleryRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  if (loading) return <p>Loading...</p>;
+
+  // sirf urls nikalne ke liye ek array bana lo
+  const imageUrls = media.map((item) => item.media_url);
+
   return (
     <div className={styles["booking-page-container"]}>
       <div className={styles.container}>
-        <Gallery 
-          images={images.slice(0, 5)} 
-          onImageClick={openLightbox}
-          scrollToExtraGallery={scrollToExtraGallery}
-          totalImagesCount={images.length} // Pass total images count
-        />
+        {imageUrls.length > 0 && (
+          <Gallery
+            images={imageUrls.slice(0, 5)}
+            onImageClick={openLightbox}
+            scrollToExtraGallery={scrollToExtraGallery}
+            totalImagesCount={imageUrls.length}
+          />
+        )}
 
         <div className={styles.content}>
           <EventInfo />
           <BookingForm bookingFormRef={bookingFormRef} />
         </div>
 
-        <h2 className={styles["gallery-title"]}>More Wedding Moments</h2>
-        <ExtraGallery
-          ref={extraGalleryRef} // Pass the ref to ExtraGallery
-          images={images.slice(5)}
-          onImageClick={(i) => openLightbox(i + 5)}
-        />
+        {imageUrls.length > 5 && (
+          <>
+            <h2 className={styles["gallery-title"]}>More Wedding Moments</h2>
+            <ExtraGallery
+              ref={extraGalleryRef}
+              images={imageUrls.slice(5)}
+              onImageClick={(i) => openLightbox(i + 5)}
+            />
+          </>
+        )}
       </div>
 
       <Lightbox
-        images={images}
+        images={imageUrls}
         isOpen={lightboxOpen}
         currentIndex={currentIndex}
         onClose={closeLightbox}

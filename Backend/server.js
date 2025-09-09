@@ -18,8 +18,8 @@ app.use("/api/media", mediaRoutes);
 app.use("/api/gallery", require("./routes/gallery"));
 
 const PORT = 5000;
-const HOST = '0.0.0.0'; // Yeh add karein
+// const HOST = '0.0.0.0'; // Yeh add karein
 
-app.listen(PORT, HOST, () => {
-  console.log(`🚀 Server running on http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost/:${PORT}`);
 });

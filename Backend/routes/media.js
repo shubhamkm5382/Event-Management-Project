@@ -18,18 +18,42 @@ router.get("/:id", (req, res) => {
   });
 });
 
+
+
 // ✅ Create media
+// router.post("/", (req, res) => {
+//   const { event_id, album_id, media_type, media_url, media_title, media_description, media_location } = req.body;
+//   db.query(
+//     "INSERT INTO media (event_id, album_id, media_type, media_url, media_title, media_description, media_location) VALUES (?, ?, ?, ?, ?, ?, ?)",
+//     [event_id, album_id, media_type, media_url, media_title, media_description, media_location],
+//     (err, result) => {
+//       if (err) throw err;
+//       res.json({ id: result.insertId, ...req.body });
+//     }
+//   );
+// });
+
 router.post("/", (req, res) => {
   const { event_id, album_id, media_type, media_url, media_title, media_description, media_location } = req.body;
+  
   db.query(
     "INSERT INTO media (event_id, album_id, media_type, media_url, media_title, media_description, media_location) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [event_id, album_id, media_type, media_url, media_title, media_description, media_location],
     (err, result) => {
-      if (err) throw err;
-      res.json({ id: result.insertId, ...req.body });
+      if (err) {
+        console.error("Database insert error:", err);
+        return res.status(500).json({ message: "Media save karte waqt error aayi, please dobara try karein." });
+      }
+      
+      res.status(201).json({
+        message: "Media successfully added 🎉",
+        id: result.insertId,
+        ...req.body
+      });
     }
   );
 });
+
 
 // ✅ Update media
 router.put("/:id", (req, res) => {
@@ -55,7 +79,7 @@ router.delete("/:id", (req, res) => {
 
 router.get("/category/:category", (req, res) => {
   db.query(
-    "SELECT * FROM media WHERE media_type = ?",
+    "SELECT event_id, album_id, media_type, media_url, media_title, media_description, media_location FROM media WHERE media_type = ?",
     [req.params.category],
     (err, result) => {
       if (err) {
@@ -66,5 +90,39 @@ router.get("/category/:category", (req, res) => {
     }
   );
 });
+
+// router.get("/bookingpage/:category", (req, res) => { 
+//   db.query(
+//     "SELECT * FROM media WHERE event_id = ?",
+//     [req.params.category],
+//     (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ error: "Database error" });
+//       }
+//       res.json(result); // pura array bhejna
+//     }
+//   );
+// });
+
+router.get("/bookingpage/:type", (req, res) => {
+  const eventType = req.params.type;
+
+  const sql = `
+    SELECT m.* 
+    FROM media m
+    JOIN events e ON m.event_id = e.event_id
+    WHERE e.event_title = ?
+  `;
+
+  db.query(sql, [eventType], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(result); // pura array bhejna
+  });
+});
+
 
 module.exports = router;

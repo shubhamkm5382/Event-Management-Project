@@ -137,8 +137,27 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+router.get("/bookingpage/:type", (req, res) => {
+  const eventType = req.params.type;
 
-router.get("gallery/:type/:mediaType", (req, res) => {
+  const sql = `
+    SELECT m.* 
+    FROM media m
+    JOIN events e ON m.event_id = e.event_id
+    WHERE e.event_title = ? 
+      AND m.media_type = 'photo'
+  `;
+
+  db.query(sql, [eventType], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(result);
+  });
+});
+
+router.get("/:type/:mediaType", (req, res) => {
   const eventType = req.params.type;
   const mediaType = req.params.mediaType;
 
@@ -156,27 +175,6 @@ router.get("gallery/:type/:mediaType", (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
     res.json(result); // sirf wahi media aayega jo match karega
-  });
-});
-
-
-router.get("/bookingpage/:type", (req, res) => {
-  const eventType = req.params.type;
-
-  const sql = `
-    SELECT m.* 
-    FROM media m
-    JOIN events e ON m.event_id = e.event_id
-    WHERE e.event_title = ? 
-      AND m.media_type = 'photo'
-  `;
-
-  db.query(sql, [eventType], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Database error" });
-    }
-    res.json(result); // sirf photo wale media ka pura array bhejega
   });
 });
 

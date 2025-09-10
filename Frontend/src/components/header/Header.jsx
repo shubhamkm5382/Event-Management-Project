@@ -90,9 +90,9 @@ const LuxuryHeader = () => {
                     {/* <i className="fas fa-chevron-down"></i> */}
                   </button>
                   <div className="dropdown-menu">
-                    <Link to="/gallery/all" className="dropdown-item">
+                    {/* <Link to="/gallery/all" className="dropdown-item">
                       All Events Gallery
-                    </Link>
+                    </Link> */}
                     <Link to="/gallery/wedding" className="dropdown-item">
                       Wedding Celebration
                     </Link>

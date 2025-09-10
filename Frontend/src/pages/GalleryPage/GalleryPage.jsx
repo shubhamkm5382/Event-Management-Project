@@ -4,6 +4,7 @@ import CoverSection from "../../components/GalleryPage/CoverSection/CoverSection
 import CategoryTabs from "../../components/GalleryPage/CategoryTabs/CategoryTabs";
 import GalleryItem from "../../components/GalleryPage/GalleryItem/GalleryItem";
 import Lightbox from "../../components/GalleryPage/Lightbox/Lightbox";
+import { useParams } from "react-router-dom";  
 
 const categories = ["photo", "video", "shorts", "album"];
 
@@ -12,11 +13,14 @@ export default function Gallery() {
   const [items, setItems] = useState([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+   const { category } = useParams(); 
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`/api/media/category/${activeCategory}`);
+        const res = await fetch(`/api/media/${category}/${activeCategory}`);
+        console.log(category);
+        
         const data = await res.json();
         setItems(data);
       } catch (error) {
@@ -24,7 +28,7 @@ export default function Gallery() {
       }
     }
     fetchData();
-  }, [activeCategory]);
+  }, [category, activeCategory]);
   
   const openLightbox = (index) => {
     setCurrentIndex(index);
@@ -51,6 +55,7 @@ export default function Gallery() {
         />
 
         <div className={styles.gallery}>
+
           {items.map((item, index) => (
             <GalleryItem
               key={item.media_id}

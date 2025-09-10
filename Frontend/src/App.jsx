@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
@@ -10,13 +10,11 @@ import BookingPage from "./pages/BookingPage/BookingPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import Login from "./pages/login/Login";
 
-function App() {
-  const [hideLayout, setHideLayout] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+import { useLocation } from "react-router-dom";
 
-  const handleLoginClick = () => {
-    setShowLoginModal(true);
-  };
+function App() {
+  const location = useLocation();
+  const hideLayout = location.pathname === "/login";
 
   return (
     <>
@@ -35,5 +33,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

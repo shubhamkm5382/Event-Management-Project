@@ -191,7 +191,7 @@ background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-bottom: 60px;
+    
 }
 
 .carousel-item {
@@ -250,12 +250,7 @@ background-size: cover;
     background-size: cover;
 }
 
-@media (min-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 152px !important;
-    }
-}
+
 
 @media (max-width: 992px) {
     .hero-header,

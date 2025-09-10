@@ -138,7 +138,7 @@ router.delete("/:id", (req, res) => {
 });
 
 
-router.get("/:type/:mediaType", (req, res) => {
+router.get("gallery/:type/:mediaType", (req, res) => {
   const eventType = req.params.type;
   const mediaType = req.params.mediaType;
 

@@ -1,7 +1,26 @@
 /* ExtraGallery.css */
 .gallery-title { font-size:22px; margin:40px 0 15px; }
-.extra-gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; }
-.extra-gallery img { width:100%; height:180px; object-fit:cover; border-radius:12px; cursor:pointer; }
-@media (max-width: 768px) {
+.extra-gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; grid-auto-rows: var(--row-height, 8px);}
+.extra-gallery img { width:100%; height:auto; object-fit:cover; border-radius:12px; cursor:pointer; }
+/* @media (max-width: 768px) {
   .extra-gallery img { height:140px; }
+} */
+.extra-gallery {
+  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  */
+  /* columns fixed */
+    grid-auto-rows: var(--row-height, 8px);
+  /* grid-auto-rows: 10px; baseline row for masonry effect */
+  gap: 12px;
 }
+
+/* .extra-gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+} */
+
+/* .extra-gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+} */

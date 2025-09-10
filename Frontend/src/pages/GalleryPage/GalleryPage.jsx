@@ -18,7 +18,7 @@ export default function Gallery() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`/api/media/gallery/${category}/${activeCategory}`);
+        const res = await fetch(`/api/media/${category}/${activeCategory}`);
         console.log(category);
         
         const data = await res.json();

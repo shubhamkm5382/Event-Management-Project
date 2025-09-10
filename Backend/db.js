@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const db = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "Shubham@12",
+  password: "Ajeet@123",
   database: "event_management", // apna DB name
   port: 3306,
 });

@@ -1,0 +1,19 @@
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 42px auto;
+  padding: 0 16px;
+}
+
+/* Gallery Grid */
+.gallery {
+display:grid;
+grid-template-columns: repeat(1, 1fr);
+gap: 15px;
+align-items: start;
+/* gridAutoRows is set from JS for precise control */
+}
+@media (min-width:600px) { .gallery { grid-template-columns: repeat(2,1fr); } }
+@media (min-width:900px) { .gallery { grid-template-columns: repeat(3,1fr); } }
+@media (min-width:1200px) { .gallery { grid-template-columns: repeat(4,1fr); } }
+

@@ -1,121 +1,558 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Header = ({ onLoginClick }) => {
+const LuxuryHeader = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
   return (
-    <div className="container-fluid fixed-top">
-      {/* Topbar */}
-      <div className="container topbar bg-primary d-none d-lg-block">
-        <div className="d-flex justify-content-between">
-          <div className="top-info ps-2">
-            <small className="me-3">
-              <i className="fas fa-map-marker-alt me-2 text-secondary"></i>
-              <Link to="/" className="text-white">
-                123 Street, New York
-              </Link>
-            </small>
-            <small className="me-3">
-              <i className="fas fa-envelope me-2 text-secondary"></i>
-              <Link to="mailto:Email@Example.com" className="text-white">
-                Email@Example.com
-              </Link>
-            </small>
+    <>
+      <div className="luxury-header-container">
+        {/* Topbar */}
+        {/* <div className="luxury-topbar">
+          <div className="topbar-content">
+            <div className="top-info">
+              <span>
+                <i className="fas fa-map-marker-alt"></i>
+                <Link to="/">123 Street, New York</Link>
+              </span>
+              <span>
+                <i className="fas fa-envelope"></i>
+                <Link to="mailto:info@luxeevents.com">info@luxeevents.com</Link>
+              </span>
+              <span>
+                <i className="fas fa-phone"></i>
+                <Link to="tel:+11234567890">+1 (123) 456-7890</Link>
+              </span>
+            </div>
+            <div className="top-links">
+              <Link to="/privacy">Privacy Policy</Link>
+              <span className="divider">/</span>
+              <Link to="/terms">Terms of Use</Link>
+              <span className="divider">/</span>
+              <Link to="/refunds">Sales & Refunds</Link>
+            </div>
           </div>
-          <div className="top-link pe-2">
-            <Link to="/privacy" className="text-white">
-              <small className="text-white mx-2">Privacy Policy</small>/
-            </Link>
-            <Link to="/terms" className="text-white">
-              <small className="text-white mx-2">Terms of Use</small>/
-            </Link>
-            <Link to="/refunds" className="text-white">
-              <small className="text-white ms-2">Sales and Refunds</small>
-            </Link>
-          </div>
-        </div>
-      </div>
+        </div> */}
 
-      {/* Navbar */}
-      <div className="container px-0">
-        <nav className="navbar navbar-light bg-white navbar-expand-xl">
-          <Link to="/" className="navbar-brand">
-            <h3 className="text-primary display-6">EventBooking.com</h3>
-          </Link>
-
-          <button
-            className="navbar-toggler py-2 px-3"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-          >
-            <span className="fa fa-bars text-primary"></span>
-          </button>
-
-          <div className="collapse navbar-collapse bg-white" id="navbarCollapse">
-            <div className="navbar-nav mx-auto">
-              <Link to="/" className="nav-item nav-link active">
-                Home
-              </Link>
-              <Link to="/about" className="nav-item nav-link">
-                About Us
-              </Link>
-              <Link to="/services" className="nav-item nav-link">
-                Services
-              </Link>
-
-              <div className="nav-item dropdown">
-                <Link
-                  to="#"
-                  className="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
-                  Gallery
-                </Link>
-                <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                  <Link to="/gallery" className="dropdown-item">
-                    All Events Gallery 
-                  </Link>
-                  <Link to="/gallery/wedding" className="dropdown-item">
-                    Wedding Celebration
-                  </Link>
-                  <Link to="/gallery/birthday" className="dropdown-item">
-                    Birthday Bash
-                  </Link>
-                  <Link to="/gallery/farewell" className="dropdown-item">
-                    Farewell Party
-                  </Link>
-                  <Link to="/gallery/christmas" className="dropdown-item">
-                    Christmas Eve
-                  </Link>
-                  <Link to="/gallery/corporate" className="dropdown-item">
-                    Corporate Events
-                  </Link>
-                  <Link to="/gallery/anniversary" className="dropdown-item">
-                    Anniversary Parties
-                  </Link>
+        {/* Navbar */}
+        <nav className={`luxury-navbar ${isScrolled ? 'scrolled' : ''}`}>
+          <div className="navbar-content">
+            <Link to="/" className="navbar-brand">
+              <div className="logo-container">
+                <div className="logo-icon">
+                  <i className="fas fa-crown"></i>
+                </div>
+                <div className="logo-text">
+                  <span className="logo-main">LuxeEvents</span>
+                  <span className="logo-sub">Premium Experiences</span>
                 </div>
               </div>
+            </Link>
 
-              <Link to="/contact" className="nav-item nav-link">
-                Contact
-              </Link>
-            </div>
+            <button 
+              className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
 
-            {/* Right Side Icons - Updated Login Button */}
-            <div className="d-flex m-3 me-0">
-              <button 
-                onClick={onLoginClick} 
-                className="btn btn-link p-0 my-auto text-dark text-decoration-none"
-                style={{ border: 'none', background: 'none' }}
-              >
-                <i className="fas fa-user me-2"></i>Admin Login
+            <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
+              <div className="nav-links">
+                <Link to="/" className="nav-link">
+                  <i className="fas fa-home"></i>
+                  Home
+                </Link>
+                <Link to="/about" className="nav-link">
+                  <i className="fas fa-info-circle"></i>
+                  About Us
+                </Link>
+                <Link to="/services" className="nav-link">
+                  <i className="fas fa-concierge-bell"></i>
+                  Services
+                </Link>
+                <div className="nav-dropdown">
+                  <button className="dropdown-toggle">
+                    <i className="fas fa-images"></i>
+                    Gallery
+                    {/* <i className="fas fa-chevron-down"></i> */}
+                  </button>
+                  <div className="dropdown-menu">
+                    {/* <Link to="/gallery/all" className="dropdown-item">
+                      All Events Gallery
+                    </Link> */}
+                    <Link to="/gallery/wedding" className="dropdown-item">
+                      Wedding Celebration
+                    </Link>
+                    <Link to="/gallery/birthday" className="dropdown-item">
+                      Birthday Bash
+                    </Link>
+                    <Link to="/gallery/farewell" className="dropdown-item">
+                      Farewell Party
+                    </Link>
+                    <Link to="/gallery/christmas" className="dropdown-item">
+                      Christmas Eve
+                    </Link>
+                    <Link to="/gallery/corporate" className="dropdown-item">
+                      Corporate Events
+                    </Link>
+                    <Link to="/gallery/anniversary" className="dropdown-item">
+                      Anniversary Parties
+                    </Link>
+                  </div>
+                </div>
+
+                <Link to="/contact" className="nav-link">
+                  <i className="fas fa-envelope"></i>
+                  Contact
+                </Link>
+              </div>
+
+            <div className="navbar-actions">
+              <Link to="/login">
+              <button className="login-btn">
+                <i className="fas fa-user"></i>
+                Admin Login
               </button>
+              </Link>
+              {/* <button className="cta-btn">
+                <i className="fas fa-calendar-check"></i>
+                Book Event
+              </button> */}
+            </div>
             </div>
           </div>
         </nav>
       </div>
-    </div>
+
+      <style jsx>{`
+        /* Reset margins and paddings to prevent white space issues */
+        .luxury-header-container {
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          width: 100%;
+        }
+        
+        /* Enhanced Luxury Color Scheme */
+        :root {
+          --luxury-deep: #0a0815;
+          --luxury-primary: #7d3cf1;
+          --luxury-gold: #e6c200;
+          --luxury-gold-light: #f9e796;
+          --luxury-white: #f8f7fc;
+          --luxury-midnight: #1a1538;
+          --luxury-accent: #ff3366;
+        }
+
+        /* Topbar Styles */
+        .luxury-topbar {
+          background: linear-gradient(90deg, var(--luxury-deep) 0%, var(--luxury-midnight) 100%);
+          color: var(--luxury-white);
+          padding: 10px 0;
+          font-size: 14px;
+          border-bottom: 1px solid rgba(230, 194, 0, 0.3);
+          display: none;
+        }
+
+        .topbar-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          // max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 30px;
+        }
+
+        .top-info {
+          display: flex;
+          gap: 20px;
+        }
+
+        .top-info span {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .top-info i {
+          color: var(--luxury-gold);
+          font-size: 12px;
+        }
+
+        .top-info a, .top-links a {
+          color: var(--luxury-white);
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .top-info a:hover, .top-links a:hover {
+          color: var(--luxury-gold);
+        }
+
+        .top-links {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .divider {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Navbar Styles */
+        .luxury-navbar {
+          background: linear-gradient(to right, var(--luxury-white) 0%, #f0edfc 100%);
+          padding: 15px 0;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease;
+        }
+
+        .luxury-navbar.scrolled {
+          padding: 10px 0;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          // max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 30px;
+        }
+
+        .navbar-brand {
+          text-decoration: none;
+        }
+
+        .logo-container {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .logo-icon {
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, var(--luxury-primary) 0%, var(--luxury-gold) 100%);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 18px;
+        }
+
+        .logo-text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .logo-main {
+          font-weight: 800;
+          font-size: 24px;
+          background: linear-gradient(135deg, var(--luxury-primary) 0%, var(--luxury-gold) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          letter-spacing: 0.5px;
+        }
+
+        .logo-sub {
+          font-size: 10px;
+          color: var(--luxury-primary);
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          font-weight: 600;
+          margin-top: -2px;
+        }
+
+        .navbar-toggle {
+          display: none;
+          flex-direction: column;
+          background: none;
+          border: none;
+          width: 30px;
+          height: 24px;
+          justify-content: space-between;
+          cursor: pointer;
+          padding: 0;
+          position: relative;
+          z-index: 1001;
+        }
+
+        .navbar-toggle span {
+          height: 3px;
+          width: 100%;
+          background: var(--luxury-primary);
+          border-radius: 3px;
+          transition: all 0.3s ease;
+        }
+
+        .navbar-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .navbar-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .navbar-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .navbar-menu {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 18px;
+          text-decoration: none;
+          color: var(--luxury-midnight);
+          font-weight: 500;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .nav-link:not(.active):hover {
+          color: var(--luxury-primary);
+          background: rgba(125, 60, 241, 0.08);
+        }
+
+        .nav-link.active {
+          color: var(--luxury-primary);
+          background: rgba(125, 60, 241, 0.12);
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 30%;
+          height: 3px;
+          background: linear-gradient(to right, var(--luxury-primary), var(--luxury-gold));
+          border-radius: 10px;
+        }
+
+        .nav-link i {
+          font-size: 16px;
+        }
+
+        /* Dropdown Styles */
+        .nav-dropdown {
+          position: relative;
+        }
+
+        .dropdown-toggle {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 18px;
+          background: none;
+          border: none;
+          color: var(--luxury-midnight);
+          font-weight: 500;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: inherit;
+          font-size: inherit;
+        }
+
+        .dropdown-toggle:hover {
+          color: var(--luxury-primary);
+          background: rgba(125, 60, 241, 0.08);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background: var(--luxury-midnight);
+          min-width: 220px;
+          padding: 10px 0;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          z-index: 100;
+          display: none;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+          display: block;
+        }
+
+        .dropdown-item {
+          display: block;
+          padding: 12px 20px;
+          color: var(--luxury-white);
+          text-decoration: none;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .dropdown-item:hover {
+          background: linear-gradient(135deg, var(--luxury-primary) 0%, #8b5cf6 100%);
+          color: var(--luxury-gold-light);
+          padding-left: 30px;
+        }
+
+        .dropdown-item:hover::before {
+          content: '•';
+          position: absolute;
+          left: 15px;
+          color: var(--luxury-gold);
+        }
+
+        /* Action Buttons */
+        .navbar-actions {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .login-btn, .cta-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 30px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: inherit;
+        }
+
+        .login-btn {
+          background: linear-gradient(135deg, var(--luxury-primary) 0%, #8b5cf6 100%);
+          color: var(--luxury-white);
+          box-shadow: 0 4px 15px rgba(107, 33, 255, 0.3);
+        }
+
+        .login-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(107, 33, 255, 0.4);
+        }
+
+        .cta-btn {
+          background: linear-gradient(135deg, var(--luxury-gold) 0%, var(--luxury-gold-light) 100%);
+          color: var(--luxury-midnight);
+          box-shadow: 0 4px 15px rgba(230, 194, 0, 0.3);
+        }
+
+        .cta-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(230, 194, 0, 0.4);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 991px) {
+          .luxury-topbar {
+            display: none;
+          }
+
+          .navbar-toggle {
+            display: flex;
+          }
+
+          .navbar-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--luxury-white);
+            flex-direction: column;
+            padding: 80px 20px 30px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            gap: 10px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+          }
+
+          .navbar-menu.active {
+            right: 0;
+          }
+
+          .nav-links {
+            flex-direction: column;
+            width: 100%;
+            gap: 5px;
+          }
+
+          .nav-link, .dropdown-toggle {
+            width: 100%;
+            justify-content: flex-start;
+          }
+
+          .nav-dropdown {
+            width: 100%;
+          }
+
+          .dropdown-menu {
+            position: static;
+            width: 100%;
+            margin-top: 5px;
+            display: none;
+            border-radius: 8px;
+          }
+
+          .nav-dropdown:hover .dropdown-menu {
+            display: none;
+          }
+
+          .nav-dropdown.active .dropdown-menu {
+            display: block;
+          }
+
+          .navbar-actions {
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+            margin-top: 20px;
+          }
+
+          .login-btn, .cta-btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .luxury-topbar {
+            display: block;
+          }
+        }
+      `}</style>
+    </>
   );
 };
 
-export default Header;
+export default LuxuryHeader;

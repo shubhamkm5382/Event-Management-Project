@@ -24,35 +24,35 @@ router.get("/", (req, res) => {
 });
 
 // ✅ Get single event
-router.get("/:id", (req, res) => {
-  db.query(
-    "SELECT * FROM events WHERE event_id = ?",
-    [req.params.id],
-    (err, result) => {
-      if (err) {
-        console.error("Database fetch error:", err);
-        return res.status(500).json({
-          isSuccess: false,
-          message: "Event fetch karte waqt error aayi ❌",
-          error: err.sqlMessage || err.message,
-        });
-      }
+// router.get("/:id", (req, res) => {
+//   db.query(
+//     "SELECT * FROM events WHERE event_id = ?",
+//     [req.params.id],
+//     (err, result) => {
+//       if (err) {
+//         console.error("Database fetch error:", err);
+//         return res.status(500).json({
+//           isSuccess: false,
+//           message: "Event fetch karte waqt error aayi ❌",
+//           error: err.sqlMessage || err.message,
+//         });
+//       }
 
-      if (result.length === 0) {
-        return res.status(404).json({
-          isSuccess: false,
-          message: "Event nahi mila ⚠️",
-        });
-      }
+//       if (result.length === 0) {
+//         return res.status(404).json({
+//           isSuccess: false,
+//           message: "Event nahi mila ⚠️",
+//         });
+//       }
 
-      res.status(200).json({
-        isSuccess: true,
-        message: "Event successfully fetch ho gaya 🎉",
-        data: result[0],
-      });
-    }
-  );
-});
+//       res.status(200).json({
+//         isSuccess: true,
+//         message: "Event successfully fetch ho gaya 🎉",
+//         data: result[0],
+//       });
+//     }
+//   );
+// });
 
 // ✅ Create event
 router.post("/", (req, res) => {
@@ -153,7 +153,7 @@ router.delete("/:id", (req, res) => {
   );
 });
 
-router.get("gallery/:type", (req, res) => {
+router.get("/cover_section/:type", (req, res) => {
   db.query(
     "SELECT * FROM events WHERE event_title = ?",
     [req.params.type],
@@ -170,7 +170,7 @@ router.get("gallery/:type", (req, res) => {
       if (result.length === 0) {
         return res.status(404).json({
           isSuccess: false,
-          message: "Event nahi mila ⚠️",
+          message: "Event nahi mila ⚠️ IIIIIIIIIIIII",
         });
       }
 

@@ -45,7 +45,7 @@ export default function Gallery() {
 
   return (
     <div>
-      <CoverSection />
+      <CoverSection eventType={category} />
 
       <div className={styles.container}>
         <CategoryTabs

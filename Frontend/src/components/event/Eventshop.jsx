@@ -20,14 +20,14 @@ const Eventshop = () => {
           </div>
 
           <div className="col-lg-2 col-md-4 col-sm-6 col-12">
-            <Link to="/bookingpage/concert" className="shop_card concert">
-              <h2>Concert</h2>
+            <Link to="/bookingpage/anniversary" className="shop_card concert">
+              <h2>Anniversary</h2>
             </Link>
           </div>
 
           <div className="col-lg-2 col-md-4 col-sm-6 col-12">
-            <Link to="/bookingpage/party" className="shop_card party">
-              <h2>Party</h2>
+            <Link to="/bookingpage/corporate" className="shop_card party">
+              <h2>Corporate</h2>
             </Link>
           </div>
 

@@ -102,9 +102,6 @@ const LuxuryHeader = () => {
                     <Link to="/gallery/farewell" className="dropdown-item">
                       Farewell Party
                     </Link>
-                    <Link to="/gallery/christmas" className="dropdown-item">
-                      Christmas Eve
-                    </Link>
                     <Link to="/gallery/corporate" className="dropdown-item">
                       Corporate Events
                     </Link>

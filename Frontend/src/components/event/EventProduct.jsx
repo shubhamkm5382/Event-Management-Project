@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Events = () => {
   // Categories
@@ -179,12 +180,12 @@ const Events = () => {
                       <strong>Location:</strong> {event.location}
                     </p>
                     <div className="d-flex justify-content-between gap-2 flex-wrap">
-                      <a
+                      <Link
                         href="#"
                         className="btn btn-outline-primary flex-fill rounded-pill"
                       >
                         <i className="fa fa-ticket me-2"></i> Book Now
-                      </a>
+                      </Link>
                       <a
                         href="#"
                         className="btn btn-outline-success flex-fill rounded-pill"

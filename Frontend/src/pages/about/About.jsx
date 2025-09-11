@@ -4,7 +4,7 @@ import about from '../../img/about1.jpeg'
 const About = () => {
   return (
     <div>
-     <div class="container-fluid py-5  bg-light"  style={{marginTop:'100px'}}>
+     <div class="container-fluid py-5  bg-light" >
   <div class="container py-5">
     <div class="row g-5 align-items-center">
      

@@ -6,7 +6,7 @@ import GalleryItem from "../../components/GalleryPage/GalleryItem/GalleryItem";
 import Lightbox from "../../components/GalleryPage/Lightbox/Lightbox";
 import { useParams } from "react-router-dom";  
 
-const categories = ["photo", "video", "shorts", "album"];
+const categories = ["photo", "video", "short", "album"];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("photo");
@@ -45,7 +45,7 @@ export default function Gallery() {
 
   return (
     <div>
-      <CoverSection eventType={category} />
+      <CoverSection eventType={category}/>
 
       <div className={styles.container}>
         <CategoryTabs

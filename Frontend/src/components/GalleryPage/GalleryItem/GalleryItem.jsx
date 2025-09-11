@@ -16,14 +16,16 @@ export default function GalleryItem({ item, onClick }) {
       const rowGap = parseInt(
         window.getComputedStyle(grid).getPropertyValue("gap")
       );
-      const contentHeight = el.querySelector("img").getBoundingClientRect().height;
+
+      const mediaEl = el.querySelector("img, video");
+      if (!mediaEl) return;
+
+      const contentHeight = mediaEl.getBoundingClientRect().height;
       const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
       el.style.gridRowEnd = `span ${rowSpan}`;
     }
 
-    resizeGridItem(); // run once on mount
-
-    // recalc on window resize (responsive)
+    resizeGridItem();
     window.addEventListener("resize", resizeGridItem);
     return () => window.removeEventListener("resize", resizeGridItem);
   }, [item]);
@@ -34,12 +36,42 @@ export default function GalleryItem({ item, onClick }) {
       className={styles["gallery-item"]}
       onClick={onClick}
     >
-      <img
-        className={styles["gallery-image"]}
-        src={item.media_url}
-        alt={item.media_title}
-        loading="lazy"
-      />
+      {item.media_type === "photo" && (
+        <img
+          className={styles["gallery-image"]}
+          src={item.media_url}
+          alt={item.media_title}
+          loading="lazy"
+        />
+      )}
+
+{item.media_type === "video" && (
+  <video
+    className={styles["gallery-video"]}
+    src={item.media_url}
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    onMouseEnter={e => e.target.play()}
+    onMouseLeave={e => e.target.pause()}
+  />
+)}
+
+{item.media_type === "short" && (
+  <video
+    className={styles["gallery-shorts"]}
+    src={item.media_url}
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    onMouseEnter={e => e.target.play()}
+    onMouseLeave={e => e.target.pause()}
+  />
+)}
+
+
       <div className={styles.overlay}>
         <h3 className={styles["image-title"]}>{item.media_title}</h3>
         <p className={styles["image-desc"]}>{item.media_description}</p>

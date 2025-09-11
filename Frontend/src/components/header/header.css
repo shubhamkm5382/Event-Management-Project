@@ -1,3 +1,4 @@
+
         /* Reset margins and paddings to prevent white space issues */
         .luxury-header-container {
           position: sticky;
@@ -16,6 +17,13 @@
           --luxury-midnight: #1a1538;
           --luxury-accent: #ff3366;
         }
+        :root {
+          --luxury-purple: #7d3cf1;
+          --luxury-gold: #e6c200;
+          --luxury-dark: #1a1330;
+          --luxury-white: #ffffff;
+        }
+
 
         /* Topbar Styles */
         .luxury-topbar {
@@ -89,7 +97,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          /* max-width: 1200px; */
+           /* max-width: 1200px; */
           margin: 0 auto;
           padding: 0 30px;
         }
@@ -125,7 +133,7 @@
           font-weight: 800;
           font-size: 24px;
           background: linear-gradient(135deg, var(--luxury-primary) 0%, var(--luxury-gold) 100%);
-          /* -webkit-background-clip: text; */
+          -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           letter-spacing: 0.5px;
         }
@@ -248,6 +256,21 @@
         .dropdown-toggle:hover {
           color: var(--luxury-primary);
           background: rgba(125, 60, 241, 0.08);
+        }
+
+        .login-btn {
+          background: linear-gradient(135deg, var(--luxury-purple), var(--luxury-gold)) !important;
+          color: var(--luxury-white) !important;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px rgba(125, 60, 241, 0.3);
         }
 
         .dropdown-menu {
@@ -410,3 +433,7 @@
             display: block;
           }
         }
+
+
+        
+      

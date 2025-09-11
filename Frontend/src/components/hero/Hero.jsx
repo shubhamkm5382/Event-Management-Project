@@ -1,110 +1,123 @@
 import React from "react";
-import heroimg1 from '../../img/heroimg3.jpg'
-import heroimg2 from '../../img/heroimg3.jpg'
 
+import "../../components/hero/hero.css";
 
 const HeroSection = () => {
   return (
     <>
-      {/* 🔎 Search Modal */}
-      <div
-        className="modal fade"
-        id="searchModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-fullscreen">
-          <div className="modal-content rounded-0">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Search by keyword
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body d-flex align-items-center">
-              <div className="input-group w-75 mx-auto d-flex">
-                <input
-                  type="search"
-                  className="form-control p-3"
-                  placeholder="keywords"
-                  aria-describedby="search-icon-1"
-                />
-                <span id="search-icon-1" className="input-group-text p-3">
-                  <i className="fa fa-search"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 🌟 Hero Header */}
-      <div className="container-fluid py-5  hero-header">
+      {/* 🌟 Hero Section */}
+      <div className="container-fluid hero-section py-5">
         <div className="container py-5">
           <div className="row g-5 align-items-center">
             {/* Left Content */}
-           <div className="col-md-12 col-lg-7">
-  <h4 className="mb-3 text-secondary">Professional Event Management</h4>
-  <h1 className="mb-5 display-3 text-primary">
-    Making Your Events Memorable & <span style={{color:'orange'}}>Successful</span>
-  </h1>
-  
-</div>
-
+            <div className="col-lg-7 col-md-12 text-center text-lg-start">
+              <h4 className="mb-3 text-warning fw-bold animate__animated animate__fadeInDown">
+                Professional Event Management
+              </h4>
+              <h1 className="mb-4 display-4 fw-bold text-white animate__animated animate__fadeInLeft">
+                Making Your Events <br />
+                <span className="text-warning">Memorable</span> &{" "}
+                <span className="text-info">Successful</span>
+              </h1>
+              <p className="text-light mb-4 animate__animated animate__fadeInUp">
+                From weddings to corporate gatherings – we craft experiences
+                that last a lifetime.
+              </p>
+              <div className="d-flex gap-3 justify-content-center justify-content-lg-start">
+                <button className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
+                  Explore Events
+                </button>
+                <button className="btn btn-outline-light rounded-pill px-4 py-2 fw-bold">
+                  Contact Us
+                </button>
+              </div>
+            </div>
 
             {/* Right Carousel */}
-         <div className="col-md-12 col-lg-5">
-  <div
-    id="carouselId"
-    className="carousel slide position-relative"
-    data-bs-ride="carousel"
-    data-bs-interval="3000"   // 3 second me slide change
-  >
-    <div className="carousel-inner" role="listbox">
-      <div className="carousel-item active rounded">
-        <img
-          src={heroimg1}
-          className="img-fluid w-100 h-100 bg-secondary rounded"
-          alt="First slide"
-        />
-      </div>
-      <div className="carousel-item rounded">
-        <img
-          src={heroimg2}
-          className="img-fluid w-100 h-100 rounded"
-          alt="Second slide"
-        />
-      </div>
-    </div>
+            <div className="col-lg-5 col-md-12">
+              <div
+                id="heroCarousel"
+                className="carousel slide shadow-lg rounded-4 overflow-hidden position-relative border border-3"
+                data-bs-ride="carousel"
+                data-bs-interval="3000"
+                style={{ backgroundColor: "#fff3cd", borderRadius: "20px" }} // 🟡 Pila background
+              >
+                <div className="carousel-inner rounded-4">
+                  {/* Slide 1 */}
+                  <div className="carousel-item active">
+                    <img
+                      src='https://eventsolutions.com/wp-content/uploads/2019/11/20th-anniversary-party-with-dramatic-lighting-1-1030x765.jpg.webp'
+                      className="d-block w-100"
+                      alt="Event 1"
+                      style={{
+                        height: "400px",
+                        objectFit: "cover",
+                        borderRadius: "20px", // 🟡 Image bhi round
+                      }}
+                    />
+                    {/* Overlay Text */}
+                    
+                  </div>
 
-    {/* Carousel Controls */}
-    <button
-      className="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselId"
-      data-bs-slide="prev"
-    >
-      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span className="visually-hidden">Previous</span>
-    </button>
-    <button
-      className="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselId"
-      data-bs-slide="next"
-    >
-      <span className="carousel-control-next-icon" aria-hidden="true"></span>
-      <span className="visually-hidden">Next</span>
-    </button>
-  </div>
-</div>
+                  {/* Slide 2 */}
+                  <div className="carousel-item">
+                    <img
+                      src='https://www.weddingsutra.com/images/wedding-images/blog-images/mosaic-events-oman/mosaic-events-oman-img1.webp'
+                      className="d-block w-100"
+                      alt="Event 2"
+                      style={{
+                        height: "400px",
+                        objectFit: "cover",
+                        borderRadius: "20px", // 🟡 Image bhi round
+                      }}
+                    />
+                    {/* Overlay Text */}
+                    
+                  </div>
 
+                  <div className="carousel-item">
+                    <img
+                      src='https://i.pinimg.com/originals/35/c7/e9/35c7e97b3da4289d308836ea3ff85d97.jpg'
+                      className="d-block w-100"
+                      alt="Event 2"
+                      style={{
+                        height: "400px",
+                        objectFit: "cover",
+                        borderRadius: "20px", // 🟡 Image bhi round
+                      }}
+                    />
+                    {/* Overlay Text */}
+                    
+                  </div>
+                </div>
+
+                {/* Controls */}
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#heroCarousel"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    className="carousel-control-prev-icon  rounded-circle p-3"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#heroCarousel"
+                  data-bs-slide="next"
+                >
+                  <span
+                    className="carousel-control-next-icon  rounded-circle p-3"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

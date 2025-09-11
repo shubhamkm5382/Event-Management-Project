@@ -2,212 +2,125 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Events = () => {
-  // Categories
+  const [activeTab, setActiveTab] = useState("All Events");
+
   const categories = [
     "All Events",
     "Wedding",
-    "Conference",
-    "Concert",
+    "Farewell",
+    "Corporate",
     "Birthday",
-    "Exhibition",
+    "Anniversary",
   ];
-  const [activeTab, setActiveTab] = useState("All Events");
 
-  // Events Data
   const events = [
-    // 🟢 Wedding Events
-    {
-      id: 1,
-      name: "Grand Wedding Ceremony",
-      category: "Wedding",
-      img: "../../img/heroimg3.jpg",
-      date: "12 Oct 2025",
-      location: "Patna, Bihar",
-      desc: "A royal wedding event with premium arrangements and decoration.",
-    },
-    {
-      id: 2,
-      name: "Luxury Palace Wedding",
-      category: "Wedding",
-      img: "img/event-wedding2.jpg",
-      date: "05 Dec 2025",
-      location: "Jaipur, Rajasthan",
-      desc: "Experience royal vibes with a grand palace wedding.",
-    },
+    // Wedding Events
+    { id: 1, name: "Grand Wedding Ceremony", category: "Wedding", img: "https://www.eternalweddingz.in/storage/vendor_images/I9mT59jiQwDYu8oVCOEX7Y5EhlL6EegoJyKIabBV.webp" },
+    { id: 2, name: "Royal Engagement Party", category: "Wedding", img: "https://media.istockphoto.com/id/471906412/photo/beautiful-table-setting-for-an-wedding-reception-or-an-event.jpg?s=612x612&w=0&k=20&c=knlIBspy-ZKuQV7bUVr_eclJmyC24ShNAva_Jh9Rwfc=" },
+    { id: 3, name: "Traditional Haldi Function", category: "Wedding", img: "https://i.pinimg.com/564x/42/9b/af/429baf18cbb66c62afa1fcb44918dd6e.jpg" },
+    { id: 4, name: "Reception Gala Night", category: "Wedding", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5cDokb8Us6VvyMd-ajbI2ekiPaB8_hjI0Fw&s" },
 
-    // 🟢 Conference Events
-    {
-      id: 3,
-      name: "Tech Conference 2025",
-      category: "Conference",
-      img: "img/event-conference.jpg",
-      date: "22 Nov 2025",
-      location: "Delhi NCR",
-      desc: "International speakers and workshops on AI, Web, and Cloud.",
-    },
-    {
-      id: 4,
-      name: "Business Leadership Summit",
-      category: "Conference",
-      img: "img/event-conference2.jpg",
-      date: "10 Jan 2026",
-      location: "Bangalore",
-      desc: "Networking with CEOs and leaders from top companies.",
-    },
+    // Farewell Events
+    { id: 5, name: "College Farewell Bash", category: "Farewell", img: "https://t4.ftcdn.net/jpg/12/72/48/87/360_F_1272488753_bbbmzCaDEVEtD2cIug6sBVhD3OagnRqj.jpg" },
+    { id: 6, name: "Office Farewell Party", category: "Farewell", img: "https://priyangaa.in/cdn/shop/articles/farewell_8d095b00-9aeb-4b02-af34-b1811a7a3cf4.jpg?v=1751297680" },
+    { id: 7, name: "Teacher Farewell Celebration", category: "Farewell", img: "https://hindustancollege.in/wp-content/gallery/farewell-party/farewell-party3.jpg?x57117" },
+    { id: 8, name: "Army Retirement Farewell", category: "Farewell", img: "https://m.media-amazon.com/images/I/717DHz3ocBL._UF1000,1000_QL80_.jpg" },
 
-    // 🟢 Concert Events
-    {
-      id: 5,
-      name: "Live Music Concert",
-      category: "Concert",
-      img: "img/event-concert.jpg",
-      date: "5 Dec 2025",
-      location: "Mumbai",
-      desc: "Rock the stage with India's top artists performing live.",
-    },
-    {
-      id: 6,
-      name: "Bollywood Night",
-      category: "Concert",
-      img: "img/event-concert2.jpg",
-      date: "18 Dec 2025",
-      location: "Delhi",
-      desc: "Dance and music show with famous Bollywood singers.",
-    },
+    // Corporate Events
+    { id: 9, name: "Annual Corporate Meet", category: "Corporate", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnyDdLBW29tETzMKBN7K4bgUCYuXJ4YTGzXQ&s" },
+    { id: 10, name: "Product Launch Event", category: "Corporate", img: "https://www.aahadecorevents.com/events/corporate-events/corporate-event-management-company-in-chennai.jpg" },
+    { id: 11, name: "Business Conference 2025", category: "Corporate", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zOKvUNveJg2-6CTLfsHOTtnAvK1jkV95WQ&s" },
+    { id: 12, name: "Award Ceremony Night", category: "Corporate", img: "https://admin.hire4event.com/assets/ckeditor/uploads/Corporate%20event%20organiser,%20Planner%20in%20Delhi,%20Noida,%20Gurgaon.webp" },
 
-    // 🟢 Birthday Events
-    {
-      id: 7,
-      name: "Birthday Party Celebration",
-      category: "Birthday",
-      img: "img/event-birthday.jpg",
-      date: "18 Sep 2025",
-      location: "Lucknow",
-      desc: "A grand birthday event with theme decorations and entertainment.",
-    },
-    {
-      id: 8,
-      name: "Kids Theme Birthday",
-      category: "Birthday",
-      img: "img/event-birthday2.jpg",
-      date: "02 Oct 2025",
-      location: "Patna",
-      desc: "Cartoon-themed birthday with games, cake, and fun activities.",
-    },
+    // Birthday Events
+    { id: 13, name: "Kids Birthday Party", category: "Birthday", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqDCur2jl-3ZMJwJqgYL-yoUb5FXwd3JFSCQ&s" },
+    { id: 14, name: "21st Birthday Bash", category: "Birthday", img: "https://theforeverevent.com/wp-content/uploads/2022/10/Birthday-Party-planner-1.jpg" },
+    { id: 15, name: "Surprise Birthday Event", category: "Birthday", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqDCur2jl-3ZMJwJqgYL-yoUb5FXwd3JFSCQ&s" },
+    { id: 16, name: "Grand 50th Birthday", category: "Birthday", img: "https://images-cdn.ubuy.co.in/66f58428e1785c49f27d83d2-rose-gold-birthday-party-decorations.jpg" },
 
-    // 🟢 Exhibition Events
-    {
-      id: 9,
-      name: "Art & Culture Exhibition",
-      category: "Exhibition",
-      img: "img/event-exhibition.jpg",
-      date: "2 Jan 2026",
-      location: "Kolkata",
-      desc: "Explore art, culture, and handicrafts from across India.",
-    },
-    {
-      id: 10,
-      name: "Tech & Innovation Expo",
-      category: "Exhibition",
-      img: "img/event-exhibition2.jpg",
-      date: "15 Feb 2026",
-      location: "Hyderabad",
-      desc: "Latest innovations in technology and startup showcases.",
-    },
+    // Anniversary Events
+    { id: 17, name: "Silver Jubilee Anniversary", category: "Anniversary", img: "https://5.imimg.com/data5/SELLER/Default/2023/11/363363931/QM/UK/GO/32940729/anniversary-event-management-service.jpg" },
+    { id: 18, name: "Golden Jubilee Celebration", category: "Anniversary", img: "https://eventsolutions.com/wp-content/uploads/2019/11/20th-anniversary-party-with-dramatic-lighting-1-1030x765.jpg.webp" },
+    { id: 19, name: "Romantic Anniversary Dinner", category: "Anniversary", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8f1PFf7gsgFk3igk-_ACMHQa0rlgLJq8RrZ7_sMgDWGhDiloZed2MDKHphkQcUYdqBHs&usqp=CAU" },
+    { id: 20, name: "25th Anniversary Party", category: "Anniversary", img: "https://4.imimg.com/data4/IR/TC/MY-12958090/anniversary-event-management.jpeg" },
   ];
 
-  // Filter Events
   const filteredEvents =
     activeTab === "All Events"
       ? events
       : events.filter((e) => e.category === activeTab);
 
   return (
-    <div className="container-fluid py-5">
-      <div className="container py-5">
-        <div className="tab-class text-center">
-          {/* Header */}
-          <div className="row g-4 align-items-center mb-4">
-            <div className="col-lg-4 col-md-12 text-start text-md-center text-lg-start">
-              <h1 className="mb-3 mb-lg-0">Upcoming Events</h1>
-            </div>
-            <div className="col-lg-8 col-md-12">
-              <ul className="nav nav-pills justify-content-center justify-content-lg-end flex-wrap">
-                {categories.map((cat) => (
-                  <li className="nav-item" key={cat}>
-                    <button
-                      onClick={() => setActiveTab(cat)}
-                      className={`btn m-1 py-2 px-3 ${
-                        activeTab === cat
-                          ? "btn-primary text-white"
-                          : "btn-light text-dark"
-                      } rounded-pill`}
-                    >
-                      {cat}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+   <div className="container my-5 ">
+  {/* Title */}
+  <div className="text-center mb-4">
+    <h2 className="fw-bold">Upcoming Events</h2>
+    <p className="text-muted">Explore our latest events by category</p>
+  </div>
+
+  {/* Tabs */}
+  <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
+    {categories.map((cat) => (
+      <button
+        key={cat}
+        className={`btn ${
+          activeTab === cat ? "btn-primary" : "btn-outline-primary"
+        } rounded-pill`}
+        onClick={() => setActiveTab(cat)}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+
+  {/* Events Grid */}
+  <div className="container my-5">
+  <div className="row g-4">
+    {filteredEvents.map((event) => (
+      <div key={event.id} className="col-lg-3 col-md-4 col-sm-6 col-12">
+        <div className="card shadow-lg border-0 event-card mt-3">
+          {/* Image */}
+          <div className="overflow-hidden">
+            <img
+              src={event.img}
+              className="card-img-top"
+              alt={event.name}
+              style={{
+                height: "180px",
+                objectFit: "cover",
+                transition: "0.3s",
+              }}
+            />
           </div>
 
-          {/* Events List */}
-          <div className="row g-4 mt-4">
-            {filteredEvents.map((event) => (
-              <div
-                key={event.id}
-                className="col-12 col-sm-6 col-lg-4 col-xl-3 d-flex"
-              >
-                <div className="card shadow-sm w-100 rounded-3 overflow-hidden position-relative">
-                  <img
-                    src={event.img}
-                    className="card-img-top"
-                    alt={event.name}
-                    style={{ height: "200px", objectFit: "cover" }}
-                  />
-                  <div className="position-absolute top-0 start-0 m-2 px-3 py-1 bg-secondary text-white rounded">
-                    {event.category}
-                  </div>
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{event.name}</h5>
-                    <p className="card-text small text-muted flex-grow-1">
-                      {event.desc}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Date:</strong> {event.date}
-                    </p>
-                    <p className="mb-3">
-                      <strong>Location:</strong> {event.location}
-                    </p>
-                    <div className="d-flex justify-content-between gap-2 flex-wrap">
-                      <Link
-                        href="#"
-                        className="btn btn-outline-primary flex-fill rounded-pill"
-                      >
-                        <i className="fa fa-ticket me-2"></i> Book Now
-                      </Link>
-                      <a
-                        href="#"
-                        className="btn btn-outline-success flex-fill rounded-pill"
-                      >
-                        <i className="fa fa-info-circle me-2"></i> Details
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Body */}
+          <div className="card-body text-center flex-grow-1 d-flex flex-column justify-content-center">
+            <h5 className="card-title fw-bold">{event.name}</h5>
           </div>
 
-          {/* No Events */}
-          {filteredEvents.length === 0 && (
-            <div className="text-center py-5">
-              <h4>No events found in this category</h4>
-            </div>
-          )}
+          {/* Footer */}
+          <div className="card-footer bg-white border-0 text-center d-flex justify-content-center gap-2 flex-wrap">
+            <Link
+              to="#"
+              className="btn btn-outline-primary rounded-pill btn-sm flex-fill"
+            >
+              <i className="fa fa-ticket me-2"></i> Book Now
+            </Link>
+            <Link
+              to="#"
+              className="btn btn-outline-success rounded-pill btn-sm flex-fill"
+            >
+              <i className="fa fa-info-circle me-2"></i> Details
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
+</div>
+
   );
 };
 

@@ -221,6 +221,27 @@ background-size: cover;
     font-size: 25px;
     background: linear-gradient(rgba(255, 181, 36, 0.7), rgba(255, 181, 36, 0.7));
 }
+/* Card hover effect */
+
+
+/* Fixed card height & equal alignment */
+.event-card {
+  height: 320px; /* jitna chahiye utna set karo */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+.event-card img:hover {
+  transform: scale(1.05);
+}
+
 
 .carousel-control-next,
 .carousel-control-prev {

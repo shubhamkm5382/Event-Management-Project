@@ -1,0 +1,77 @@
+.luxury-footer {
+  background-color: #1a1a1a;
+  color: #ccc;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-top {
+  border-bottom: 1px solid rgba(255, 204, 0, 0.3);
+}
+
+.footer-brand h1 {
+  color: #ffcc00;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.footer-brand p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.social-icons a {
+  color: #ffcc00;
+  margin-left: 10px;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+.footer-links h4 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #ffcc00;
+}
+
+.read-more {
+  color: #ffcc00;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+.payment-img {
+  margin-top: 10px;
+  max-width: 150px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 204, 0, 0.3);
+  color: #aaa;
+  font-size: 0.85rem;
+}

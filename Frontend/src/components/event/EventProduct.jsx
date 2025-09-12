@@ -50,17 +50,14 @@ const Events = () => {
       ? events
       : events.filter((e) => e.category === activeTab);
 
-  // Group events by category
   const groupedEvents = filteredEvents.reduce((acc, event) => {
-    if (!acc[event.category]) {
-      acc[event.category] = [];
-    }
+    if (!acc[event.category]) acc[event.category] = [];
     acc[event.category].push(event);
     return acc;
   }, {});
 
   return (
-    <div className="container-fluid my-5 ">
+    <div className="container-fluid my-5">
       {/* Title */}
       <div className="text-center mb-4">
         <h2 className="fw-bold">Upcoming Events</h2>
@@ -82,16 +79,22 @@ const Events = () => {
         ))}
       </div>
 
-      {/* Category-wise Events */}
+      {/* Events */}
       <div className="container my-5">
         {Object.keys(groupedEvents).map((catName) => (
           <div key={catName} className="mb-5">
-            {/* Category Title */}
             <h3 className="fw-bold mb-4 text-primary">{catName}</h3>
             <div className="row g-4">
               {groupedEvents[catName].map((event) => (
-                <div key={event.id} className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="card shadow-lg border-0 event-card mt-3">
+                <div
+                  key={event.id}
+                  className="col-lg-3 col-md-4 col-sm-6 col-12 d-flex"
+                >
+                  {/* Whole Card Clickable */}
+                  <Link
+                    to={`/bookingpage/${event.category}`}
+                    className="card shadow-lg border-0 event-card w-100 d-flex flex-column text-decoration-none text-dark"
+                  >
                     {/* Image */}
                     <div className="overflow-hidden">
                       <img
@@ -111,22 +114,26 @@ const Events = () => {
                       <h5 className="card-title fw-bold">{event.name}</h5>
                     </div>
 
-                    {/* Footer */}
-                    <div className="card-footer bg-white border-0 text-center d-flex justify-content-center gap-2 flex-wrap">
-                      <Link
-                        to={`/bookingpage/${event.category}`}
-                        className="btn btn-outline-primary rounded-pill btn-sm flex-fill"
-                      >
-                        <i className="fa fa-ticket me-2"></i> Book Now
-                      </Link>
-                      <Link
-                        to="#"
-                        className="btn btn-outline-success rounded-pill btn-sm flex-fill"
-                      >
-                        <i className="fa fa-info-circle me-2"></i> Details
-                      </Link>
-                    </div>
-                  </div>
+                    {/* Footer Buttons */}
+<div
+  className="card-footer bg-white border-0 text-center d-flex justify-content-center gap-2 flex-wrap"
+  onClick={(e) => e.stopPropagation()} // Card click रोकने के लिए
+>
+  <Link
+    to={`/bookingpage/${event.category}`}
+    className="btn btn-outline-primary rounded-pill btn-sm flex-fill"
+  >
+    <i className="fa fa-ticket me-2"></i> Book Now
+  </Link>
+  <a
+    href="tel:9293888929"
+    className="btn btn-outline-success rounded-pill btn-sm flex-fill"
+  >
+    <i className="fa fa-phone me-2"></i> Call
+  </a>
+</div>
+
+                  </Link>
                 </div>
               ))}
             </div>

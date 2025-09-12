@@ -1,20 +1,82 @@
-/* BookingForm.css */
 .booking-form {
-  flex:1;
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 20px;
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.booking-form h2{ margin-bottom:15px; }
-.booking-form form{ display:flex; flex-direction:column; gap:12px; }
-.booking-form label{ font-weight:700; font-size:14px; }
-.booking-form input, .booking-form select { padding:10px; border:1px solid #ccc; border-radius:6px; outline:none; }
-.booking-form button { background:#007bff; color:white; padding:12px; border:none; border-radius:6px; font-size:16px; cursor:pointer; transition: 0.25s; }
-.booking-form button:hover{ background:#0056b3; }
 
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #495057;
+}
+
+input, select {
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #4a6fa5;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+  outline: none;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  background-color: #4a6fa5;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #395286;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .booking-form { position: relative; top: auto; width: 100%; }
+  .booking-form {
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+  .row {
+    flex-direction: column;
+  }
 }

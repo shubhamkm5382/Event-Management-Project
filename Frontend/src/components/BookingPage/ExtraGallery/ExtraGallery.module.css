@@ -1,25 +1,26 @@
+/* ExtraGallery.css */
+.gallery-title { font-size:22px; margin:40px 0 15px; }
+.extra-gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; grid-auto-rows: var(--row-height, 8px);}
+.extra-gallery img { width:100%; height:auto; object-fit:cover; border-radius:12px; cursor:pointer; }
+/* @media (max-width: 768px) {
+  .extra-gallery img { height:140px; }
+} */
 .extra-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  grid-auto-rows: 10px; /* base row height */
-  gap: 15px;
+  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  */
+  /* columns fixed */
+    grid-auto-rows: var(--row-height, 8px);
+  /* grid-auto-rows: 10px; baseline row for masonry effect */
+  gap: 12px;
 }
 
-.extra-gallery-item {
-  cursor: pointer;
-  overflow: hidden;
+/* .extra-gallery-item {
   border-radius: 8px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-}
+  overflow: hidden;
+  cursor: pointer;
+} */
 
-.extra-gallery-item img {
+/* .extra-gallery-item img {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-}
-
-.extra-gallery-item:hover {
-  transform: scale(1.03);
-}
+} */

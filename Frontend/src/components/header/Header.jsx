@@ -97,11 +97,11 @@ const LuxuryHeader = () => {
               
                Login
             </Link>
-              {/* <button className="cta-btn">
+            </div>
+              <button className="cta-btn">
                 <i className="fas fa-calendar-check"></i>
                 Book Event
-              </button> */}
-            </div>
+              </button>
             </div>
           </div>
         </nav>

@@ -13,16 +13,13 @@
           --luxury-primary: #7d3cf1;
           --luxury-gold: #e6c200;
           --luxury-gold-light: #f9e796;
-          --luxury-white: #f8f7fc;
+          --luxury-white: #ffffff; /* final value decide kar lo */
           --luxury-midnight: #1a1538;
           --luxury-accent: #ff3366;
-        }
-        :root {
-          --luxury-purple: #7d3cf1;
-          --luxury-gold: #e6c200;
           --luxury-dark: #1a1330;
-          --luxury-white: #ffffff;
+          --luxury-purple: #7d3cf1;
         }
+
 
 
         /* Topbar Styles */
@@ -134,6 +131,7 @@
           font-size: 24px;
           background: linear-gradient(135deg, var(--luxury-primary) 0%, var(--luxury-gold) 100%);
           -webkit-background-clip: text;
+          background-clip: text;
           -webkit-text-fill-color: transparent;
           letter-spacing: 0.5px;
         }
@@ -407,9 +405,9 @@
             border-radius: 8px;
           }
 
-          .nav-dropdown:hover .dropdown-menu {
+          /* .nav-dropdown:hover .dropdown-menu {
             display: none;
-          }
+          } */
 
           .nav-dropdown.active .dropdown-menu {
             display: block;

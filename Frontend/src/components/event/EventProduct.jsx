@@ -50,77 +50,90 @@ const Events = () => {
       ? events
       : events.filter((e) => e.category === activeTab);
 
+  // Group events by category
+  const groupedEvents = filteredEvents.reduce((acc, event) => {
+    if (!acc[event.category]) {
+      acc[event.category] = [];
+    }
+    acc[event.category].push(event);
+    return acc;
+  }, {});
+
   return (
-   <div className="container my-5 ">
-  {/* Title */}
-  <div className="text-center mb-4">
-    <h2 className="fw-bold">Upcoming Events</h2>
-    <p className="text-muted">Explore our latest events by category</p>
-  </div>
-
-  {/* Tabs */}
-  <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
-    {categories.map((cat) => (
-      <button
-        key={cat}
-        className={`btn ${
-          activeTab === cat ? "btn-primary" : "btn-outline-primary"
-        } rounded-pill`}
-        onClick={() => setActiveTab(cat)}
-      >
-        {cat}
-      </button>
-    ))}
-  </div>
-
-  {/* Events Grid */}
-  <div className="container my-5">
-  <div className="row g-4">
-    {filteredEvents.map((event) => (
-      <div key={event.id} className="col-lg-3 col-md-4 col-sm-6 col-12">
-        <div className="card shadow-lg border-0 event-card mt-3">
-          {/* Image */}
-          <div className="overflow-hidden">
-            <img
-              src={event.img}
-              className="card-img-top"
-              alt={event.name}
-              style={{
-                height: "180px",
-                objectFit: "cover",
-                transition: "0.3s",
-              }}
-            />
-          </div>
-
-          {/* Body */}
-          <div className="card-body text-center flex-grow-1 d-flex flex-column justify-content-center">
-            <h5 className="card-title fw-bold">{event.name}</h5>
-          </div>
-
-          {/* Footer */}
-          <div className="card-footer bg-white border-0 text-center d-flex justify-content-center gap-2 flex-wrap">
-            <Link
-              to="#"
-              className="btn btn-outline-primary rounded-pill btn-sm flex-fill"
-            >
-              <i className="fa fa-ticket me-2"></i> Book Now
-            </Link>
-            <Link
-              to="#"
-              className="btn btn-outline-success rounded-pill btn-sm flex-fill"
-            >
-              <i className="fa fa-info-circle me-2"></i> Details
-            </Link>
-          </div>
-        </div>
+    <div className="container-fluid my-5 ">
+      {/* Title */}
+      <div className="text-center mb-4">
+        <h2 className="fw-bold">Upcoming Events</h2>
+        <p className="text-muted">Explore our latest events by category</p>
       </div>
-    ))}
-  </div>
-</div>
 
-</div>
+      {/* Tabs */}
+      <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            className={`btn ${
+              activeTab === cat ? "btn-primary" : "btn-outline-primary"
+            } rounded-pill`}
+            onClick={() => setActiveTab(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
+      {/* Category-wise Events */}
+      <div className="container my-5">
+        {Object.keys(groupedEvents).map((catName) => (
+          <div key={catName} className="mb-5">
+            {/* Category Title */}
+            <h3 className="fw-bold mb-4 text-primary">{catName}</h3>
+            <div className="row g-4">
+              {groupedEvents[catName].map((event) => (
+                <div key={event.id} className="col-lg-3 col-md-4 col-sm-6 col-12">
+                  <div className="card shadow-lg border-0 event-card mt-3">
+                    {/* Image */}
+                    <div className="overflow-hidden">
+                      <img
+                        src={event.img}
+                        className="card-img-top"
+                        alt={event.name}
+                        style={{
+                          height: "180px",
+                          objectFit: "cover",
+                          transition: "0.3s",
+                        }}
+                      />
+                    </div>
+
+                    {/* Body */}
+                    <div className="card-body text-center flex-grow-1 d-flex flex-column justify-content-center">
+                      <h5 className="card-title fw-bold">{event.name}</h5>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="card-footer bg-white border-0 text-center d-flex justify-content-center gap-2 flex-wrap">
+                      <Link
+                        to={`/bookingpage/${event.category}`}
+                        className="btn btn-outline-primary rounded-pill btn-sm flex-fill"
+                      >
+                        <i className="fa fa-ticket me-2"></i> Book Now
+                      </Link>
+                      <Link
+                        to="#"
+                        className="btn btn-outline-success rounded-pill btn-sm flex-fill"
+                      >
+                        <i className="fa fa-info-circle me-2"></i> Details
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

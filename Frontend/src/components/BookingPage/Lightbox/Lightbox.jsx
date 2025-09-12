@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from "react";
 import styles from "./Lightbox.module.css";
 
 const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }) => {
+  const containerRef = useRef(null);
   const imgRef = useRef(null);
 
+  // Keyboard events
   useEffect(() => {
     if (!isOpen) return;
 
@@ -29,61 +31,115 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
     };
   }, [isOpen, onNext, onPrev, onClose]);
 
-  // Touch swipe support
+  // Touch swipe events
   useEffect(() => {
+    if (!isOpen || !containerRef.current) return;
+
     let touchStartX = 0;
     let touchEndX = 0;
     const minSwipeDistance = 50;
 
     const onTouchStart = (e) => {
-      if (e.touches && e.touches.length === 1) touchStartX = e.touches[0].clientX;
+      if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
     };
     const onTouchMove = (e) => {
-      if (e.touches && e.touches.length === 1) touchEndX = e.touches[0].clientX;
+      if (e.touches.length === 1) touchEndX = e.touches[0].clientX;
     };
     const onTouchEnd = () => {
       const dx = touchStartX - touchEndX;
       if (Math.abs(dx) > minSwipeDistance) {
-        if (dx > 0) onNext && onNext();
-        else onPrev && onPrev();
+        dx > 0 ? onNext?.() : onPrev?.();
       }
-      touchStartX = 0; touchEndX = 0;
+      touchStartX = 0;
+      touchEndX = 0;
     };
 
-    const lb = document.getElementById(styles.lightbox);
-    if (lb) {
-      lb.addEventListener("touchstart", onTouchStart, { passive: true });
-      lb.addEventListener("touchmove", onTouchMove, { passive: true });
-      lb.addEventListener("touchend", onTouchEnd, { passive: true });
-    }
+    const lb = containerRef.current;
+    lb.addEventListener("touchstart", onTouchStart, { passive: true });
+    lb.addEventListener("touchmove", onTouchMove, { passive: true });
+    lb.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      if (lb) {
-        lb.removeEventListener("touchstart", onTouchStart);
-        lb.removeEventListener("touchmove", onTouchMove);
-        lb.removeEventListener("touchend", onTouchEnd);
-      }
+      lb.removeEventListener("touchstart", onTouchStart);
+      lb.removeEventListener("touchmove", onTouchMove);
+      lb.removeEventListener("touchend", onTouchEnd);
     };
-  }, [onNext, onPrev]);
+  }, [isOpen, onNext, onPrev]);
 
   if (!isOpen) return null;
 
   return (
-    <div id={styles.lightbox} className={`${styles.lightbox} ${styles.open}`} aria-hidden={!isOpen}>
-      <button className={styles["lightbox-close"]} aria-label="Close (Esc)" onClick={onClose}>&times;</button>
+    <div
+      ref={containerRef}
+      className={`${styles.lightbox} ${styles.open}`}
+      aria-hidden={!isOpen}
+    >
+      {/* Close Button */}
+      <button
+        className={styles["lightbox-close"]}
+        aria-label="Close (Esc)"
+        onClick={onClose}
+      >
+        &times;
+      </button>
 
-      <div className={`${styles["lightbox-nav"]} ${styles.left}`} data-action="prev" onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }} aria-hidden="true">&#10094;</div>
+      {/* Left Navigation */}
+      <div
+        className={`${styles["lightbox-nav"]} ${styles.left}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev?.();
+        }}
+        aria-hidden="true"
+      >
+        &#10094;
+      </div>
 
+      {/* Image */}
       <img
         ref={imgRef}
         className={styles["lightbox-img"]}
-        id="lightbox-img"
         src={images[currentIndex]}
-        alt="Enlarged photo"
+        alt={`Slide ${currentIndex + 1}`}
         onClick={(e) => e.stopPropagation()}
       />
 
-      <div className={`${styles["lightbox-nav"]} ${styles.right}`} data-action="next" onClick={(e) => { e.stopPropagation(); onNext && onNext(); }} aria-hidden="true">&#10095;</div>
+      {/* Right Navigation */}
+      <div
+        className={`${styles["lightbox-nav"]} ${styles.right}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext?.();
+        }}
+        aria-hidden="true"
+      >
+        &#10095;
+      </div>
+
+      {/* Thumbnails */}
+      {images.length > 1 && (
+        <div className={styles["lightbox-thumbnails"]}>
+          {images.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`Thumbnail ${i + 1}`}
+              className={`${styles.thumbnail} ${
+                i === currentIndex ? styles.active : ""
+              }`}
+              onClick={() => {
+                if (i !== currentIndex) {
+                  if (i > currentIndex) {
+                    onNext?.();
+                  } else {
+                    onPrev?.();
+                  }
+                }
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

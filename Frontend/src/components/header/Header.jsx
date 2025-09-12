@@ -87,7 +87,6 @@ const LuxuryHeader = () => {
                 </div>
 
                 <Link to="/contact" className="nav-link">
-                  
                   Contact
                 </Link>
               </div>

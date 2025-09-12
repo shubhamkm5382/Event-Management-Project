@@ -9,6 +9,8 @@ import Services from "./pages/services/Services";
 import BookingPage from "./pages/BookingPage/BookingPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import Login from "./pages/login/Login";
+import ContactUs from "./pages/ContactUsPage/ContactUsPage"
+
 
 import { useLocation } from "react-router-dom";
 
@@ -27,6 +29,7 @@ function App() {
         <Route path="/bookingpage/:category" element={<BookingPage />} />
         <Route path="/gallery/:category" element={<GalleryPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
 
       {!hideLayout && <Footer />}

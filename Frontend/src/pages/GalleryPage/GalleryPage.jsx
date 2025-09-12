@@ -6,7 +6,7 @@ import GalleryItem from "../../components/GalleryPage/GalleryItem/GalleryItem";
 import Lightbox from "../../components/GalleryPage/Lightbox/Lightbox";
 import { useParams } from "react-router-dom";  
 
-const categories = ["photo", "video", "short", "album"];
+const categories = ["photo", "video", "short"];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("photo");

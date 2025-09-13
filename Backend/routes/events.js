@@ -56,11 +56,11 @@ router.get("/", (req, res) => {
 
 // ✅ Create event
 router.post("/", (req, res) => {
-  const { event_title, event_subtitle, event_description, cover_image } =
+  const { event_type, event_title, event_description, cover_image } =
     req.body;
   db.query(
-    "INSERT INTO events (event_title, event_subtitle, event_description, cover_image) VALUES (?, ?, ?, ?)",
-    [event_title, event_subtitle, event_description, cover_image],
+    "INSERT INTO events (event_type, event_title, event_description, cover_image) VALUES (?, ?, ?, ?)",
+    [event_type, event_title, event_description, cover_image],
     (err, result) => {
       if (err) {
         console.error("Database insert error:", err);
@@ -83,13 +83,13 @@ router.post("/", (req, res) => {
 
 // ✅ Update event
 router.put("/:id", (req, res) => {
-  const { event_title, event_subtitle, event_description, cover_image } =
+  const { event_type, event_title, event_description, cover_image } =
     req.body;
   db.query(
-    "UPDATE events SET event_title=?, event_subtitle=?, event_description=?, cover_image=? WHERE event_id=?",
+    "UPDATE events SET event_type=?, event_title=?, event_description=?, cover_image=? WHERE event_id=?",
     [
+      event_type,
       event_title,
-      event_subtitle,
       event_description,
       cover_image,
       req.params.id,
@@ -155,7 +155,7 @@ router.delete("/:id", (req, res) => {
 
 router.get("/cover_section/:type", (req, res) => {
   db.query(
-    "SELECT * FROM events WHERE event_title = ?",
+    "SELECT * FROM events WHERE event_type = ?",
     [req.params.type],
     (err, result) => {
       if (err) {

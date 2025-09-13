@@ -5,6 +5,7 @@ const cors = require("cors");
 const eventRoutes = require("./routes/events");
 const albumRoutes = require("./routes/albums");
 const mediaRoutes = require("./routes/media");
+const eventInfoRoutes = require("./routes/eventInfo");
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use("/api/events", eventRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/media", mediaRoutes);
+app.use("/api/event-info", eventInfoRoutes);
 
 app.use("/api/gallery", require("./routes/gallery"));
 

@@ -11,21 +11,30 @@ import EventInfo from "../../components/BookingPage/EventInfo/EventInfo";
 
 const BookingPage = () => {
   const { category } = useParams(); 
-  const [media, setMedia] = useState([]); // pura object store karenge
+
+  // ✅ Media states
+  const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Event Info states
+  const [eventInfo, setEventInfo] = useState([]);
+  const [eventLoading, setEventLoading] = useState(true);
+
+  // Refs
   const bookingFormRef = useRef(null);
   const extraGalleryRef = useRef(null);
 
+  // Lightbox states
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // ✅ Fetch Media
   useEffect(() => {
     const fetchMedia = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/media/bookingpage/${category}`); 
         const data = await res.json();
-        setMedia(data); // ab media objects ka pura array aa jayega
+        setMedia(data);
       } catch (err) {
         console.error("Error fetching media:", err);
       } finally {
@@ -36,6 +45,26 @@ const BookingPage = () => {
     fetchMedia();
   }, [category]);
 
+  // ✅ Fetch Event Info
+useEffect(() => {
+  const fetchEventInfo = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/event-info/by-type/${category.toLowerCase()}`);
+      const data = await res.json();
+      // data array hai → pehle element ko hi pass kar do
+      setEventInfo(data[0]);
+    } catch (err) {
+      console.error("Error fetching event info:", err);
+    } finally {
+      setEventLoading(false);
+    }
+  };
+
+  fetchEventInfo();
+}, [category]);
+
+
+  // ✅ Lightbox Handlers
   const openLightbox = (index) => {
     if (typeof index !== "number") return;
     setCurrentIndex(index);
@@ -49,20 +78,29 @@ const BookingPage = () => {
   const showPrev = () =>
     setCurrentIndex((prev) => (prev - 1 + media.length) % media.length);
 
+  // ✅ Scroll to Extra Gallery
   const scrollToExtraGallery = () => {
     if (extraGalleryRef.current) {
       extraGalleryRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  // ✅ Loader for media
+  if (loading) return <p>Loading gallery...</p>;
 
-  // sirf urls nikalne ke liye ek array bana lo
+  // ✅ Extract only urls
   const imageUrls = media.map((item) => item.media_url);
+
+  // const eventinfos = eventInfo.map((items) => items.location);
 
   return (
     <div className={styles["booking-page-container"]}>
       <div className={styles.container}>
+
+        {/* {console.log(eventinfos)} */}
+        {/* {console.log(eventInfo)} */}
+        
+        {/* ✅ Gallery */}
         {imageUrls.length > 0 && (
           <Gallery
             images={imageUrls.slice(0, 5)}
@@ -72,11 +110,19 @@ const BookingPage = () => {
           />
         )}
 
+        {/* ✅ Event Info + Booking Form */}
         <div className={styles.content}>
-          <EventInfo />
+          {eventLoading ? (
+            <p>Loading event info...</p>
+          ) : (
+            <EventInfo eventInfo={eventInfo} />
+
+            // <EventInfo eventInfo={eventInfo} />
+          )}
           <BookingForm bookingFormRef={bookingFormRef} />
         </div>
 
+        {/* ✅ Extra Gallery */}
         {imageUrls.length > 5 && (
           <>
             <h2 className={styles["gallery-title"]}>More Wedding Moments</h2>
@@ -89,6 +135,7 @@ const BookingPage = () => {
         )}
       </div>
 
+      {/* ✅ Lightbox */}
       <Lightbox
         images={imageUrls}
         isOpen={lightboxOpen}
@@ -98,6 +145,7 @@ const BookingPage = () => {
         onPrev={showPrev}
       />
 
+      {/* ✅ Floating Booking Button */}
       <FloatingBookingButton bookingFormRef={bookingFormRef} />
     </div>
   );

@@ -144,7 +144,7 @@ router.get("/bookingpage/:type", (req, res) => {
     SELECT m.* 
     FROM media m
     JOIN events e ON m.event_id = e.event_id
-    WHERE e.event_title = ? 
+    WHERE e.event_type = ? 
       AND m.media_type = 'photo'
   `;
 
@@ -165,7 +165,7 @@ router.get("/:type/:mediaType", (req, res) => {
     SELECT m.* 
     FROM media m
     JOIN events e ON m.event_id = e.event_id
-    WHERE e.event_title = ? 
+    WHERE e.event_type = ? 
       AND m.media_type = ?
   `;
 

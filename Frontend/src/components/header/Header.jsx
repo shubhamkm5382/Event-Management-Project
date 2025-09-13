@@ -19,7 +19,7 @@ const LuxuryHeader = () => {
   return (
     <>
       <div className="luxury-header-container">
-        
+
 
         <nav className={`luxury-navbar ${isScrolled ? 'scrolled' : ''}`}>
           <div className="navbar-content">
@@ -35,7 +35,7 @@ const LuxuryHeader = () => {
               </div>
             </Link>
 
-            <button 
+            <button
               className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -47,20 +47,20 @@ const LuxuryHeader = () => {
             <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
               <div className="nav-links">
                 <Link to="/" className="nav-link">
-                  
+
                   Home
                 </Link>
                 <Link to="/about" className="nav-link">
-                  
+
                   About Us
                 </Link>
                 <Link to="/services" className="nav-link">
-                  
+
                   Services
                 </Link>
                 <div className="nav-dropdown">
                   <button className="dropdown-toggle">
-                    
+
                     Gallery
                     {/* <i className="fas fa-chevron-down"></i> */}
                   </button>
@@ -91,23 +91,23 @@ const LuxuryHeader = () => {
                 </Link>
               </div>
 
-            <div className="">
-              <Link to="/login" className="login-btn">
-              <i className="fas fa-user"></i>
-              
-               Login
-            </Link>
-            </div>
-              <button className="cta-btn">
+              <div className="">
+                <Link to="/login" className="login-btn">
+                  <i className="fas fa-user"></i>
+
+                  Login
+                </Link>
+              </div>
+              {/* <button className="cta-btn">
                 <i className="fas fa-calendar-check"></i>
                 Book Event
-              </button>
+              </button> */}
             </div>
           </div>
         </nav>
       </div>
 
-      
+
     </>
   );
 };

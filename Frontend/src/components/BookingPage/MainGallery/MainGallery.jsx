@@ -13,6 +13,7 @@ const MainGallery = ({ images = [], onImageClick, scrollToExtraGallery, totalIma
 
   return (
     <div className={styles.gallery}>
+
       {images.slice(0, 5).map((img, index) => {
         // Wrapper div classes
         let wrapperClass = "";

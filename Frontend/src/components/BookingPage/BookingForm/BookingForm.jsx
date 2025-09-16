@@ -18,7 +18,7 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
 
         {/* Mobile */}
         <label>Mobile No</label>
-        <input type="text" placeholder="Enter Mobile Number" required />
+        <input type="number" placeholder="Enter Mobile Number" required />
 
         {/* Event Type */}
         <label>Event Type</label>
@@ -49,7 +49,7 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
 
         {/* Estimated Budget */}
         <label>Estimated Budget</label>
-        <input type="text" placeholder="e.g. ₹1,00,000 - ₹10,00,000" required />
+        <input type="number" placeholder="e.g. ₹1,00,000 - ₹10,00,000" required />
 
         {/* Submit */}
         <button type="submit" className={styles.btn}>Book Now</button>

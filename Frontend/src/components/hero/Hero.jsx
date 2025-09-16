@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "../../components/hero/hero.css";
 
@@ -27,9 +28,12 @@ const HeroSection = () => {
                 <button className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
                   Explore Events
                 </button>
-                <button className="btn btn-outline-light rounded-pill px-4 py-2 fw-bold">
-                  Contact Us
-                </button>
+
+                <Link to="/contact">
+                  <button className="btn btn-outline-light rounded-pill px-4 py-2 fw-bold">
+                    Contact Us
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -56,7 +60,7 @@ const HeroSection = () => {
                       }}
                     />
                     {/* Overlay Text */}
-                    
+
                   </div>
 
                   {/* Slide 2 */}
@@ -72,7 +76,7 @@ const HeroSection = () => {
                       }}
                     />
                     {/* Overlay Text */}
-                    
+
                   </div>
 
                   <div className="carousel-item">
@@ -87,7 +91,7 @@ const HeroSection = () => {
                       }}
                     />
                     {/* Overlay Text */}
-                    
+
                   </div>
                 </div>
 

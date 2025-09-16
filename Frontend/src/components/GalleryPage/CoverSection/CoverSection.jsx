@@ -34,7 +34,7 @@ export default function CoverSection({ eventType }) {
     >
       <div className={styles["cover-content"]}>
         <h1 className={styles["cover-title"]}>
-          {coverData?.data?.event_title || "Event"} - Gallery of LuxeEvents
+          {coverData?.data?.event_type.toUpperCase() || "Event"} - Gallery of LuxeEvents
         </h1>
 
         <p className={styles["cover-subtitle"]}>

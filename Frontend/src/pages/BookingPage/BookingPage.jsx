@@ -91,13 +91,10 @@ useEffect(() => {
   // ✅ Extract only urls
   const imageUrls = media.map((item) => item.media_url);
 
-  // const eventinfos = eventInfo.map((items) => items.location);
-
   return (
     <div className={styles["booking-page-container"]}>
       <div className={styles.container}>
 
-        {/* {console.log(eventinfos)} */}
         {/* {console.log(eventInfo)} */}
         
         {/* ✅ Gallery */}

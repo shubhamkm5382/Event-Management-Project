@@ -47,27 +47,19 @@ const LuxuryHeader = () => {
             <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
               <div className="nav-links">
                 <Link to="/" className="nav-link">
-
                   Home
                 </Link>
                 <Link to="/about" className="nav-link">
-
                   About Us
                 </Link>
                 <Link to="/services" className="nav-link">
-
                   Services
                 </Link>
                 <div className="nav-dropdown">
                   <button className="dropdown-toggle">
-
                     Gallery
-                    {/* <i className="fas fa-chevron-down"></i> */}
                   </button>
                   <div className="dropdown-menu">
-                    {/* <Link to="/gallery/all" className="dropdown-item">
-                      All Events Gallery
-                    </Link> */}
                     <Link to="/gallery/wedding" className="dropdown-item">
                       Wedding Celebration
                     </Link>

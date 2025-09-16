@@ -1,47 +1,36 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./ContactUsPage.module.css";
-// import "../styles/global.css"; // ensure path matches your project
 
-export default function Contact() {
-  const formRef = useRef(null);
-  const [toastVisible, setToastVisible] = useState(false);
+const ContactPage = () => {
   const [toastMsg, setToastMsg] = useState("");
-  const hideTimerRef = useRef(null);
+  const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    };
-  }, []);
-
-  function showToast(msg) {
-    setToastMsg(msg || "Thank you! Your enquiry has been sent.");
-    setToastVisible(true);
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    hideTimerRef.current = setTimeout(() => setToastVisible(false), 4200);
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const form = formRef.current;
-    const name = (form.name.value || "").trim();
-    const email = (form.email.value || "").trim();
-    const message = (form.message.value || "").trim();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
 
     if (!name || !email || !message) {
-      showToast("Please fill all required fields.");
+      showToastMsg("Please fill all required fields.");
       return;
     }
 
-    showToast("Thanks " + (name.split(" ")[0] || "") + "! We received your enquiry.");
-    // reset after a short delay to mimic original
+    showToastMsg(`Thanks ${name.split(" ")[0] || ""}! We received your enquiry.`);
     setTimeout(() => form.reset(), 600);
-  }
+  };
+
+  const showToastMsg = (msg) => {
+    setToastMsg(msg);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 4200);
+  };
 
   return (
-    <>
+    <div className={styles.pageWrapper}>
       <div className={styles.wrap} role="main" aria-labelledby="contactTitle">
-        {/* LEFT: event image */}
+        {/* LEFT IMAGE */}
         <div className={styles.left} aria-hidden="true">
           <div className={styles.brand} aria-hidden="true">
             <h1>LuxeEvents</h1>
@@ -52,17 +41,17 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* RIGHT: simple contact form */}
+        {/* RIGHT FORM */}
         <div className={styles.right}>
           <div className={styles.card} role="region" aria-label="Contact form">
             <h2 id="contactTitle">Let's plan something unforgettable</h2>
-            <p className={`${styles.subtitle} subtitle`}>
+            <p className={styles.subtitle}>
               Share a few details and our lead planner will reach out within 24
               hours.
             </p>
 
-            <form id="contactForm" ref={formRef} onSubmit={handleSubmit} noValidate>
-              <div className={styles["form-group"]}>
+            <form id="contactForm" onSubmit={handleSubmit} noValidate>
+              <div className={styles.formGroup}>
                 <label htmlFor="name">Your name</label>
                 <input
                   id="name"
@@ -71,11 +60,10 @@ export default function Contact() {
                   placeholder="e.g. Rahul Sharma"
                   required
                   autoComplete="name"
-                  className={styles.input}
                 />
               </div>
 
-              <div className={styles["form-group"]}>
+              <div className={styles.formGroup}>
                 <label htmlFor="email">Email address</label>
                 <input
                   id="email"
@@ -84,23 +72,21 @@ export default function Contact() {
                   placeholder="you@domain.com"
                   required
                   autoComplete="email"
-                  className={styles.input}
                 />
               </div>
 
-              <div className={styles["form-group"]}>
+              <div className={styles.formGroup}>
                 <label htmlFor="message">Tell us about your event</label>
                 <textarea
                   id="message"
                   name="message"
                   placeholder="Briefly describe your event, expected guests, vibe..."
                   required
-                  className={styles.textarea}
-                />
+                ></textarea>
               </div>
 
               <div className={styles.actions}>
-                <button className={styles.btn} type="submit" aria-live="polite">
+                <button className={styles.btn} type="submit">
                   Send Enquiry
                 </button>
                 <div className={styles.meta}>
@@ -116,15 +102,16 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* toast */}
+      {/* TOAST */}
       <div
-        id="toast"
-        className={`${styles.toast} ${toastVisible ? styles.show : ""}`}
+        className={`${styles.toast} ${showToast ? styles.show : ""}`}
         role="status"
         aria-live="polite"
       >
         {toastMsg || "Thank you! Your enquiry has been sent."}
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default ContactPage;

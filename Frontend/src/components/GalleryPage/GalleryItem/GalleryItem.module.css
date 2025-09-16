@@ -93,3 +93,7 @@
 .gallery-shorts {
   aspect-ratio: 9 / 16;  /* vertical video */
 }
+
+.gallery-video {
+  aspect-ratio: 16 / 9;
+}

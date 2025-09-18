@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import styles from "./Lightbox.module.css";
 
 const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }) => {
   const containerRef = useRef(null);
 
-  // Keyboard navigation
+  // Keyboard controls
   useEffect(() => {
     if (!isOpen) return;
 
@@ -14,8 +14,8 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
       if (e.key === "Escape") onClose?.();
     };
 
-    window.addEventListener("keydown", handleKey);
-    document.body.style.overflow = "hidden"; // Prevent background scroll
+    window.addEventListener("keydown", handleKey, { passive: true });
+    document.body.style.overflow = "hidden";
 
     return () => {
       window.removeEventListener("keydown", handleKey);
@@ -23,7 +23,7 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
     };
   }, [isOpen, onNext, onPrev, onClose]);
 
-  // Touch swipe navigation
+  // Touch swipe
   useEffect(() => {
     if (!isOpen || !containerRef.current) return;
 
@@ -51,49 +51,44 @@ const Lightbox = ({ images = [], isOpen, currentIndex, onClose, onNext, onPrev }
     };
   }, [isOpen, onNext, onPrev]);
 
+  // ✅ Preload next/prev images
+  useEffect(() => {
+    if (images[currentIndex + 1]) {
+      const img = new Image();
+      img.src = images[currentIndex + 1];
+    }
+    if (images[currentIndex - 1]) {
+      const img = new Image();
+      img.src = images[currentIndex - 1];
+    }
+  }, [currentIndex, images]);
+
   if (!isOpen) return null;
 
   return (
     <div ref={containerRef} className={`${styles.lightbox} ${styles.open}`}>
-      {/* Close */}
       <button className={styles["lightbox-close"]} aria-label="Close" onClick={onClose}>
         &times;
       </button>
 
-      {/* Left Nav */}
       <div className={`${styles["lightbox-nav"]} ${styles.left}`} onClick={onPrev}>
         &#10094;
       </div>
 
-      {/* Image */}
       <img
-        className={styles["lightbox-img"]}
+        key={currentIndex}
+        className={`${styles["lightbox-img"]} ${styles.fade}`}
         src={images[currentIndex]}
         alt={`Slide ${currentIndex + 1}`}
-        onClick={(e) => e.stopPropagation()}
+        loading="eager"
+        draggable="false"
       />
 
-      {/* Right Nav */}
       <div className={`${styles["lightbox-nav"]} ${styles.right}`} onClick={onNext}>
         &#10095;
       </div>
-
-      {/* Thumbnails */}
-      {images.length > 1 && (
-        <div className={styles["lightbox-thumbnails"]}>
-          {images.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt={`Thumbnail ${i + 1}`}
-              className={`${styles.thumbnail} ${i === currentIndex ? styles.active : ""}`}
-              onClick={() => i !== currentIndex && (i > currentIndex ? onNext() : onPrev())}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };
 
-export default Lightbox;
+export default memo(Lightbox);

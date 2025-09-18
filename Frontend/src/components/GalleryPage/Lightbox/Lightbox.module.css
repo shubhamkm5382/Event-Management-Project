@@ -1,58 +1,109 @@
 .lightbox {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  padding: 20px;
+  z-index: 1050;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lightbox.open {
+  opacity: 1;
+}
+
+.lb-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 40px;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.lb-close:hover {
+  transform: scale(1.2);
 }
 
 .lb-wrap {
-  max-width: 1100px;
-  width: 100%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 85%;
+  max-height: 85%;
 }
 
 .media {
-  max-width: 92%;
-  max-height: 78vh;
+  max-width: 100%;
+  max-height: 80vh;
   border-radius: 8px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-  object-fit: contain; /* video aur image dono ko fit karega */
-  background: #000;    /* video ke empty space ko black dikhayega */
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease;
+  background: black;
 }
 
-.caption {
-  color: #fff;
-  margin-top: 12px;
-  font-size: 0.98rem;
+.media:hover {
+  transform: scale(1.02);
 }
 
-.lb-close,
 .lb-prev,
 .lb-next {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.6rem;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 50%;
-  padding: 8px 10px;
-  cursor: pointer;
+  font-size: 50px;
+  color: white;
+  background: transparent;
   border: none;
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
+  transform: translateY(-50%);
+  transition: color 0.2s;
 }
 
-.lb-close {
-  top: 18px;
-  right: 18px;
-  transform: none;
+.lb-prev:hover,
+.lb-next:hover {
+  color: #ffd700;
 }
+
 .lb-prev {
-  left: 18px;
+  left: 20px;
 }
+
 .lb-next {
-  right: 18px;
+  right: 20px;
+}
+
+.caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #f1f1f1;
+  text-align: center;
+  max-width: 80%;
+}
+
+@media (max-width: 768px) {
+  .media {
+    max-width: 90%;
+    max-height: 70%;
+  }
+
+  .lb-prev,
+  .lb-next {
+    font-size: 35px;
+  }
+
+  .caption {
+    font-size: 14px;
+    padding: 0 10px;
+  }
 }

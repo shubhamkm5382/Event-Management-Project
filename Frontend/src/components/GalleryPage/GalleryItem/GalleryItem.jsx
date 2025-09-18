@@ -4,31 +4,32 @@ import styles from "./GalleryItem.module.css";
 export default function GalleryItem({ item, onClick }) {
   const ref = useRef();
 
-  useEffect(() => {
-    function resizeGridItem() {
-      const el = ref.current;
-      if (!el) return;
+useEffect(() => {
+  const el = ref.current;
+  if (!el) return;
 
-      const grid = el.parentNode;
-      const rowHeight = parseInt(
-        window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-      );
-      const rowGap = parseInt(
-        window.getComputedStyle(grid).getPropertyValue("gap")
-      );
+  const resizeGridItem = () => {
+    const grid = el.parentNode;
+    const rowHeight = parseInt(
+      window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
+    );
+    const rowGap = parseInt(
+      window.getComputedStyle(grid).getPropertyValue("gap")
+    );
+    const mediaEl = el.querySelector("img, video");
+    if (!mediaEl) return;
 
-      const mediaEl = el.querySelector("img, video");
-      if (!mediaEl) return;
+    const contentHeight = mediaEl.getBoundingClientRect().height;
+    const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+    el.style.gridRowEnd = `span ${rowSpan}`;
+  };
 
-      const contentHeight = mediaEl.getBoundingClientRect().height;
-      const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
-      el.style.gridRowEnd = `span ${rowSpan}`;
-    }
+  const observer = new ResizeObserver(resizeGridItem);
+  observer.observe(el);
 
-    resizeGridItem();
-    window.addEventListener("resize", resizeGridItem);
-    return () => window.removeEventListener("resize", resizeGridItem);
-  }, [item]);
+  return () => observer.disconnect();
+}, [item]);
+
 
   return (
     <article

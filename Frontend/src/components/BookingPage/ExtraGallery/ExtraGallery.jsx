@@ -1,11 +1,11 @@
-import React, { forwardRef, useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef, useCallback } from "react";
 import styles from "./ExtraGallery.module.css";
 
 const ExtraGallery = forwardRef(({ images = [], onImageClick }, ref) => {
   const itemRefs = useRef([]);
 
   // Function to resize one grid item
-  function resizeGridItem(el) {
+  const resizeGridItem = useCallback((el) => {
     if (!el) return;
     const grid = el.parentNode;
     const rowHeight = parseInt(
@@ -14,21 +14,39 @@ const ExtraGallery = forwardRef(({ images = [], onImageClick }, ref) => {
     const rowGap = parseInt(
       window.getComputedStyle(grid).getPropertyValue("gap")
     );
-    const contentHeight = el.querySelector("img").getBoundingClientRect().height;
+    const mediaEl = el.querySelector("img");
+    if (!mediaEl) return;
+
+    const contentHeight = mediaEl.getBoundingClientRect().height;
     const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
     el.style.gridRowEnd = `span ${rowSpan}`;
-  }
+  }, []);
 
   // Resize all grid items
-  function resizeAllGridItems() {
+  const resizeAllGridItems = useCallback(() => {
     itemRefs.current.forEach((el) => resizeGridItem(el));
-  }
+  }, [resizeGridItem]);
 
   useEffect(() => {
-    resizeAllGridItems(); // run on mount
-    window.addEventListener("resize", resizeAllGridItems);
-    return () => window.removeEventListener("resize", resizeAllGridItems);
-  }, [images]);
+    resizeAllGridItems();
+
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeAllGridItems, 150);
+    };
+    window.addEventListener("resize", handleResize);
+
+    const observer = new ResizeObserver(() => {
+      resizeAllGridItems();
+    });
+    itemRefs.current.forEach((el) => el && observer.observe(el));
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
+    };
+  }, [images, resizeAllGridItems]);
 
   return (
     <div ref={ref} className={styles["extra-gallery"]}>
@@ -48,7 +66,7 @@ const ExtraGallery = forwardRef(({ images = [], onImageClick }, ref) => {
             src={src}
             alt={`Extra ${idx + 1}`}
             loading="lazy"
-            onLoad={(e) => resizeGridItem(e.target.parentNode)} // ✅ fix: adjust after image load
+            onLoad={(e) => resizeGridItem(e.target.parentNode)}
           />
         </div>
       ))}

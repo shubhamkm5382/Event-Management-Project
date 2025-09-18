@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --bg-dark: #0a0a0a;
   --gold-1: #e6c875;
   --gold-2: #d4af37;
@@ -26,7 +26,6 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* LEFT */
 .left {
   min-width: 260px;
   background-image: url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=2069&q=80");
@@ -66,7 +65,6 @@
     color: rgba(255, 255, 255, 0.82);
 }
 
-/* RIGHT */
 .right {
   flex: 1;
   display: flex;
@@ -97,7 +95,6 @@
   margin-bottom: 18px;
 }
 
-/* FORM */
 .formGroup {
   margin-bottom: 14px;
 }
@@ -169,7 +166,6 @@
   font-size: 13px;
 }
 
-/* TOAST */
 .toast {
   position: fixed;
   right: 22px;
@@ -189,7 +185,6 @@
   opacity: 1;
 }
 
-/* Responsive */
 @media (max-width: 980px) {
   .wrap {
     flex-direction: column;
@@ -224,5 +219,266 @@
   }
   .formGroup textarea {
     min-height: 100px;
+  }
+} */
+
+
+:root {
+  --gold-1: #e6c875;
+  --gold-2: #d4af37;
+  --bg: #ffffff;
+  --text: #111827;         /* primary text (dark) */
+  --muted: #6b7280;        /* secondary / placeholder */
+  --panel: #ffffff;        /* card background */
+  --panel-border: #eef2f6; /* subtle panel border */
+  --shadow: 0 10px 40px rgba(16, 24, 40, 0.06);
+  --max-width: 1400px;
+}
+
+/* Page wrapper */
+.pageWrapper {
+  font-family: "Montserrat", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max-width);
+  border-radius: 14px;
+  display: flex;
+}
+
+/* LEFT */
+.left {
+  min-width: 260px;
+  background-image: url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=2069&q=80");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+/* subtle overlay so brand text stays legible on light mode */
+.left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+
+.brand {
+  position: relative;
+  z-index: 2;
+  margin: 44px;
+  color: var(--gold-1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 68%;
+}
+.brand h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 44px;
+  margin-bottom: 6px;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  color: var(--gold-1);
+}
+.brand p {
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9); /* kept light so it contrasts with the dark overlay */
+}
+
+/* RIGHT */
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  /* keep backdrop-filter only if you want a tiny glass effect; harmless on light bg */
+  backdrop-filter: blur(4px);
+}
+.card h2 {
+  font-family: "Cormorant Garamond", serif;
+  color: var(--gold-1);
+  font-size: 26px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+/* FORM */
+.formGroup {
+  margin-bottom: 14px;
+}
+.formGroup label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--text);
+}
+/* inputs now readable on light background */
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  background: #ffffff;
+  font-size: 14px;
+  color: var(--text);
+  transition: all 0.18s ease;
+  box-shadow: inset 0 1px 0 rgba(16,24,40,0.03);
+}
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--gold-1);
+  box-shadow: 0 0 0 4px rgba(230, 200, 117, 0.14);
+}
+.formGroup textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* ACTIONS / BUTTONS */
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+.btn {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(212, 175, 55, 0.14);
+}
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+}
+
+.meta {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--muted);
+}
+.quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+.pill {
+  background: rgba(17, 24, 39, 0.04);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: rgba(230, 200, 117, 0.12);
+  color: #111;
+  padding: 12px 18px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.35s ease;
+  font-weight: 600;
+}
+.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsive — kept identical to original logic */
+@media (max-width: 980px) {
+  .wrap {
+    flex-direction: column;
+  }
+  .left {
+    height: 42vh;
+    min-height: 260px;
+    background-position: center 30%;
+  }
+  .brand {
+    margin: 18px;
+    max-width: 90%;
+  }
+  .right {
+    padding: 28px;
+  }
+  .card {
+    margin-top: 12px;
+    width: 92%;
+    margin: auto;
+  }
+  .brand h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 420px) {
+  .brand h1 {
+    font-size: 22px;
+  }
+  .card {
+    padding: 18px;
+  }
+  .formGroup textarea {
+    min-height: 100px;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .btn, .toast, .formGroup input, .formGroup textarea {
+    transition: none !important;
   }
 }

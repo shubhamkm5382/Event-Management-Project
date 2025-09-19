@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cinzel:wght@600&display=swap");
+
+.card-title {
+  font-family: "Cinzel", serif;
+  /* text-align: left; */
+  font-weight: 700;
+}
+
+/* Event Card */
+.event-card {
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  background: #fff;
+  height: 100%; /* Flexible card height */
+}
+
+/* Card Image */
+.event-card img {
+  height: 220px; /* 🔥 Image ka size bada kar diya */
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
+
+.event-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.85);
+}
+
+/* Card Title */
+.event-card .card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem; /* 🔥 bottom padding kam kar diya */
+  color: #333;
+}
+
+/* Tagline */
+.event-card .tagline {
+  font-size: 0.9rem;
+  color: #6c757d;
+  padding: 0.3rem 0.6rem;
+  text-align: center;
+  font-style: italic;
+  border-top: 1px dashed #eee;
+}
+
+/* Muted Info */
+.event-card .muted-info {
+  font-size: 0.8rem;
+  color: #777;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+/* Footer Buttons */
+.event-card .card-footer {
+  margin-top: auto;
+  padding: 0.6rem;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+}
+
+.event-card .card-footer .btn {
+  min-width: 100px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.event-card .card-footer .btn:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .event-card img {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .event-card img {
+    height: 180px !important; /* Mobile ke liye bhi thoda bada */
+  }
+
+  .event-card .card-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .event-card .tagline {
+    font-size: 0.8rem;
+  }
+}

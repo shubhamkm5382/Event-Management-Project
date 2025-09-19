@@ -6,6 +6,15 @@ const Eventshop = () => {
   return (
     <div>
       <div className="container-fluid my-5">
+          {/* Gallery Section Heading */}
+          <div class="text-center my-5">
+            <h2 class="fw-bold text-uppercase mb-3">
+              <span class="text-primary">✨ Explore Our Gallery ✨</span>
+            </h2>
+            <p class="text-muted fs-5">
+              Discover different categories and click to open the full gallery
+            </p>
+          </div>
         <div className="row event_boxcard text-center g-1">
           <div className="col-lg-2 col-md-4 col-sm-6 col-12">
             <Link to="/gallery/birthday" className="shop_card birthday">

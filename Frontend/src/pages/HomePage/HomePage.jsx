@@ -1,10 +1,9 @@
-import HeroSection from '../../components/hero/Hero'
-import Features from '../../components/event/Eventshop'
-import Events from '../../components/event/EventProduct'
-import CounterCards from '../../components/event/CounterCards'
-import TestimonialCards from "../../components/event/TestimonialCards";
-// import Loader from "../../components/event/Loader";
-import GallerySection from "../../components/event/GallerySection";
+import HeroSection from '../../components/HomePage/HeroSection/HeroSection'
+import Features from '../../components/HomePage/Eventshop'
+import Events from '../../components/HomePage/EventProduct'
+import CounterCards from '../../components/HomePage/CounterCards/CounterCards'
+import TestimonialCards from "../../components/HomePage/TestimonialCards/TestimonialCards";
+import GallerySection from "../../components/HomePage/RecentWork/GallerySection";
 
 const Home = () => {
   return (
@@ -14,7 +13,6 @@ const Home = () => {
       <Features />
       <CounterCards />
       <Events />
-      {/* <Loader /> */}
       <GallerySection />
       <TestimonialCards />
     </div>

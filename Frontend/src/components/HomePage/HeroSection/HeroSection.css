@@ -3,7 +3,7 @@
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.6)
     ),
-    url("../../img/heroimg3.jpg") center/cover no-repeat;
+    url("../../../img/heroimg3.jpg") center/cover no-repeat;
   color: white;
   min-height: 90vh;
   display: flex;

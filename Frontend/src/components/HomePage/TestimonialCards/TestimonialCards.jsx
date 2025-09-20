@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TestimonialCards.module.css";
-import award from "../../img/award.png";
+import award from "../../../img/award.png";
 
 const testimonials = [
   {

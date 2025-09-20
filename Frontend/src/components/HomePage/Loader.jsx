@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Gallery.module.css";
+import styles from "./RecentWork/Gallery.module.css";
 
 export default function Loader() {
   const [hidden, setHidden] = useState(false);

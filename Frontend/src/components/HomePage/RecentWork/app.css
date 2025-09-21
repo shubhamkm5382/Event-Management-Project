@@ -1,0 +1,129 @@
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f5f2;
+  color: #333;
+  padding: 20px;
+}
+
+.gallery-section {
+  padding: 60px 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin: 40px auto 0;
+  max-width: 1400px;
+}
+
+.section-title {
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  font-size: 3.5rem;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #d4af37;
+}
+
+.carousel-wrap {
+  width: 100%;
+  max-width: 1400px;
+  height: 470px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(2, 6, 23, 0.08);
+  margin: 0 auto;
+  position: relative;
+}
+
+.carousel {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  gap: 42px;
+  align-items: center;
+  transform: translateY(-50%);
+  will-change: transform;
+}
+
+.carousel img {
+  width: 220px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 220ms, box-shadow 220ms;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+}
+
+.carousel-item {
+  position: relative;
+}
+
+.photo-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 15px;
+  border-radius: 0 0 12px 12px;
+}
+
+.carousel-item:hover .photo-details {
+  opacity: 1;
+}
+
+/* Loader */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+
+.loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #d4af37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  color: #666;
+  font-size: 0.9rem;
+}

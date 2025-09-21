@@ -8,6 +8,7 @@ export default function GallerySection() {
   const draggingRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartScrollRef = useRef(0);
+  const animationRef = useRef(null);
 
   // Double the photos for seamless looping
   const doubledPhotos = [...photos, ...photos];
@@ -52,26 +53,30 @@ export default function GallerySection() {
     });
   }, [norm]);
 
-  // Scroll with wheel
-// Scroll with wheel (only horizontal)
-const handleWheel = useCallback(
-  (e) => {
-    const LINE_HEIGHT = 16;
-    const factor = e.deltaMode === 1 ? LINE_HEIGHT : 1;
+  // Auto move
+  const autoMove = useCallback(() => {
+    if (!draggingRef.current) {
+      scrollXRef.current += 0.6; // speed adjust karo
+      render();
+    }
+    animationRef.current = requestAnimationFrame(autoMove);
+  }, [render]);
 
-    // ❌ पहले dx + dy*0.9 कर रहे थे
-    // ✅ अब सिर्फ horizontal scroll (deltaX) use करेंगे
-    const dx = (e.deltaX || 0) * factor;
+  // Scroll with wheel (only horizontal)
+  const handleWheel = useCallback(
+    (e) => {
+      const LINE_HEIGHT = 16;
+      const factor = e.deltaMode === 1 ? LINE_HEIGHT : 1;
+      const dx = (e.deltaX || 0) * factor;
 
-    if (Math.abs(dx) < 0.5) return;
-    e.preventDefault();
+      if (Math.abs(dx) < 0.5) return;
+      e.preventDefault();
 
-    scrollXRef.current += dx;
-    render();
-  },
-  [render]
-);
-
+      scrollXRef.current += dx;
+      render();
+    },
+    [render]
+  );
 
   // Mouse drag
   const handleMouseDown = useCallback((e) => {
@@ -128,7 +133,6 @@ const handleWheel = useCallback(
     document.documentElement.style.setProperty("--scale-max", "1.2");
 
     const wrap = wrapRef.current;
-
     if (!wrap || !carouselRef.current) return;
 
     wrap.addEventListener("wheel", handleWheel, { passive: false });
@@ -142,7 +146,30 @@ const handleWheel = useCallback(
 
     render();
 
+    // ✅ Run autoMove only when section visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!animationRef.current) {
+              animationRef.current = requestAnimationFrame(autoMove);
+            }
+          } else {
+            if (animationRef.current) {
+              cancelAnimationFrame(animationRef.current);
+              animationRef.current = null;
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(wrap);
+
     return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      observer.disconnect();
       wrap.removeEventListener("wheel", handleWheel);
       wrap.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mousemove", handleMouseMove);
@@ -152,7 +179,17 @@ const handleWheel = useCallback(
       wrap.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("resize", render);
     };
-  }, [handleWheel, handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd, render]);
+  }, [
+    handleWheel,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    render,
+    autoMove,
+  ]);
 
   return (
     <section className={styles.gallerySection} id="gallery">
@@ -163,14 +200,11 @@ const handleWheel = useCallback(
           {doubledPhotos.map((photo, i) => (
             <div className={styles.carouselItem} key={i}>
               <img src={photo.src} alt={photo.title} />
-              {/* <div className={styles.photoDetails}>
-                <h4 className={styles.photoTitle}>{photo.title}</h4>
-                <p className={styles.photoLocation}>{photo.location}</p>
-              </div> */}
             </div>
           ))}
         </div>
-        <div className={styles.centerLine} aria-hidden="true"></div>
+        {/* centerLine agar nahi chahiye to hata do */}
+        {/* <div className={styles.centerLine} aria-hidden="true"></div> */}
       </div>
     </section>
   );
@@ -219,4 +253,3 @@ const photos = [
     location: "Black Forest, Germany",
   },
 ];
-

@@ -472,6 +472,7 @@
     padding: 18px;
   }
   .formGroup textarea {
+    
     min-height: 100px;
   }
 }

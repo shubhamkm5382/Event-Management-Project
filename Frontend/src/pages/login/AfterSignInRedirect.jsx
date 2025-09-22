@@ -3,18 +3,24 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
 
 export default function AfterSignInRedirect() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    if (!user) return;
-    const role = user.publicMetadata?.role;
+    if (!isLoaded || !user) return;
 
-    if (role === "admin") {
-      window.location.href = "http://localhost:5173/"; // Admin dashboard
+    // Email verification strategy check
+    const email = user?.emailAddresses?.[0];
+    const strategy = email?.verification?.strategy;
+
+    console.log("Verification Strategy:", strategy);
+
+    if (strategy === "admin") {
+      // Treat this user as admin
+      window.location.replace("http://localhost:5173/");
     } else {
-      window.location.href = "http://localhost:5173/"; // User app
+      window.location.replace("http://localhost:3000/");
     }
-  }, [user]);
+  }, [isLoaded, user]);
 
   return <p>Redirecting...</p>;
 }

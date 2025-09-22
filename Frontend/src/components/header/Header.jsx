@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './header.css'
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const LuxuryHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +15,6 @@ const LuxuryHeader = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   return (
     <>
@@ -82,14 +82,18 @@ const LuxuryHeader = () => {
                   Contact
                 </Link>
               </div>
+              <SignedOut>
+                <div>
+                  <Link to="/sign-in" className="login-btn">
+                    <i className="fas fa-user"></i>
+                    Login
+                  </Link>
+                </div>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
 
-              <div className="">
-                <Link to="/login" className="login-btn">
-                  <i className="fas fa-user"></i>
-
-                  Login
-                </Link>
-              </div>
               {/* <button className="cta-btn">
                 <i className="fas fa-calendar-check"></i>
                 Book Event
@@ -98,8 +102,6 @@ const LuxuryHeader = () => {
           </div>
         </nav>
       </div>
-
-
     </>
   );
 };

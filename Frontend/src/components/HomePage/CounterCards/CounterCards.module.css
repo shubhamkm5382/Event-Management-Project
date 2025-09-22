@@ -9,18 +9,15 @@
 
 /* Full screen shell, center content */
 .shell {
-  /* min-height: 100vh; full-screen */
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: var(--bg); */
-  background: #0b172410;
+ position: relative;
+ bottom: 80px;
   padding: 24px;
   box-sizing: border-box;
-  /* position: relative; */
-  /* top: -80px; */
-  /* position: absolute; */
+  
 }
 
 /* grid of cards */

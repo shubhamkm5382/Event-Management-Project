@@ -12,11 +12,11 @@ const Home = () => {
     <div>
       {/* navbar start */}
       <HeroSection />
+      <CounterCards/>
       <Features />
       <Events />
       <ElementorSection/>
-      <CounterCards/>
-      <CounterSection/>
+      {/* <CounterSection/> */}
       <GallerySection />
       <TestimonialCards />
     </div>

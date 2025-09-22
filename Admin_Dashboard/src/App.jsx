@@ -5,6 +5,7 @@ import Media from "./pages/Media";
 import EventInfo from "./pages/EventInfo";
 import Booking from "./pages/Booking";
 import { Bell, Search } from "lucide-react"; // for icons
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -71,12 +72,17 @@ function Layout({ children }) {
 
             {/* Profile */}
             <div className="flex items-center space-x-2 cursor-pointer">
-              <img
+              <SignedIn>
+              {/* <img
                 src="https://i.pravatar.cc/40"
                 alt="Profile"
                 className="w-8 h-8 rounded-full"
-              />
+              /> */}
+                            
+                <UserButton />
+              
               <span className="text-sm font-medium text-gray-700">Shubham</span>
+              </SignedIn>
             </div>
           </div>
         </header>

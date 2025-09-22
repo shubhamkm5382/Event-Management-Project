@@ -12,7 +12,7 @@ export default function AfterSignInRedirect() {
     if (role === "admin") {
       window.location.href = "http://localhost:5173/"; // Admin dashboard
     } else {
-      window.location.href = "http://localhost:3000/"; // User app
+      window.location.href = "http://localhost:5173/"; // User app
     }
   }, [user]);
 

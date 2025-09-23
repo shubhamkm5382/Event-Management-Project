@@ -1,0 +1,50 @@
+.pageTitle {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pageTitle h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--gray-500);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.contentCard {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+}
+
+@media (max-width: 768px) {
+  .pageTitle h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageTitle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pageTitle h1 {
+    font-size: 1.5rem;
+  }
+}

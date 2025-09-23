@@ -7,16 +7,15 @@ import Home from "./pages/HomePage/HomePage";
 import About from "./pages/about/About";
 import BookingPage from "./pages/BookingPage/BookingPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
-import Login from "./pages/login/Login";
+import Login from "./pages/LoginPage/Login";
 import ContactUsPage from "./pages/ContactUsPage/ContactUsPage"
 import ServicesPage from "./pages/ServicesPage/ServicesPage"
 
 import { useLocation } from "react-router-dom";
 
-import SignInPage from "./pages/login/SignInPage";
-import SignUpPage from "./pages/login/SignUpPage";
-import AfterSignInRedirect from "./pages/login/AfterSignInRedirect";
-import { SignIn, SignUp } from '@clerk/clerk-react';
+import SignInPage from "./pages/LoginPage/SignInPage";
+import SignUpPage from "./pages/LoginPage/SignUpPage";
+import AfterSignInRedirect from "./pages/LoginPage/AfterSignInRedirect";
 
 function App() {
   const location = useLocation();

@@ -5,7 +5,7 @@ import CounterCards from '../../components/HomePage/CounterCards/CounterCards'
 import TestimonialCards from "../../components/HomePage/TestimonialCards/TestimonialCards";
 import GallerySection from "../../components/HomePage/RecentWork/GallerySection";
 import ElementorSection from "../../components/HomePage/ElementorSection/ElementorSection";
-import CounterSection from "../../components/HomePage/CounterCards/CounterSection";
+// import CounterSection from "../../components/HomePage/CounterCards/CounterSection";
 
 const Home = () => {
   return (

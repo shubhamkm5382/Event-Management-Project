@@ -7,6 +7,8 @@
   max-width: 400px;
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: sticky;
+  top: 0px;
 }
 
 .title {

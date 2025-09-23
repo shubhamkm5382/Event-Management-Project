@@ -1,0 +1,165 @@
+.sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+  overflow-x: hidden;
+}
+
+.sidebarHeader {
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-weight: 800;
+  font-size: 24px;
+  background: white;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.sidebar.collapsed .logoText {
+  opacity: 0;
+  transform: translateX(-10px);
+  width: 0;
+}
+
+.toggleBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.toggleBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Rotated icon for collapsed state */
+.rotated {
+  transform: rotate(180deg);
+}
+
+.sidebarMenu {
+  padding: 8px 0;
+}
+
+.menuItem {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.menuItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(4px);
+}
+
+.menuItem.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-left-color: white;
+}
+
+.menuItem i {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.menuText {
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .menuText {
+  opacity: 0;
+  transform: translateX(-10px);
+  width: 0;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+}

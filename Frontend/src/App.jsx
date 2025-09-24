@@ -17,6 +17,10 @@ import SignInPage from "./pages/LoginPage/SignInPage";
 import SignUpPage from "./pages/LoginPage/SignUpPage";
 import AfterSignInRedirect from "./pages/LoginPage/AfterSignInRedirect";
 
+import WhatsAppButton from "./components/WhatsAppButton/WhatsAppButton"
+
+
+
 function App() {
   const location = useLocation();
   const hideLayout = location.pathname === "/login";
@@ -40,6 +44,7 @@ function App() {
 
       </Routes>
 
+        <WhatsAppButton/>
       {!hideLayout && <Footer />}
     </>
   );

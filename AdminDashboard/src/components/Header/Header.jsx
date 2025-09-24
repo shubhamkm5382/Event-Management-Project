@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './Header.module.css';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 function Header({ onMenuClick, showToggleInHeader, onToggleDesktop }) {
   return (
@@ -33,10 +34,15 @@ function Header({ onMenuClick, showToggleInHeader, onToggleDesktop }) {
           <i className="fas fa-bell" aria-hidden="true"></i>
           <span className={styles.notificationBadge} aria-hidden="true">4</span>
         </a>
+        <SignedOut>
         <a href="#" className={styles.profileBtn} aria-label="Profile">
           <div className={styles.userAvatar}>AD</div>
           <span className={styles.userName}>Admin User</span>
         </a>
+        </SignedOut>
+        <SignedIn>
+          <UserButton/>
+        </SignedIn>
       </div>
     </div>
   );

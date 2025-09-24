@@ -1,34 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './Sidebar.module.css';
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ 
-  activePage, 
-  setActivePage, 
   isCollapsed, 
   isMobileOpen, 
   onCloseMobile,
   onToggleDesktop,
-  showToggleInSidebar // ✅ Naya prop
+  showToggleInSidebar
 }) {
-  const menu = [
-    { key: 'dashboard', icon: 'fas fa-home', label: 'Dashboard' },
-    { key: 'users', icon: 'fas fa-users', label: 'Users' },
-    { key: 'products', icon: 'fas fa-box', label: 'Products' },
-    { key: 'analytics', icon: 'fas fa-chart-bar', label: 'Analytics' },
-    { key: 'settings', icon: 'fas fa-cog', label: 'Settings' },
-  ];
+  const location = useLocation(); 
+  const [activeMenu, setActiveMenu] = useState(location.pathname);
 
-  const handleClick = (key) => {
-    setActivePage(key);
-    onCloseMobile();
+  const handleMenuClick = (path) => {
+    setActiveMenu(path);
+    if (window.innerWidth <= 768) onCloseMobile();
   };
 
   const handleToggleClick = () => {
-    if (window.innerWidth <= 768) {
-      onCloseMobile();
-    } else {
-      onToggleDesktop();
-    }
+    if (window.innerWidth <= 768) onCloseMobile();
+    else onToggleDesktop();
   };
 
   return (
@@ -38,6 +29,7 @@ function Sidebar({
       role="navigation" 
       aria-label="Main navigation"
     >
+      {/* Sidebar Header */}
       <div className={styles.sidebarHeader}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>
@@ -45,8 +37,7 @@ function Sidebar({
           </div>
           <span className={styles.logoText}>LuxeEvents</span>
         </div>
-        
-        {/* Toggle button sirf tab dikhega jab sidebar expanded ho aur mobile na ho */}
+
         {showToggleInSidebar && (
           <button 
             className={styles.toggleBtn} 
@@ -58,21 +49,43 @@ function Sidebar({
         )}
       </div>
 
+      {/* Sidebar Menu */}
       <div className={styles.sidebarMenu}>
-        {menu.map(item => (
-          <div
-            key={item.key}
-            className={`${styles.menuItem} ${activePage === item.key ? styles.active : ''}`}
-            onClick={() => handleClick(item.key)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(item.key); }}
-            aria-current={activePage === item.key ? 'page' : undefined}
-          >
-            <i className={item.icon} aria-hidden="true"></i>
-            <span className={styles.menuText}>{item.label}</span>
-          </div>
-        ))}
+        <Link 
+          to="/" 
+          className={`${styles.menuItem} ${activeMenu === "/" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/")}
+        >
+          <i className='fas fa-home' aria-hidden="true"></i>
+          <span className={styles.menuText}>Dashboard</span>
+        </Link>
+
+        <Link 
+          to="/products" 
+          className={`${styles.menuItem} ${activeMenu === "/products" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/products")}
+        >
+          <i className='fas fa-users' aria-hidden="true"></i>
+          <span className={styles.menuText}>Products</span>
+        </Link>
+
+        <Link 
+          to="/analytics" 
+          className={`${styles.menuItem} ${activeMenu === "/analytics" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/analytics")}
+        >
+          <i className='fas fa-box' aria-hidden="true"></i>
+          <span className={styles.menuText}>Analytics</span>
+        </Link>
+
+        <Link 
+          to="/settings" 
+          className={`${styles.menuItem} ${activeMenu === "/settings" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/settings")}
+        >
+          <i className='fas fa-chart-bar' aria-hidden="true"></i>
+          <span className={styles.menuText}>Settings</span>
+        </Link>
       </div>
     </div>
   );

@@ -7,14 +7,26 @@ function AdminRoute({ children }) {
 
     if (!user) {
         return (
-            <div style={{ textAlign: "center", marginTop: "50px" }}>
+            <div
+                style={{
+                    color: "white",
+                    minHeight: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingTop: "50px",
+                    paddingBottom: "50px",
+                    background: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
+                     url("https://images.pexels.com/photos/2526105/pexels-photo-2526105.jpeg") center/cover no-repeat`,
+                }}>
                 <h2>Access Restricted</h2>
                 <p>
-                    You must be signed in to view this page.  
+                    You must be signed in to view this page.
                     Please log in with your <strong>admin account</strong>.
                 </p>
 
-                <SignIn/>
+                <SignIn />
 
                 {/* <a 
                     href="http://localhost:3000/sign-in" 
@@ -40,13 +52,34 @@ function AdminRoute({ children }) {
 
     if (!isAdmin) {
         return (
-            <div style={{ textAlign: "center", marginTop: "50px" }}>
+            <div style={{
+                color: "white",
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingTop: "50px",
+                paddingBottom: "50px",
+                background: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
+                     url("https://images.pexels.com/photos/2526105/pexels-photo-2526105.jpeg") center/cover no-repeat`,
+            }}>
                 <h2>Admin Access Only</h2>
                 <p>
-                    This page is restricted to <strong>admin users</strong> only.  
+                    This page is restricted to <strong>admin users</strong> only.
                     Please log out and sign in again using your <strong>admin ID & password</strong>.
                 </p>
-                <UserButton/>
+                <UserButton
+                    appearance={{
+                        elements: {
+                            avatarBox: {
+                                width: "60px",
+                                height: "60px",
+                            },
+                        },
+                    }}
+                />
+
                 {/* <a 
                     href="http://localhost:3000" 
                     style={{ 

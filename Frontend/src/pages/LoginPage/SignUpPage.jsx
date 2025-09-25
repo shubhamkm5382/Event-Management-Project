@@ -10,7 +10,7 @@ export default function SignUpPage() {
         paddingTop: "50px",
         paddingBottom: "50px",
         background: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
-                     url("https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg") center/cover no-repeat`,
+                     url("https://images.pexels.com/photos/2526105/pexels-photo-2526105.jpeg") center/cover no-repeat`,
       }}
     >
       <SignUp

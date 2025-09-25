@@ -10,7 +10,7 @@ export default function SignInPage() {
         paddingTop: "50px",
         paddingBottom: "50px",
         background: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
-                     url("https://images.pexels.com/photos/14670403/pexels-photo-14670403.jpeg") center/cover no-repeat`,
+                     url("https://images.pexels.com/photos/2526105/pexels-photo-2526105.jpeg") center/cover no-repeat`,
       }}
     >
       <SignIn

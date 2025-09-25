@@ -52,7 +52,7 @@ export default function AdminDashboard() {
           isMobileOpen={mobileSidebarOpen}
           onCloseMobile={closeMobileSidebar}
           onToggleDesktop={toggleDesktopSidebar}
-          showToggleInSidebar={!isMobile && !sidebarCollapsed}
+          showToggleInSidebar={!sidebarCollapsed}
         />
 
         <div className={`${styles.mainContent} ${sidebarCollapsed ? styles.collapsed : ''} ${mobileSidebarOpen ? styles.mobileOpen : ''}`} role="main">

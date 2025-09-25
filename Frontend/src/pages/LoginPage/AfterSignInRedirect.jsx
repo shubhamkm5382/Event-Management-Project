@@ -8,16 +8,17 @@ export default function AfterSignInRedirect() {
   useEffect(() => {
     if (!isLoaded || !user) return;
 
-    // Email verification strategy check
     const email = user?.emailAddresses?.[0];
     const strategy = email?.verification?.strategy;
 
     console.log("Verification Strategy:", strategy);
 
     if (strategy === "admin") {
-      // Treat this user as admin
-      window.location.replace("http://localhost:5173/");
+      // Admin के लिए दूसरे tab में खोलना
+      window.open("http://localhost:5173/", "_blank");
+      window.location.replace("http://localhost:3000/");
     } else {
+      // Normal user के लिए same tab में redirect
       window.location.replace("http://localhost:3000/");
     }
   }, [isLoaded, user]);

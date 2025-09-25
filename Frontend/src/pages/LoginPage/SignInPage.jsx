@@ -2,8 +2,22 @@ import { SignIn } from "@clerk/clerk-react";
 
 export default function SignInPage() {
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "50px", marginBottom: "50px"  }}>
-      <SignIn routing="virtual" signUpUrl="/sign-up" afterSignInUrl="/after-sign-in" />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: "50px",
+        paddingBottom: "50px",
+        background: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.55)),
+                     url("https://images.pexels.com/photos/14670403/pexels-photo-14670403.jpeg") center/cover no-repeat`,
+      }}
+    >
+      <SignIn
+        routing="virtual"
+        signUpUrl="/sign-up"
+        afterSignInUrl="/after-sign-in"
+      />
     </div>
   );
 }

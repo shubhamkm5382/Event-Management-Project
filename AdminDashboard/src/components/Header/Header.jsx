@@ -41,9 +41,11 @@ function Header({ onMenuClick, showToggleInHeader, onToggleDesktop }) {
         </a>
         </SignedOut>
         <SignedIn>
-          <UserButton/>
+          <UserButton 
+          // afterSignOutUrl="http://localhost:3000/" 
+          />
         </SignedIn>
-      </div>
+      </div> 
     </div>
   );
 }

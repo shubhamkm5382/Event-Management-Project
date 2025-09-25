@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from './Sidebar.module.css';
 import { Link, useLocation } from "react-router-dom";
+import image from "./logo.png"; // correct import
 
 function Sidebar({ 
   isCollapsed, 
@@ -33,7 +34,7 @@ function Sidebar({
       <div className={styles.sidebarHeader}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>
-            <i className="fas fa-crown"></i>
+            <img src={image} alt="logo" />
           </div>
           <span className={styles.logoText}>LuxeEvents</span>
         </div>

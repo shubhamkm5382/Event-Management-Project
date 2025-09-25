@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './header.css'
+import image from "./logo.png"; // correct import
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const LuxuryHeader = () => {
@@ -19,14 +20,12 @@ const LuxuryHeader = () => {
   return (
     <>
       <div className="luxury-header-container">
-
-
         <nav className={`luxury-navbar ${isScrolled ? 'scrolled' : ''}`}>
           <div className="navbar-content">
             <Link to="/" className="navbar-brand">
               <div className="logo-container">
                 <div className="logo-icon">
-                  <i className="fas fa-crown"></i>
+                  <img src={image} alt="logo" />
                 </div>
                 <div className="logo-text">
                   <span className="logo-main">LuxeEvents</span>

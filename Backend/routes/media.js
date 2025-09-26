@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
       m.media_title,
       m.media_description,
       m.media_location,
-      m.created_at,
+      m.media_date,
       e.event_type   -- 👈 yaha se event_type aayega
     FROM media m
     JOIN events e ON m.event_id = e.event_id

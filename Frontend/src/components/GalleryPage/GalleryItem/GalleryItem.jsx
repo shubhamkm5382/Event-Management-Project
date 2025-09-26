@@ -82,7 +82,7 @@ useEffect(() => {
           </div>
           <div>
             <i className="fas fa-calendar"></i>{" "}
-            {new Date(item.created_at).toISOString().split("T")[0]}
+            {new Date(item.media_date).toISOString().split("T")[0]}
           </div>
         </div>
       </div>

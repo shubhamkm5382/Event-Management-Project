@@ -53,7 +53,7 @@ router.get("/:id", (req, res) => {
 });
 
 // ✅ Create new contact
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {

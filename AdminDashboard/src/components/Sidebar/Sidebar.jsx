@@ -87,6 +87,30 @@ function Sidebar({
           <i className='fas fa-chart-bar' aria-hidden="true"></i>
           <span className={styles.menuText}>Settings</span>
         </Link>
+        {/* <Link 
+          to="/addMedia" 
+          className={`${styles.menuItem} ${activeMenu === "/add" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/add")}
+        >
+          <i className='fas fa-chart-bar' aria-hidden="true"></i>
+          <span className={styles.menuText}>Add Media</span>
+        </Link> */}
+        <Link 
+          to="/updateMedia" 
+          className={`${styles.menuItem} ${activeMenu === "/updateMedia" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/updateMedia")}
+        >
+          <i className='fas fa-chart-bar' aria-hidden="true"></i>
+          <span className={styles.menuText}>Update Media</span>
+        </Link>
+        <Link 
+          to="/getMedia" 
+          className={`${styles.menuItem} ${activeMenu === "/getMedia" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/getMedia")}
+        >
+          <i className='fas fa-chart-bar' aria-hidden="true"></i>
+          <span className={styles.menuText}>Get all Media</span>
+        </Link>
       </div>
     </div>
   );

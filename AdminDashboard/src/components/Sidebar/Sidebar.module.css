@@ -50,33 +50,20 @@
   gap: 12px;
   flex-shrink: 0;
 }
-
-/* .logoIcon {
-  font-size: 1.8rem;
-  background: rgba(255, 255, 255, 0.2);
+.logoIcon {
   width: 44px;
   height: 44px;
+  background: linear-gradient(135deg, #7d3cf1 0%, #e6c200 100%) ;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-} */
-
-        .logoIcon {
-          width: 44px;
-          height: 44px;
-          background: linear-gradient(135deg, #7d3cf1 0%, #e6c200 100%) ;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-size: 18px;
-        }
-        .logoIcon img {
-          width:42px;
-          border-radius: 50%;
-        }
+  font-size: 18px;
+}
+.logoIcon img {
+  width:42px;
+  border-radius: 50%;
+}
 
 .logoText {
   transition: all 0.3s ease;

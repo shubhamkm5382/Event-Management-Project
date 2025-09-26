@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
       e.event_type   -- 👈 yaha se event_type aayega
     FROM media m
     JOIN events e ON m.event_id = e.event_id
-    ORDER BY m.created_at DESC
+    ORDER BY m.media_date DESC
   `;
 
   db.query(query, (err, results) => {

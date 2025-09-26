@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Gallery.module.css";
 import { Link } from "react-router-dom";
+import UpadteMedia from "../UpdateMedia/UpdateMedia"
 
 export default function Gallery() {
   const [media, setMedia] = useState([]);
@@ -40,7 +41,7 @@ export default function Gallery() {
 
     if (date) {
       result = result.filter(
-        (m) => m.created_at && m.created_at.startsWith(date)
+        (m) => m.media_date && m.media_date.startsWith(date)
       );
     }
 
@@ -73,6 +74,7 @@ export default function Gallery() {
   const handleEdit = (item) => {
     console.log("Edit clicked:", item);
     alert(`Edit clicked for: ${item.media_title}`);
+    <UpadteMedia></UpadteMedia>
   };
 
   return (
@@ -131,7 +133,7 @@ export default function Gallery() {
                   {/* ✅ Extra Info */}
                   <small>
                     {item.event_type} •{" "}
-                    {new Date(item.created_at).toLocaleDateString()}
+                    {new Date(item.media_date).toLocaleDateString()}
                   </small>
                   <br />
                   <small>Type: {item.media_type}</small>

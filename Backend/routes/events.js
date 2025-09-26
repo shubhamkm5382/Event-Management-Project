@@ -55,7 +55,7 @@ router.get("/", (req, res) => {
 // });
 
 // ✅ Create event
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
   const { event_type, event_title, event_description, cover_image } =
     req.body;
   db.query(

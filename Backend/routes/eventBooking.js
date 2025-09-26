@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 // ✅ CREATE Booking (user will send event_type instead of event_id)
-router.post("/", (req, res) => {
+router.post("/create", (req, res) => {
   const { event_type, user_name, email, mobile_number, event_date, status } = req.body;
 
   if (!event_type || !user_name || !email || !mobile_number || !event_date) {

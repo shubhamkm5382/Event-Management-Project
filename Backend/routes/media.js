@@ -134,7 +134,7 @@ router.post("/create", (req, res) => {
 
 
 // ✅ Update media
-router.put("/:id", (req, res) => {
+router.put("update/:id", (req, res) => {
   const { event_id, album_id, media_type, media_url, media_title, media_description, media_location } = req.body;
   db.query(
     "UPDATE media SET event_id=?, album_id=?, media_type=?, media_url=?, media_title=?, media_description=?, media_location=? WHERE media_id=?",

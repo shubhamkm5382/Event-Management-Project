@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import styles from "./BookingForm.module.css";
 import Swal from "sweetalert2";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import * as bootstrap from "bootstrap"; // ✅ Proper import
 
 const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
   const appliedRef = ref || bookingFormRef || null;
@@ -13,10 +13,10 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
   const [eventDate, setEventDate] = useState("");
 
   const handleBooking = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const bookingData = {
-      building: bookingFormRef?.id || "default_building", 
+      building: bookingFormRef?.id || "default_building",
       user_name: fullName,
       email: email,
       mobile_number: mobile,
@@ -25,11 +25,14 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/bookings/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bookingData),
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/bookings/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to book the room");
 
@@ -56,10 +59,11 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
       setEventType("");
       setEventDate("");
     } catch (error) {
+      console.error("Booking error:", error); // ✅ Error logged
       Swal.fire({
         icon: "error",
         title: "Booking Failed",
-        text: "Something went wrong. Please try again later.",
+        text: error.message || "Something went wrong. Please try again later.",
         confirmButtonText: "OK",
       });
     }

@@ -68,7 +68,7 @@ router.get("/:id", (req, res) => {
 
 // ✅ Create media (with event_type instead of event_id)
 router.post("/create", (req, res) => {
-  const { event_type, media_type, media_url, media_title, media_description, media_location } = req.body;
+  const { event_type, media_type, media_url, media_title, media_description, media_location, media_date} = req.body;
 
   if (!event_type || !media_type || !media_url) {
     return res.status(400).json({
@@ -102,7 +102,7 @@ router.post("/create", (req, res) => {
 
       // Media insert karna
       db.query(
-        "INSERT INTO media (event_id, media_type, media_url, media_title, media_description, media_location) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO media (event_id, media_type, media_url, media_title, media_description, media_location , media_date) VALUES (?, ?, ?, ?, ?, ?)",
         [event_id, media_type, media_url, media_title, media_description, media_location],
         (err, result) => {
           if (err) {
@@ -124,7 +124,8 @@ router.post("/create", (req, res) => {
             media_url,
             media_title,
             media_description,
-            media_location
+            media_location,
+            media_date
           });
         }
       );

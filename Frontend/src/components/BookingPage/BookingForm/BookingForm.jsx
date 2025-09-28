@@ -26,7 +26,7 @@ const BookingForm = forwardRef(({ bookingFormRef }, ref) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/bookings/create",
+        "/api/bookings/create",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

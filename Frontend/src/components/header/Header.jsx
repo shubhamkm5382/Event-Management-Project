@@ -52,7 +52,7 @@ const LuxuryHeader = () => {
                   About Us
                 </Link>
                 <Link to="/services" className="nav-link">
-                  Services
+                  Services 
                 </Link>
                 <div className="nav-dropdown">
                   <button className="dropdown-toggle">

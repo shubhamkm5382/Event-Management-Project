@@ -235,7 +235,4 @@ router.get("/:type/:mediaType", (req, res) => {
   });
 });
 
-
-
-
 module.exports = router;

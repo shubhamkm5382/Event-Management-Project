@@ -188,6 +188,7 @@ export default function UpdateMedia({ media, onClose }) {
                   onChange={handleFileChange}
                   className={styles.fileInput}
                 />
+                <div className={styles.dropzoneIcon}>📤</div>
                 <p>Drag & Drop a file here or click to select</p>
                 <small>Only one {mediaType.toLowerCase()} file allowed</small>
               </div>

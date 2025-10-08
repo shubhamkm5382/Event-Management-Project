@@ -128,6 +128,7 @@ export default function AddMedia() {
               <option value="">-- Select Media Type --</option>
               <option>Photo</option>
               <option>Video</option>
+              <option>Short</option>
             </select>
           </div>
         </div>
@@ -155,6 +156,7 @@ export default function AddMedia() {
 
           <div className={styles.dropArea} onDrop={handleDrop} onDragOver={handleDragOver} onClick={() => document.getElementById("fileInput").click()}>
             <input id="fileInput" type="file" multiple onChange={handleFileChange} className={styles.fileInput} />
+            <div className={styles.dropzoneIcon}>📤</div>
             <p>Drag & Drop files here or click to select files</p>
           </div>
 

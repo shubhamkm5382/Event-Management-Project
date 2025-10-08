@@ -129,6 +129,10 @@ textarea {
   font-size: 18px;
 } */
 
+.dropzoneIcon {
+  font-size: 32px;
+}
+
 .dropArea {
   border: 2px dashed #bdc3c7;
   padding: 30px 20px;

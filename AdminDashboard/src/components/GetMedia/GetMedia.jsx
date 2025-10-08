@@ -97,6 +97,7 @@ export default function Gallery() {
           <option value="">All Media</option>
           <option value="photo">Photo</option>
           <option value="video">Video</option>
+          <option value="short">Short</option>
         </select>
 
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
@@ -146,25 +147,25 @@ export default function Gallery() {
       )}
 
       {/* Update Popup */}
-{showUpdatePopup && (
-  <div className={styles.modalOverlay}>
-    <div className={styles.modalWrapper}> {/* <-- wrapper add kiya */}
-      <div className={styles.modalContent}>
-        <button
-          className={styles.closeBtn}
-          onClick={() => setShowUpdatePopup(false)}
-        >
-          ×
-        </button>
-        <UpdateMedia
-          media={selectedMedia}
-          onClose={() => setShowUpdatePopup(false)}
-          onUpdateSuccess={handleUpdateSuccess}
-        />
-      </div>
-    </div>
-  </div>
-)}
+      {showUpdatePopup && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalWrapper}> {/* <-- wrapper add kiya */}
+            <div className={styles.modalContent}>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowUpdatePopup(false)}
+              >
+                ×
+              </button>
+              <UpdateMedia
+                media={selectedMedia}
+                onClose={() => setShowUpdatePopup(false)}
+                onUpdateSuccess={handleUpdateSuccess}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

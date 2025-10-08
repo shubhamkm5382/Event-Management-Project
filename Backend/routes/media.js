@@ -1,8 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
+const multer = require("multer");
+const path = require("path");
 
-// ✅ Get all media with event_type
+// 📂 Multer Storage Config
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // files uploads folder me jayengi
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // unique name
+  },
+});
+
+const upload = multer({ storage });
+
+/* ===========================================================
+   ✅ Get all media with event_type
+   =========================================================== */
 router.get("/", (req, res) => {
   const query = `
     SELECT 
@@ -12,11 +28,11 @@ router.get("/", (req, res) => {
       m.media_title,
       m.media_description,
       m.media_location,
-      m.media_date,
-      e.event_type   -- 👈 yaha se event_type aayega
+      m.created_at,
+      e.event_type
     FROM media m
     JOIN events e ON m.event_id = e.event_id
-    ORDER BY m.media_date DESC
+    ORDER BY m.created_at DESC
   `;
 
   db.query(query, (err, results) => {
@@ -25,7 +41,7 @@ router.get("/", (req, res) => {
       return res.status(500).json({
         isSuccess: false,
         message: "Media fetch karte waqt error aayi ❌",
-        error: err.sqlMessage || err.message
+        error: err.sqlMessage || err.message,
       });
     }
 
@@ -33,13 +49,14 @@ router.get("/", (req, res) => {
       isSuccess: true,
       message: "Saare media records successfully fetch ho gaye 🎉",
       count: results.length,
-      data: results
+      data: results,
     });
   });
 });
 
-
-// ✅ Get single media
+/* ===========================================================
+   ✅ Get single media
+   =========================================================== */
 router.get("/:id", (req, res) => {
   db.query("SELECT * FROM media WHERE media_id = ?", [req.params.id], (err, result) => {
     if (err) {
@@ -47,95 +64,110 @@ router.get("/:id", (req, res) => {
       return res.status(500).json({
         isSuccess: false,
         message: "Media fetch karte waqt error aayi ❌",
-        error: err.sqlMessage || err.message
+        error: err.sqlMessage || err.message,
       });
     }
 
     if (result.length === 0) {
       return res.status(404).json({
         isSuccess: false,
-        message: "Media nahi mila ⚠️"
+        message: "Media nahi mila ⚠️",
       });
     }
 
     res.status(200).json({
       isSuccess: true,
       message: "Media record successfully fetch ho gaya 🎉",
-      data: result[0]
+      data: result[0],
     });
   });
 });
 
-// ✅ Create media (with event_type instead of event_id)
-router.post("/create", (req, res) => {
-  const { event_type, media_type, media_url, media_title, media_description, media_location, media_date} = req.body;
+/* ===========================================================
+   ✅ Create media (with file or URL)
+   =========================================================== */
+// ✅ Create media (with file or URL)
+router.post("/create", upload.array("media_files"), (req, res) => {
+  console.log("👉 BODY:", req.body);
+  console.log("👉 FILES:", req.files);
 
-  if (!event_type || !media_type || !media_url) {
-    return res.status(400).json({
-      isSuccess: false,
-      message: "event_type, media_type aur media_url required fields hain ❌"
+  const { event_type, media_type, media_title, media_description, media_location } = req.body;
+
+  let media_urls = [];
+
+  // Files
+  if (req.files && req.files.length > 0) {
+    req.files.forEach((file) => {
+      media_urls.push(`/uploads/${file.filename}`);
     });
   }
 
-  // Pehle event_type se event_id nikalna
-  db.query(
-    "SELECT id FROM events WHERE event_type = ? LIMIT 1",
-    [event_type],
-    (err, results) => {
-      if (err) {
-        console.error("Event lookup error:", err);
-        return res.status(500).json({
-          isSuccess: false,
-          message: "Event find karte waqt error aayi ❌",
-          error: err.sqlMessage || err.message
-        });
-      }
-
-      if (results.length === 0) {
-        return res.status(404).json({
-          isSuccess: false,
-          message: `Event type '${event_type}' ke liye koi event nahi mila ❌`
-        });
-      }
-
-      const event_id = results[0].id;
-
-      // Media insert karna
-      db.query(
-        "INSERT INTO media (event_id, media_type, media_url, media_title, media_description, media_location , media_date) VALUES (?, ?, ?, ?, ?, ?)",
-        [event_id, media_type, media_url, media_title, media_description, media_location],
-        (err, result) => {
-          if (err) {
-            console.error("Database insert error:", err);
-            return res.status(500).json({
-              isSuccess: false,
-              message: "Media save karte waqt error aayi ❌",
-              error: err.sqlMessage || err.message
-            });
-          }
-
-          res.status(201).json({
-            isSuccess: true,
-            message: "Media successfully added 🎉",
-            id: result.insertId,
-            event_id,
-            event_type,
-            media_type,
-            media_url,
-            media_title,
-            media_description,
-            media_location,
-            media_date
-          });
-        }
-      );
+  // URLs
+  if (req.body.media_urls || req.body["media_urls[]"]) {
+    const urls = req.body.media_urls || req.body["media_urls[]"];
+    if (Array.isArray(urls)) {
+      media_urls.push(...urls);
+    } else {
+      media_urls.push(urls);
     }
-  );
+  }
+
+  // Validation
+  if (!event_type || !media_type || media_urls.length === 0) {
+    return res.status(400).json({
+      isSuccess: false,
+      message: "event_type, media_type aur media_url required fields hain ❌",
+      debug: { body: req.body, files: req.files } // 🐞 Debugging
+    });
+  }
+
+  // 🔍 Event_id from event_type
+  db.query("SELECT event_id FROM events WHERE event_type = ? LIMIT 1", [event_type], (err, results) => {
+    if (err) {
+      return res.status(500).json({ isSuccess: false, message: "Event find karte waqt error aayi ❌", error: err });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ isSuccess: false, message: `Event type '${event_type}' ke liye koi event nahi mila ❌` });
+    }
+
+    const event_id = results[0].event_id;
+
+    // ✅ Multiple insert
+    const values = media_urls.map((url) => [
+      event_id,
+      media_type,
+      url,
+      media_title,
+      media_description,
+      media_location,
+    ]);
+
+    db.query(
+      "INSERT INTO media (event_id, media_type, media_url, media_title, media_description, media_location) VALUES ?",
+      [values],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({ isSuccess: false, message: "Media save karte waqt error aayi ❌", error: err });
+        }
+
+        res.status(201).json({
+          isSuccess: true,
+          message: "Media successfully added 🎉",
+          count: result.affectedRows,
+          media_urls,
+        });
+      }
+    );
+  });
 });
 
 
-// ✅ Update media
-router.put("update/:id", (req, res) => {
+
+/* ===========================================================
+   ✅ Update media
+   =========================================================== */
+router.put("/:id", (req, res) => {
   const { event_id, album_id, media_type, media_url, media_title, media_description, media_location } = req.body;
   db.query(
     "UPDATE media SET event_id=?, album_id=?, media_type=?, media_url=?, media_title=?, media_description=?, media_location=? WHERE media_id=?",
@@ -146,14 +178,14 @@ router.put("update/:id", (req, res) => {
         return res.status(500).json({
           isSuccess: false,
           message: "Media update karte waqt error aayi ❌",
-          error: err.sqlMessage || err.message
+          error: err.sqlMessage || err.message,
         });
       }
 
       if (result.affectedRows === 0) {
         return res.status(404).json({
           isSuccess: false,
-          message: "Media update nahi ho paya, shayad record exist nahi karta ⚠️"
+          message: "Media update nahi ho paya, shayad record exist nahi karta ⚠️",
         });
       }
 
@@ -161,13 +193,15 @@ router.put("update/:id", (req, res) => {
         isSuccess: true,
         message: "Media successfully update ho gaya 🎉",
         id: req.params.id,
-        ...req.body
+        ...req.body,
       });
     }
   );
 });
 
-// ✅ Delete media
+/* ===========================================================
+   ✅ Delete media
+   =========================================================== */
 router.delete("/:id", (req, res) => {
   db.query("DELETE FROM media WHERE media_id=?", [req.params.id], (err, result) => {
     if (err) {
@@ -175,25 +209,28 @@ router.delete("/:id", (req, res) => {
       return res.status(500).json({
         isSuccess: false,
         message: "Media delete karte waqt error aayi ❌",
-        error: err.sqlMessage || err.message
+        error: err.sqlMessage || err.message,
       });
     }
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
         isSuccess: false,
-        message: "Media delete nahi ho paya, record exist nahi karta ⚠️"
+        message: "Media delete nahi ho paya, record exist nahi karta ⚠️",
       });
     }
 
     res.status(200).json({
       isSuccess: true,
       message: "Media successfully delete ho gaya 🎉",
-      id: req.params.id
+      id: req.params.id,
     });
   });
 });
 
+/* ===========================================================
+   ✅ Media by event type (Booking Page)
+   =========================================================== */
 router.get("/bookingpage/:type", (req, res) => {
   const eventType = req.params.type;
 
@@ -214,6 +251,9 @@ router.get("/bookingpage/:type", (req, res) => {
   });
 });
 
+/* ===========================================================
+   ✅ Media by event type + media type
+   =========================================================== */
 router.get("/:type/:mediaType", (req, res) => {
   const eventType = req.params.type;
   const mediaType = req.params.mediaType;
@@ -231,11 +271,8 @@ router.get("/:type/:mediaType", (req, res) => {
       console.error(err);
       return res.status(500).json({ error: "Database error" });
     }
-    res.json(result); // sirf wahi media aayega jo match karega
+    res.json(result);
   });
 });
-
-
-
 
 module.exports = router;

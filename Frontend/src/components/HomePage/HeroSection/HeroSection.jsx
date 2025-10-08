@@ -50,7 +50,7 @@ const HeroSection = () => {
                   {/* Slide 1 */}
                   <div className="carousel-item active">
                     <img
-                      src='https://eventsolutions.com/wp-content/uploads/2019/11/20th-anniversary-party-with-dramatic-lighting-1-1030x765.jpg.webp'
+                      src='https://images.unsplash.com/photo-1469371670807-013ccf25f16a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnQlMjBwbGFubmluZ3xlbnwwfHwwfHx8MA%3D%3D'
                       className="d-block w-100"
                       alt="Event 1"
                       style={{

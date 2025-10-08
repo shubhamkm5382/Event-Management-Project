@@ -27,13 +27,11 @@ app.use("/api/bookings", eventBookingRoutes);
 app.use("/api/contact", contactRoutes);
 
 const PORT = 5000;
-<<<<<<< HEAD
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-=======
+
+
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
->>>>>>> 451282dc7dcf6cec4a2724ef6f73b43983962163
+
 });
 

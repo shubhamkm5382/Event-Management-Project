@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./UpdateMedia.module.css";
 
-export default function UpdateMedia() {
+export default function UpdateMedia({ media, onClose }) {
+  const [loading, setLoading] = useState(true);
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState("");
   const [mediaType, setMediaType] = useState("Photo");
@@ -13,10 +14,29 @@ export default function UpdateMedia() {
     createDate: ""
   });
 
+  useEffect(() => {
+    if (media) {
+      setFormData({
+        eventType: media.event_type || "",
+        eventTitle: media.media_title || "",
+        description: media.media_description || "",
+        mediaLocation: media.media_location || "",
+        createDate: media.media_date ? media.media_date.split("T")[0] : ""
+      });
+      setMediaType(media.media_type || "");
+
+      if (media.media_url) {
+        setFile({ name: "Existing Media", url: media.media_url });
+      }
+
+      setLoading(false);
+    }
+  }, [media]);
+
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
       setFile(e.target.files[0]);
-      setUrl(""); // Clear URL if file is selected
+      setUrl("");
     }
   };
 
@@ -25,9 +45,11 @@ export default function UpdateMedia() {
     const droppedFiles = Array.from(e.dataTransfer.files);
     if (droppedFiles.length > 0) {
       setFile(droppedFiles[0]);
-      setUrl(""); // Clear URL if file is dropped
+      setUrl("");
     }
   };
+
+  const handleDragOver = (e) => e.preventDefault();
 
   const handleUrlAdd = () => {
     if (url.trim()) {
@@ -41,11 +63,9 @@ export default function UpdateMedia() {
     setUrl("");
   };
 
-  const handleDragOver = (e) => e.preventDefault();
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
@@ -53,70 +73,51 @@ export default function UpdateMedia() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!file) {
-      alert("Please add a media file or URL");
-      return;
-    }
-
-    if (!formData.eventTitle.trim()) {
-      alert("Please enter an event title");
-      return;
-    }
-
-    // Here you would typically send the data to your backend
-    console.log("Media to update:", {
-      ...formData,
-      mediaType,
-      file: file.url ? { type: "url", value: file.url } : { type: "file", value: file }
-    });
-
-    alert("Media updated successfully!");
+    // ❗️ Tum apna update logic yaha likh sakte ho
+    console.log("Form data:", formData, "File:", file);
+    alert("Submit logic yaha likhna hai");
   };
 
   const handleCancel = () => {
-    setFile(null);
-    setUrl("");
-    setFormData({
-      eventType: "",
-      eventTitle: "",
-      description: "",
-      mediaLocation: "",
-      createDate: ""
-    });
-    setMediaType("Photo");
+    onClose();
   };
+
+  if (loading) {
+    return (
+      <div className={styles.loading}>
+        <p>Loading media details...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <h2>Update Media Item</h2>
-
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.grid}>
-          <div className={styles.field}>
-            <label htmlFor="eventType">Event Type</label>
-            <select 
-              id="eventType"
-              name="eventType"
-              value={formData.eventType}
-              onChange={handleInputChange}
-            >
-              <option value="">-- Select Event Type --</option>
-              <option value="Wedding">Wedding</option>
-              <option value="Concert">Concert</option>
-              <option value="Birthday">Birthday</option>
-              <option value="Corporate">Corporate</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+<div className={styles.field}>
+  <label>Event Type</label>
+  <select
+    name="eventType"
+    value={formData.eventType}
+    onChange={handleInputChange}
+  >
+    <option value="">-- Select Event Type --</option>
+    <option value="wedding">Wedding</option>
+    <option value="farewell">Farewell</option>
+    <option value="birthday">Birthday</option>
+    <option value="corporate">Corporate</option>
+    <option value="anniversary">Anniversary</option>
+  </select>
+</div>
+
 
           <div className={styles.field}>
-            <label htmlFor="eventTitle">Event Title *</label>
-            <input 
-              id="eventTitle"
-              type="text" 
+            <label>Event Title *</label>
+            <input
+              type="text"
               name="eventTitle"
-              placeholder="Enter event title" 
+              placeholder="Enter event title"
               value={formData.eventTitle}
               onChange={handleInputChange}
               required
@@ -124,45 +125,42 @@ export default function UpdateMedia() {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="mediaType">Media Type</label>
-            <select 
-              id="mediaType"
+            <label>Media Type</label>
+            <select
               value={mediaType}
               onChange={(e) => setMediaType(e.target.value)}
             >
-              <option value="Photo">Photo</option>
-              <option value="Video">Video</option>
+              <option value="photo">Photo</option>
+              <option value="video">Video</option>
+              <option value="short">Short</option>
             </select>
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="description">Description</label>
-            <textarea 
-              id="description"
+            <label>Description</label>
+            <textarea
               name="description"
-              placeholder="Enter description"
               value={formData.description}
               onChange={handleInputChange}
-            ></textarea>
+              placeholder="Enter description"
+            />
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="mediaLocation">Media Location</label>
-            <input 
-              id="mediaLocation"
-              type="text" 
+            <label>Media Location</label>
+            <input
+              type="text"
               name="mediaLocation"
-              placeholder="e.g. Delhi, India" 
+              placeholder="e.g. Delhi, India"
               value={formData.mediaLocation}
               onChange={handleInputChange}
             />
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="createDate">Create Date</label>
-            <input 
-              id="createDate"
-              type="date" 
+            <label>Create Date</label>
+            <input
+              type="date"
               name="createDate"
               value={formData.createDate}
               onChange={handleInputChange}
@@ -202,7 +200,7 @@ export default function UpdateMedia() {
                   value={url}
                   placeholder={`Enter ${mediaType.toLowerCase()} URL`}
                   onChange={(e) => setUrl(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleUrlAdd()}
+                  onKeyPress={(e) => e.key === "Enter" && handleUrlAdd()}
                 />
                 <button type="button" onClick={handleUrlAdd}>
                   Add URL
@@ -212,12 +210,16 @@ export default function UpdateMedia() {
           ) : (
             <div className={styles.singlePreview}>
               <div className={styles.previewItem}>
-                {file.url ? (
-                  <img src={file.url} alt="Media preview" />
+                {mediaType === "Video" ? (
+                  <video
+                    src={file.url || URL.createObjectURL(file)}
+                    controls
+                    width="100%"
+                  />
                 ) : (
                   <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
+                    src={file.url || URL.createObjectURL(file)}
+                    alt="Media preview"
                   />
                 )}
                 <span
@@ -228,18 +230,7 @@ export default function UpdateMedia() {
                   ×
                 </span>
               </div>
-              <div className={styles.fileInfo}>
-                <p><strong>File:</strong> {file.name || file.url}</p>
-                <p><strong>Type:</strong> {mediaType}</p>
-                <p><strong>Size:</strong> {file.size ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : 'URL'}</p>
-              </div>
             </div>
-          )}
-
-          {file && (
-            <p className={styles.fileCount}>
-              1 media item selected • {mediaType}
-            </p>
           )}
         </div>
 

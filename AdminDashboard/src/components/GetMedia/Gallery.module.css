@@ -104,3 +104,32 @@
   font-size: 18px;
   margin-top: 40px;
 }
+
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+
+  overflow-y: auto; /* popup scroll ke liye */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modalWrapper {
+  min-height: 100%;
+  display: flex;
+  align-items: center; /* vertical center */
+  justify-content: center; /* horizontal center */
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+  box-sizing: border-box;
+}

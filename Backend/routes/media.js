@@ -58,7 +58,22 @@ router.get("/", (req, res) => {
    ✅ Get single media
    =========================================================== */
 router.get("/:id", (req, res) => {
-  db.query("SELECT * FROM media WHERE media_id = ?", [req.params.id], (err, result) => {
+  const query = `
+    SELECT 
+      m.media_id,
+      m.media_type,
+      m.media_url,
+      m.media_title,
+      m.media_description,
+      m.media_location,
+      m.media_date,
+      e.event_type
+    FROM media m
+    JOIN events e ON m.event_id = e.event_id
+    WHERE m.media_id = ?
+  `;
+
+  db.query(query, [req.params.id], (err, result) => {
     if (err) {
       console.error("Database fetch error:", err);
       return res.status(500).json({
@@ -82,6 +97,7 @@ router.get("/:id", (req, res) => {
     });
   });
 });
+
 
 /* ===========================================================
    ✅ Create media (with file or URL)

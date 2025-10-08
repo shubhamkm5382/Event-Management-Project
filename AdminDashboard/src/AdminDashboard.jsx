@@ -10,7 +10,6 @@ import AnalyticsContent from "./components/Analytics/AnalyticsContent";
 import SettingsContent from "./components/Settings/SettingsContent";
 import styles from './AdminDashboard.module.css';
 import Add from "./components/AddMedia/AddMedia"
-import UpdateMedia from "./components/UpdateMedia/UpdateMedia"
 import GetMedia from "./components/GetMedia/GetMedia"
 
 export default function AdminDashboard() {
@@ -72,7 +71,6 @@ export default function AdminDashboard() {
               <Route path="/analytics" element={<AnalyticsContent />} />
               <Route path="/settings" element={<SettingsContent />} />
               <Route path="/addMedia" element={<Add />} />
-              <Route path="/updateMedia" element={<UpdateMedia />} />
               <Route path="/getMedia" element={<GetMedia />} />
               
             </Routes>

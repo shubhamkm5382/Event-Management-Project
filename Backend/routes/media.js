@@ -82,6 +82,7 @@ router.get("/:id", (req, res) => {
         error: err.sqlMessage || err.message,
       });
     }
+    
 
     if (result.length === 0) {
       return res.status(404).json({
@@ -183,37 +184,97 @@ router.post("/create", upload.array("media_files"), (req, res) => {
 /* ===========================================================
    ✅ Update media
    =========================================================== */
-router.put("/:id", (req, res) => {
-  const { event_id, album_id, media_type, media_url, media_title, media_description, media_location } = req.body;
-  db.query(
-    "UPDATE media SET event_id=?, album_id=?, media_type=?, media_url=?, media_title=?, media_description=?, media_location=? WHERE media_id=?",
-    [event_id, album_id, media_type, media_url, media_title, media_description, media_location, req.params.id],
-    (err, result) => {
+// PUT /api/media/:id
+// ✅ Update Media by ID (with safe debugging)
+router.put("/:id", upload.single("media_file"), (req, res) => {
+  const { id } = req.params;
+  const {
+    event_type,
+    media_title,
+    media_description,
+    media_location,
+    media_date,
+    media_type,
+  } = req.body;
+
+  const media_url = req.file ? `/uploads/${req.file.filename}` : req.body.media_url;
+
+  console.log("🟢 UPDATE Request received for ID:", id);
+  console.log("🟡 BODY:", req.body);
+  console.log("🟣 FILE:", req.file);
+
+  // Step 1: Find event_id from event_type
+  const eventQuery = "SELECT event_id FROM events WHERE event_type = ? LIMIT 1";
+  db.query(eventQuery, [event_type], (err, eventResult) => {
+    if (err) {
+      console.error("❌ Event fetch error:", err);
+      return res.status(500).json({
+        message: "Database error while fetching event_id",
+        error: err.sqlMessage || err.message,
+      });
+    }
+
+    if (eventResult.length === 0) {
+      return res.status(404).json({
+        message: `Event type '${event_type}' not found in events table ❌`,
+      });
+    }
+
+    const event_id = eventResult[0].event_id;
+    console.log("✅ Found event_id:", event_id);
+
+    // Step 2: Update query
+    const updateSQL = `
+      UPDATE media 
+      SET 
+        event_id = ?, 
+        media_type = ?, 
+        media_url = ?, 
+        media_title = ?, 
+        media_description = ?, 
+        media_location = ?, 
+        media_date = ?
+      WHERE media_id = ?
+    `;
+
+    const values = [
+      event_id,
+      media_type,
+      media_url,
+      media_title,
+      media_description,
+      media_location,
+      media_date,
+      id,
+    ];
+
+    console.log("🧩 Final SQL values:", values);
+
+    db.query(updateSQL, values, (err, result) => {
       if (err) {
-        console.error("Database update error:", err);
+        console.error("❌ SQL Update error:", err);
         return res.status(500).json({
-          isSuccess: false,
-          message: "Media update karte waqt error aayi ❌",
+          message: "Error updating media record",
           error: err.sqlMessage || err.message,
         });
       }
 
       if (result.affectedRows === 0) {
         return res.status(404).json({
-          isSuccess: false,
-          message: "Media update nahi ho paya, shayad record exist nahi karta ⚠️",
+          message: "No media found with this ID or no changes made ⚠️",
         });
       }
 
+      console.log("✅ Update successful:", result);
       res.status(200).json({
-        isSuccess: true,
-        message: "Media successfully update ho gaya 🎉",
-        id: req.params.id,
-        ...req.body,
+        message: "Media updated successfully ✅",
+        updatedId: id,
       });
-    }
-  );
+    });
+  });
 });
+
+
 
 /* ===========================================================
    ✅ Delete media

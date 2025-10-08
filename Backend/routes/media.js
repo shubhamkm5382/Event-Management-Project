@@ -28,11 +28,11 @@ router.get("/", (req, res) => {
       m.media_title,
       m.media_description,
       m.media_location,
-      m.created_at,
+      m.media_date,
       e.event_type
     FROM media m
     JOIN events e ON m.event_id = e.event_id
-    ORDER BY m.created_at DESC
+    ORDER BY m.media_date DESC
   `;
 
   db.query(query, (err, results) => {

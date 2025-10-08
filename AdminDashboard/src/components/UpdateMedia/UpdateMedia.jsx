@@ -95,21 +95,21 @@ export default function UpdateMedia({ media, onClose }) {
       <h2>Update Media Item</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.grid}>
-<div className={styles.field}>
-  <label>Event Type</label>
-  <select
-    name="eventType"
-    value={formData.eventType}
-    onChange={handleInputChange}
-  >
-    <option value="">-- Select Event Type --</option>
-    <option value="wedding">Wedding</option>
-    <option value="farewell">Farewell</option>
-    <option value="birthday">Birthday</option>
-    <option value="corporate">Corporate</option>
-    <option value="anniversary">Anniversary</option>
-  </select>
-</div>
+          <div className={styles.field}>
+            <label>Event Type</label>
+            <select
+              name="eventType"
+              value={formData.eventType}
+              onChange={handleInputChange}
+            >
+              <option value="">-- Select Event Type --</option>
+              <option value="wedding">Wedding</option>
+              <option value="farewell">Farewell</option>
+              <option value="birthday">Birthday</option>
+              <option value="corporate">Corporate</option>
+              <option value="anniversary">Anniversary</option>
+            </select>
+          </div>
 
 
           <div className={styles.field}>

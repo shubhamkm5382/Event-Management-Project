@@ -8,12 +8,10 @@ export default function Gallery() {
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filters
   const [eventType, setEventType] = useState("");
   const [mediaType, setMediaType] = useState("");
   const [date, setDate] = useState("");
 
-  // Update popup
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
 
@@ -45,7 +43,7 @@ export default function Gallery() {
     setFiltered(result);
   }, [eventType, mediaType, date, media]);
 
-  // Delete
+  // Delete media
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this media?")) return;
     try {
@@ -54,25 +52,25 @@ export default function Gallery() {
       });
       const data = await res.json();
       if (data.isSuccess) {
-        alert("Media deleted successfully ✅");
+        alert("✅ Media deleted successfully!");
         fetchMedia();
       } else {
-        alert("Failed to delete ❌");
+        alert("❌ Failed to delete");
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong ❌");
+      alert("❌ Something went wrong.");
     }
   };
 
-  // Edit
+  // Edit media
   const handleEdit = (item) => {
     setSelectedMedia(item);
     setShowUpdatePopup(true);
   };
 
   const handleUpdateSuccess = () => {
-    fetchMedia(); // refresh list after update
+    fetchMedia();
     setShowUpdatePopup(false);
   };
 
@@ -97,12 +95,13 @@ export default function Gallery() {
           <option value="">All Media</option>
           <option value="photo">Photo</option>
           <option value="video">Video</option>
+          <option value="short">Short</option>
         </select>
 
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </div>
 
-      {/* Gallery */}
+      {/* Gallery Grid */}
       {loading ? (
         <p className={styles.loading}>Loading...</p>
       ) : (
@@ -146,26 +145,25 @@ export default function Gallery() {
       )}
 
       {/* Update Popup */}
-{showUpdatePopup && (
-  <div className={styles.modalOverlay}>
-    <div className={styles.modalWrapper}> {/* <-- wrapper add kiya */}
-      <div className={styles.modalContent}>
-        <button
-          className={styles.closeBtn}
-          onClick={() => setShowUpdatePopup(false)}
-        >
-          ×
-        </button>
-        <UpdateMedia
-          media={selectedMedia}
-          onClose={() => setShowUpdatePopup(false)}
-          onUpdateSuccess={handleUpdateSuccess}
-        />
-      </div>
-    </div>
-  </div>
-)}
-
+      {showUpdatePopup && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalWrapper}>
+            <div className={styles.modalContent}>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowUpdatePopup(false)}
+              >
+                ×
+              </button>
+              <UpdateMedia
+                media={selectedMedia}
+                onClose={() => setShowUpdatePopup(false)}
+                onUpdateSuccess={handleUpdateSuccess}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

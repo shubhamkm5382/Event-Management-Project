@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./UpdateMedia.module.css";
 
-export default function UpdateMedia({ media, onClose }) {
+export default function UpdateMedia({ media, onClose, onUpdateSuccess }) {
   const [loading, setLoading] = useState(true);
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState("");
-  const [mediaType, setMediaType] = useState("Photo");
+  const [mediaType, setMediaType] = useState("photo");
   const [formData, setFormData] = useState({
     eventType: "",
     eventTitle: "",
@@ -14,6 +14,7 @@ export default function UpdateMedia({ media, onClose }) {
     createDate: ""
   });
 
+  // Load media details
   useEffect(() => {
     if (media) {
       setFormData({
@@ -23,7 +24,8 @@ export default function UpdateMedia({ media, onClose }) {
         mediaLocation: media.media_location || "",
         createDate: media.media_date ? media.media_date.split("T")[0] : ""
       });
-      setMediaType(media.media_type || "");
+
+      setMediaType(media.media_type?.toLowerCase() || "photo");
 
       if (media.media_url) {
         setFile({ name: "Existing Media", url: media.media_url });
@@ -33,6 +35,7 @@ export default function UpdateMedia({ media, onClose }) {
     }
   }, [media]);
 
+  // Handle file upload
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
       setFile(e.target.files[0]);
@@ -71,16 +74,52 @@ export default function UpdateMedia({ media, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // ✅ Handle Submit (PUT update)
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // ❗️ Tum apna update logic yaha likh sakte ho
-    console.log("Form data:", formData, "File:", file);
-    alert("Submit logic yaha likhna hai");
+
+    if (!media?.media_id) {
+      alert("No media ID found!");
+      return;
+    }
+
+    try {
+      const data = new FormData();
+      data.append("event_type", formData.eventType);
+      data.append("media_title", formData.eventTitle);
+      data.append("media_description", formData.description);
+      data.append("media_location", formData.mediaLocation);
+      data.append("media_date", formData.createDate);
+      data.append("media_type", mediaType.toLowerCase());
+
+      if (file) {
+        if (file.url) {
+          data.append("media_url", file.url);
+        } else {
+          data.append("media_file", file);
+        }
+      }
+
+      const response = await fetch(`http://localhost:5000/api/media/${media.media_id}`, {
+        method: "PUT",
+        body: data,
+      });
+
+      if (response.ok) {
+        alert("✅ Media updated successfully!");
+        if (onUpdateSuccess) onUpdateSuccess();
+        onClose();
+      } else {
+        const err = await response.json();
+        alert("Error updating media: " + err.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong while updating the media.");
+    }
   };
 
-  const handleCancel = () => {
-    onClose();
-  };
+  const handleCancel = () => onClose();
 
   if (loading) {
     return (
@@ -95,22 +134,21 @@ export default function UpdateMedia({ media, onClose }) {
       <h2>Update Media Item</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.grid}>
-<div className={styles.field}>
-  <label>Event Type</label>
-  <select
-    name="eventType"
-    value={formData.eventType}
-    onChange={handleInputChange}
-  >
-    <option value="">-- Select Event Type --</option>
-    <option value="wedding">Wedding</option>
-    <option value="farewell">Farewell</option>
-    <option value="birthday">Birthday</option>
-    <option value="corporate">Corporate</option>
-    <option value="anniversary">Anniversary</option>
-  </select>
-</div>
-
+          <div className={styles.field}>
+            <label>Event Type</label>
+            <select
+              name="eventType"
+              value={formData.eventType}
+              onChange={handleInputChange}
+            >
+              <option value="">-- Select Event Type --</option>
+              <option value="wedding">Wedding</option>
+              <option value="farewell">Farewell</option>
+              <option value="birthday">Birthday</option>
+              <option value="corporate">Corporate</option>
+              <option value="anniversary">Anniversary</option>
+            </select>
+          </div>
 
           <div className={styles.field}>
             <label>Event Title *</label>
@@ -168,6 +206,7 @@ export default function UpdateMedia({ media, onClose }) {
           </div>
         </div>
 
+        {/* Upload Section */}
         <div className={styles.uploadSection}>
           <label className={styles.uploadLabel}>
             {file ? "📷 Current Media" : "📁 Add Media File"}
@@ -184,7 +223,7 @@ export default function UpdateMedia({ media, onClose }) {
                 <input
                   id="fileInput"
                   type="file"
-                  accept={mediaType === "Photo" ? "image/*" : "video/*"}
+                  accept={mediaType === "photo" ? "image/*" : "video/*"}
                   onChange={handleFileChange}
                   className={styles.fileInput}
                 />
@@ -210,7 +249,7 @@ export default function UpdateMedia({ media, onClose }) {
           ) : (
             <div className={styles.singlePreview}>
               <div className={styles.previewItem}>
-                {mediaType === "Video" ? (
+                {mediaType === "video" ? (
                   <video
                     src={file.url || URL.createObjectURL(file)}
                     controls

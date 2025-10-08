@@ -17,7 +17,7 @@ const Events = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/sub-event")
+    axios.get("/api/sub-event")
       .then(res => setEvents(res.data))
       .catch(err => console.error(err));
   }, []);

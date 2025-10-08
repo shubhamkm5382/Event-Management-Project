@@ -11,7 +11,7 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [massage, setMassage] = useState("");
 
-  // ✅ Toast function declared before use
+  // Toast function
   const showToastMsg = (msg) => {
     setToastMsg(msg);
     setShowToast(true);
@@ -28,7 +28,7 @@ const ContactPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/contact/create", {
+      const response = await fetch("/api/contact/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contactData),
@@ -45,23 +45,24 @@ const ContactPage = () => {
         confirmButtonText: "OK",
       });
 
-      // ✅ Save first name before clearing state
       const firstName = fullName.split(" ")[0] || "";
 
-      // Reset form fields
       setFullname("");
       setEmail("");
       setMassage("");
 
-      // ✅ Show toast with correct first name
       showToastMsg(`Thanks ${firstName}! We received your enquiry.`);
     } catch (error) {
+      console.error("Contact form error:", error); // ✅ Error variable use ho gaya
+
       Swal.fire({
         icon: "error",
         title: "Message Failed",
         text: "Something went wrong. Please try again later.",
         confirmButtonText: "OK",
       });
+
+      showToastMsg(`Error: ${error.message || "Unable to send enquiry."}`);
     }
   };
 
@@ -150,7 +151,7 @@ const ContactPage = () => {
         </div>
       </div>
 
-      {/* ✅ TOAST */}
+      {/* TOAST */}
       <div
         className={`${styles.toast} ${showToast ? styles.show : ""}`}
         role="status"

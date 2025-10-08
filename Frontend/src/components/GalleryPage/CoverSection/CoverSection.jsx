@@ -8,7 +8,7 @@ export default function CoverSection({ eventType }) {
     async function fetchCover() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/events/cover_section/${eventType}`
+          `/api/events/cover_section/${eventType}`
         );
         const data = await res.json();
         setCoverData(data);

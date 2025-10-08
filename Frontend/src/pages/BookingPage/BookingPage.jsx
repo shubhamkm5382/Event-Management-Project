@@ -32,7 +32,7 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchMedia = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/media/bookingpage/${category}`); 
+        const res = await fetch(`/api/media/bookingpage/${category}`); 
         const data = await res.json();
         setMedia(data);
       } catch (err) {
@@ -49,7 +49,7 @@ const BookingPage = () => {
 useEffect(() => {
   const fetchEventInfo = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/event-info/by-type/${category.toLowerCase()}`);
+      const res = await fetch(`/api/event-info/by-type/${category.toLowerCase()}`);
       const data = await res.json();
       // data array hai → pehle element ko hi pass kar do
       setEventInfo(data[0]);

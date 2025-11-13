@@ -95,6 +95,14 @@ function Sidebar({
           <i className='fas fa-chart-bar' aria-hidden="true"></i>
           <span className={styles.menuText}>Get all Media</span>
         </Link>
+        <Link 
+          to="/getEvents" 
+          className={`${styles.menuItem} ${activeMenu === "/getEvents" ? styles.active : ''}`} 
+          onClick={() => handleMenuClick("/getEvents")}
+        >
+          <i className='fas fa-chart-bar' aria-hidden="true"></i>
+          <span className={styles.menuText}>Get all Events</span>
+        </Link>
       </div>
     </div>
   );

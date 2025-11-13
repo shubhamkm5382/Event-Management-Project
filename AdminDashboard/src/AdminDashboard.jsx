@@ -11,6 +11,7 @@ import SettingsContent from "./components/Settings/SettingsContent";
 import styles from './AdminDashboard.module.css';
 import Add from "./components/AddMedia/AddMedia"
 import GetMedia from "./components/GetMedia/GetMedia"
+import GetEvents from "./components/GetEvents/GetEvents"
 
 export default function AdminDashboard() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -72,6 +73,7 @@ export default function AdminDashboard() {
               <Route path="/settings" element={<SettingsContent />} />
               <Route path="/addMedia" element={<Add />} />
               <Route path="/getMedia" element={<GetMedia />} />
+              <Route path="/getEvents" element={<GetEvents />} />
               
             </Routes>
           </div>

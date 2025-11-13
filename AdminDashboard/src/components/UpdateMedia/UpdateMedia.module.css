@@ -5,7 +5,7 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   border: 1px solid #e0e0e0;
 }
 
@@ -20,7 +20,7 @@ h2 {
 }
 
 h2::after {
-  content: '';
+  content: "";
   position: absolute;
   /* bottom: 0;
   left: 0; */
@@ -58,7 +58,7 @@ h2::after {
 }
 
 .field label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 4px;
   height: 4px;
@@ -178,7 +178,7 @@ textarea {
 
 .or::before,
 .or::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   width: 40%;
@@ -398,7 +398,7 @@ textarea {
 }
 
 .videoPreview::before {
-  content: '▶';
+  content: "▶";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -421,37 +421,37 @@ textarea {
     padding: 20px;
     margin: 20px 15px;
   }
-  
+
   .grid {
     grid-template-columns: 1fr;
     gap: 15px;
   }
-  
+
   .buttonGroup {
     flex-direction: column;
   }
-  
+
   .urlInput {
     flex-direction: column;
   }
-  
+
   .singlePreview {
     flex-direction: column;
     gap: 15px;
     text-align: center;
   }
-  
+
   .previewItem {
     width: 100%;
     max-width: 150px;
     height: 150px;
     margin: 0 auto;
   }
-  
+
   .fileInfo {
     text-align: left;
   }
-  
+
   h2 {
     font-size: 24px;
   }
@@ -461,28 +461,28 @@ textarea {
   .container {
     padding: 15px;
   }
-  
+
   .uploadSection {
     padding: 15px;
   }
-  
+
   .dropArea {
     padding: 20px 15px;
   }
-  
+
   .singlePreview {
     padding: 12px;
   }
-  
+
   .previewItem {
     width: 100px;
     height: 100px;
   }
-  
+
   .buttonGroup {
     gap: 10px;
   }
-  
+
   .updateBtn,
   .cancelBtn {
     padding: 12px;

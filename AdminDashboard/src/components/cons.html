@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - Contact Messages</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--muted:#6b7280;--accent:#0ea5a4;--danger:#ef4444}
+    *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{margin:0;background:var(--bg);color:#0f172a}
+    .app{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    header h1{font-size:20px;margin:0}
+    .controls{display:flex;gap:12px}
+    .search{padding:8px 12px;border-radius:8px;border:1px solid #e6e9ef;background:#fff;min-width:260px}
+    .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .table-card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eef2f7;font-size:14px}
+    th{color:var(--muted);font-weight:600}
+    tr.unread{background:linear-gradient(90deg, rgba(14,165,164,0.04), transparent)}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px}
+    .muted{color:var(--muted)}
+    .actions{display:flex;gap:8px}
+    .icon-btn{border:1px solid #e6e9ef;background:#fff;padding:6px;border-radius:8px;cursor:pointer}
+    .pagination{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-top:12px}
+    .page-btn{padding:6px 10px;border-radius:8px;border:1px solid #e6e9ef;background:#fff;cursor:pointer}
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.4)}
+    .modal.open{display:flex}
+    .modal-card{width:720px;background:var(--card);border-radius:12px;padding:18px;box-shadow:0 12px 30px rgba(2,6,23,0.2)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .meta{font-size:13px;color:var(--muted)}
+    .msg-body{white-space:pre-wrap;margin-top:12px;padding:12px;border-radius:8px;background:#fbfdfe;border:1px solid #eef6f6}
+    .row{display:flex;gap:12px;align-items:center}
+    @media(max-width:760px){.modal-card{width:92%}.controls{flex-direction:column;align-items:stretch}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Contact Messages - Admin</h1>
+      <div class="controls">
+        <input id="search" class="search" placeholder="Search by name, email or message..." />
+        <button id="refreshBtn" class="btn">Refresh</button>
+      </div>
+    </header>
+
+    <section class="table-card">
+      <table id="messagesTable" aria-label="contact messages table">
+        <thead>
+          <tr>
+            <th style="width:38%">Name / Email</th>
+            <th style="width:32%">Subject / Preview</th>
+            <th style="width:12%">Date</th>
+            <th style="width:18%">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="pagination" id="pagination"></div>
+    </section>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div id="modalName" style="font-weight:700"></div>
+          <div class="meta" id="modalMeta"></div>
+        </div>
+        <div class="row">
+          <button id="markReadBtn" class="icon-btn">Mark as read</button>
+          <button id="closeBtn" class="icon-btn">Close</button>
+        </div>
+      </div>
+      <div id="modalSubject" class="muted"></div>
+      <div id="modalBody" class="msg-body"></div>
+    </div>
+  </div>
+
+  <script>
+    // Mock data for demonstration. Replace fetch logic to your API in production.
+    const mock = [];
+    for(let i=1;i<=47;i++) {
+      mock.push({
+        id:i,
+        name: 'User ' + i,
+        email: 'user'+i+'@example.com',
+        subject: i%3===0? 'Feedback':'Question',
+        message: 'Yeh ek sample message hai number '+i+'\nIsme kuch extra lines bhi ho sakti hain.',
+        date: new Date(Date.now() - i*3600*1000).toISOString(),
+        read: i%5===0
+      })
+    }
+
+    // --- App state ---
+    let messages = mock.slice(); // replace with fetched data
+    let perPage = 10, page = 1, filtered = messages.slice();
+
+    const tbody = document.querySelector('#messagesTable tbody');
+    const search = document.getElementById('search');
+    const pagination = document.getElementById('pagination');
+    const modal = document.getElementById('modal');
+    const modalName = document.getElementById('modalName');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalBody = document.getElementById('modalBody');
+    const modalSubject = document.getElementById('modalSubject');
+    const markReadBtn = document.getElementById('markReadBtn');
+
+    function formatDate(iso){
+      const d = new Date(iso);
+      return d.toLocaleString();
+    }
+
+    function render(){
+      tbody.innerHTML='';
+      const start=(page-1)*perPage;
+      const pageItems = filtered.slice(start, start+perPage);
+      for(const m of pageItems){
+        const tr = document.createElement('tr');
+        if(!m.read) tr.classList.add('unread');
+        tr.innerHTML = `
+          <td>
+            <div style="font-weight:600">${escapeHtml(m.name)}</div>
+            <div class="muted" style="font-size:13px">${escapeHtml(m.email)}</div>
+          </td>
+          <td>
+            <div style="font-weight:600">${escapeHtml(m.subject)}</div>
+            <div class="muted" style="font-size:13px">${escapeHtml(m.message.slice(0,80))}${m.message.length>80?'...':''}</div>
+          </td>
+          <td class="muted">${formatDate(m.date)}</td>
+          <td>
+            <div class="actions">
+              <button class="icon-btn" data-action="view" data-id="${m.id}">View</button>
+              <button class="icon-btn" data-action="delete" data-id="${m.id}">Delete</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+      renderPagination();
+    }
+
+    function renderPagination(){
+      pagination.innerHTML='';
+      const total = filtered.length; const pages = Math.max(1, Math.ceil(total/perPage));
+      const info = document.createElement('div'); info.textContent = `${total} messages`;
+      pagination.appendChild(info);
+
+      const prev = document.createElement('button'); prev.className='page-btn'; prev.textContent='Prev'; prev.disabled = page===1;
+      prev.onclick = ()=>{ page--; render(); };
+      pagination.appendChild(prev);
+
+      const pageInfo = document.createElement('div'); pageInfo.style.margin='0 8px'; pageInfo.textContent = `Page ${page} of ${pages}`;
+      pagination.appendChild(pageInfo);
+
+      const next = document.createElement('button'); next.className='page-btn'; next.textContent='Next'; next.disabled = page===pages;
+      next.onclick = ()=>{ page++; render(); };
+      pagination.appendChild(next);
+    }
+
+    // escape to avoid XSS in demo
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    // Search
+    search.addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      filtered = messages.filter(m=> (m.name+m.email+m.subject+m.message).toLowerCase().includes(q));
+      page = 1; render();
+    });
+
+    // Table click (view/delete)
+    tbody.addEventListener('click', e=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const id = Number(btn.dataset.id);
+      const action = btn.dataset.action;
+      if(action==='view') openModal(id);
+      if(action==='delete'){ if(confirm('Delete this message?')){ messages = messages.filter(x=>x.id!==id); filtered = filtered.filter(x=>x.id!==id); render(); }}
+    });
+
+    // modal
+    function openModal(id){
+      const m = messages.find(x=>x.id===id); if(!m) return;
+      modalName.textContent = m.name;
+      modalMeta.textContent = `${m.email} • ${formatDate(m.date)}`;
+      modalSubject.textContent = m.subject;
+      modalBody.textContent = m.message;
+      modal.classList.add('open');
+      markReadBtn.onclick = ()=>{ m.read = true; modal.classList.remove('open'); render(); /* TODO: call API to mark read */ };
+    }
+
+    document.getElementById('closeBtn').addEventListener('click', ()=> modal.classList.remove('open'));
+    document.getElementById('refreshBtn').addEventListener('click', ()=>{ /* TODO: fetch from API */ alert('Refresh - replace with API call in production'); });
+
+    // initial render
+    render();
+  </script>
+</body>
+</html>

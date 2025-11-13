@@ -149,10 +149,6 @@ export default function UpdateMedia({ media, onClose, onUpdateSuccess }) {
               <option value="anniversary">Anniversary</option>
             </select>
           </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 699eaa2946ec2fa1e73e7f47923bccff45bed831
 
           <div className={styles.field}>
             <label>Event Title *</label>
@@ -192,7 +188,7 @@ export default function UpdateMedia({ media, onClose, onUpdateSuccess }) {
             <label>Media Location</label>
             <input
               type="text"
-              name="mediaLocation"
+              name="mediaLocation" pute
               placeholder="e.g. Delhi, India"
               value={formData.mediaLocation}
               onChange={handleInputChange}
